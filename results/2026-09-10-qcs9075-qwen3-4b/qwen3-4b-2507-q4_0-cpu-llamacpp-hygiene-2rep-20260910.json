@@ -1,0 +1,5341 @@
+{
+  "summary": {
+    "model": "qualcomm/qwen3-4b-2507-q4_0:Q4_0",
+    "url": "http://<board-ip>:18283",
+    "shuffle_seed": null,
+    "n_cases": 65,
+    "by_level": {
+      "level1_queries": {
+        "n": 20,
+        "tool": 20.0,
+        "cmd": 20.0,
+        "params_l": 20.0,
+        "params_s": 20.0,
+        "e2e": 20.0
+      },
+      "level2_enable_disable": {
+        "n": 15,
+        "tool": 15.0,
+        "cmd": 14.0,
+        "params_l": 14.0,
+        "params_s": 14.0,
+        "e2e": 14.0
+      },
+      "level3_single_param": {
+        "n": 15,
+        "tool": 15.0,
+        "cmd": 15.0,
+        "params_l": 15.0,
+        "params_s": 15.0,
+        "e2e": 15.0
+      },
+      "level4_multi_param": {
+        "n": 15,
+        "tool": 15.0,
+        "cmd": 15.0,
+        "params_l": 15.0,
+        "params_s": 15.0,
+        "e2e": 15.0
+      }
+    },
+    "overall_e2e_pct": 98.5,
+    "overall_lenient_pct": 98.5,
+    "overall_strict_pct": 98.5,
+    "tool_sel_pct": 100.0,
+    "median_latency_s": 52.52,
+    "mean_latency_s": 52.66,
+    "repeats": 2,
+    "warmup": 1,
+    "e2e_pct_by_rep": [
+      98.5,
+      98.5
+    ],
+    "tool_sel_pct_by_rep": [
+      100.0,
+      100.0
+    ],
+    "overall_e2e_std": 0.0,
+    "tool_sel_std": 0.0,
+    "unstable_cases": [],
+    "latency_p95_s": 55.49
+  },
+  "results": [
+    {
+      "idx": 0,
+      "level": "level1_queries",
+      "input": "@poesw1 show all ports status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_all_ports_status",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status"
+          },
+          "latency_s": 50.98,
+          "completion_tokens": 34,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status"
+          },
+          "latency_s": 50.98,
+          "completion_tokens": 34,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_all_ports_status"
+      },
+      "content": "",
+      "completion_tokens": 34,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        50.98,
+        50.98
+      ],
+      "latency_s": 50.98,
+      "latency_mean_s": 50.98,
+      "latency_std_s": 0.0,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 1,
+      "level": "level1_queries",
+      "input": "@poesw1 show port 5 status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/5"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/5"
+            }
+          },
+          "latency_s": 51.92,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/5"
+            }
+          },
+          "latency_s": 51.91,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/5"
+        }
+      },
+      "content": "",
+      "completion_tokens": 45,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.92,
+        51.91
+      ],
+      "latency_s": 51.91,
+      "latency_mean_s": 51.915,
+      "latency_std_s": 0.007,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 2,
+      "level": "level1_queries",
+      "input": "@poesw1 show system info",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_system_info",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_system_info"
+          },
+          "latency_s": 51.02,
+          "completion_tokens": 33,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_system_info"
+          },
+          "latency_s": 50.88,
+          "completion_tokens": 33,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_system_info"
+      },
+      "content": "",
+      "completion_tokens": 33,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.02,
+        50.88
+      ],
+      "latency_s": 50.95,
+      "latency_mean_s": 50.95,
+      "latency_std_s": 0.099,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 3,
+      "level": "level1_queries",
+      "input": "@poesw1 show poe status port 3",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_poe_status",
+      "expected_params": {
+        "port": "1/3"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_status",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "latency_s": 51.93,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_status",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "latency_s": 52.03,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_poe_status",
+        "parameters": {
+          "port": "1/3"
+        }
+      },
+      "content": "",
+      "completion_tokens": 46,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.93,
+        52.03
+      ],
+      "latency_s": 51.98,
+      "latency_mean_s": 51.98,
+      "latency_std_s": 0.071,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 4,
+      "level": "level1_queries",
+      "input": "@poesw1 show vlan config",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_vlan_config",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_vlan_config"
+          },
+          "latency_s": 50.87,
+          "completion_tokens": 33,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_vlan_config"
+          },
+          "latency_s": 50.95,
+          "completion_tokens": 33,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_vlan_config"
+      },
+      "content": "",
+      "completion_tokens": 33,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        50.87,
+        50.95
+      ],
+      "latency_s": 50.91,
+      "latency_mean_s": 50.91,
+      "latency_std_s": 0.057,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 5,
+      "level": "level1_queries",
+      "input": "@poesw1 display port 2 details",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/2"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/2"
+            }
+          },
+          "latency_s": 52.87,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/2"
+            }
+          },
+          "latency_s": 51.89,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/2"
+        }
+      },
+      "content": "",
+      "completion_tokens": 45,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.87,
+        51.89
+      ],
+      "latency_s": 52.38,
+      "latency_mean_s": 52.38,
+      "latency_std_s": 0.693,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 6,
+      "level": "level1_queries",
+      "input": "@poesw1 get interface 8 status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/8"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/8"
+            }
+          },
+          "latency_s": 51.84,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/8"
+            }
+          },
+          "latency_s": 52.02,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/8"
+        }
+      },
+      "content": "",
+      "completion_tokens": 45,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.84,
+        52.02
+      ],
+      "latency_s": 51.93,
+      "latency_mean_s": 51.93,
+      "latency_std_s": 0.127,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 7,
+      "level": "level1_queries",
+      "input": "@poesw1 show poe power budget",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_poe_power_budget",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_power_budget"
+          },
+          "latency_s": 51.17,
+          "completion_tokens": 35,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_power_budget"
+          },
+          "latency_s": 51.07,
+          "completion_tokens": 35,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_poe_power_budget"
+      },
+      "content": "",
+      "completion_tokens": 35,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.17,
+        51.07
+      ],
+      "latency_s": 51.12,
+      "latency_mean_s": 51.12,
+      "latency_std_s": 0.071,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 8,
+      "level": "level1_queries",
+      "input": "@poesw1 show port 1 status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/1"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/1"
+            }
+          },
+          "latency_s": 51.86,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/1"
+            }
+          },
+          "latency_s": 51.88,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/1"
+        }
+      },
+      "content": "",
+      "completion_tokens": 45,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.86,
+        51.88
+      ],
+      "latency_s": 51.87,
+      "latency_mean_s": 51.87,
+      "latency_std_s": 0.014,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 9,
+      "level": "level1_queries",
+      "input": "@poesw1 show port 10 status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/10"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/10"
+            }
+          },
+          "latency_s": 52.06,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/10"
+            }
+          },
+          "latency_s": 51.95,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/10"
+        }
+      },
+      "content": "",
+      "completion_tokens": 46,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.06,
+        51.95
+      ],
+      "latency_s": 52.01,
+      "latency_mean_s": 52.005,
+      "latency_std_s": 0.078,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 10,
+      "level": "level1_queries",
+      "input": "@poesw1 show poe status port 7",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_poe_status",
+      "expected_params": {
+        "port": "1/7"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_status",
+            "parameters": {
+              "port": "1/7"
+            }
+          },
+          "latency_s": 52.02,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_status",
+            "parameters": {
+              "port": "1/7"
+            }
+          },
+          "latency_s": 52.01,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_poe_status",
+        "parameters": {
+          "port": "1/7"
+        }
+      },
+      "content": "",
+      "completion_tokens": 46,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.02,
+        52.01
+      ],
+      "latency_s": 52.02,
+      "latency_mean_s": 52.015,
+      "latency_std_s": 0.007,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 11,
+      "level": "level1_queries",
+      "input": "@poesw1 display system information",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_system_info",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_system_info"
+          },
+          "latency_s": 50.94,
+          "completion_tokens": 33,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_system_info"
+          },
+          "latency_s": 50.94,
+          "completion_tokens": 33,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_system_info"
+      },
+      "content": "",
+      "completion_tokens": 33,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        50.94,
+        50.94
+      ],
+      "latency_s": 50.94,
+      "latency_mean_s": 50.94,
+      "latency_std_s": 0.0,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 12,
+      "level": "level1_queries",
+      "input": "@poesw1 get all ports",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_all_ports_status",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status"
+          },
+          "latency_s": 51.01,
+          "completion_tokens": 34,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status"
+          },
+          "latency_s": 51.06,
+          "completion_tokens": 34,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_all_ports_status"
+      },
+      "content": "",
+      "completion_tokens": 34,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.01,
+        51.06
+      ],
+      "latency_s": 51.03,
+      "latency_mean_s": 51.035,
+      "latency_std_s": 0.035,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 13,
+      "level": "level1_queries",
+      "input": "@poesw1 show interface 6 status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/6"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/6"
+            }
+          },
+          "latency_s": 51.93,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/6"
+            }
+          },
+          "latency_s": 52.91,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/6"
+        }
+      },
+      "content": "",
+      "completion_tokens": 45,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.93,
+        52.91
+      ],
+      "latency_s": 52.42,
+      "latency_mean_s": 52.42,
+      "latency_std_s": 0.693,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 14,
+      "level": "level1_queries",
+      "input": "@poesw1 show port 4 poe",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_poe_status",
+      "expected_params": {
+        "port": "1/4"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_status",
+            "parameters": {
+              "port": "1/4"
+            }
+          },
+          "latency_s": 51.96,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_status",
+            "parameters": {
+              "port": "1/4"
+            }
+          },
+          "latency_s": 51.96,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_poe_status",
+        "parameters": {
+          "port": "1/4"
+        }
+      },
+      "content": "",
+      "completion_tokens": 46,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.96,
+        51.96
+      ],
+      "latency_s": 51.96,
+      "latency_mean_s": 51.96,
+      "latency_std_s": 0.0,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 15,
+      "level": "level1_queries",
+      "input": "@poesw1 display vlan configuration",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_vlan_config",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_vlan_config"
+          },
+          "latency_s": 84.19,
+          "completion_tokens": 33,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_vlan_config"
+          },
+          "latency_s": 50.88,
+          "completion_tokens": 33,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_vlan_config"
+      },
+      "content": "",
+      "completion_tokens": 33,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        84.19,
+        50.88
+      ],
+      "latency_s": 67.53,
+      "latency_mean_s": 67.535,
+      "latency_std_s": 23.554,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 16,
+      "level": "level1_queries",
+      "input": "@poesw1 show port 9 details",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/9"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/9"
+            }
+          },
+          "latency_s": 51.86,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/9"
+            }
+          },
+          "latency_s": 51.81,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/9"
+        }
+      },
+      "content": "",
+      "completion_tokens": 45,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.86,
+        51.81
+      ],
+      "latency_s": 51.84,
+      "latency_mean_s": 51.835,
+      "latency_std_s": 0.035,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 17,
+      "level": "level1_queries",
+      "input": "@poesw1 get poe budget",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_poe_power_budget",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_power_budget"
+          },
+          "latency_s": 51.01,
+          "completion_tokens": 35,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_power_budget"
+          },
+          "latency_s": 51.06,
+          "completion_tokens": 35,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_poe_power_budget"
+      },
+      "content": "",
+      "completion_tokens": 35,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.01,
+        51.06
+      ],
+      "latency_s": 51.03,
+      "latency_mean_s": 51.035,
+      "latency_std_s": 0.035,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 18,
+      "level": "level1_queries",
+      "input": "@poesw1 show interface 12 status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/12"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/12"
+            }
+          },
+          "latency_s": 51.98,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/12"
+            }
+          },
+          "latency_s": 51.93,
+          "completion_tokens": 46,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/12"
+        }
+      },
+      "content": "",
+      "completion_tokens": 46,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.98,
+        51.93
+      ],
+      "latency_s": 51.95,
+      "latency_mean_s": 51.955,
+      "latency_std_s": 0.035,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 19,
+      "level": "level1_queries",
+      "input": "@poesw1 show all interfaces",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_all_ports_status",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status"
+          },
+          "latency_s": 51.12,
+          "completion_tokens": 34,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status"
+          },
+          "latency_s": 51.04,
+          "completion_tokens": 34,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_all_ports_status"
+      },
+      "content": "",
+      "completion_tokens": 34,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.12,
+        51.04
+      ],
+      "latency_s": 51.08,
+      "latency_mean_s": 51.08,
+      "latency_std_s": 0.057,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 20,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 enable port 3",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "enable_port",
+      "expected_params": {
+        "port": "1/3"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "latency_s": 58.76,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "latency_s": 52.23,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "enable_port",
+        "parameters": {
+          "port": "1/3"
+        }
+      },
+      "content": "",
+      "completion_tokens": 44,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        58.76,
+        52.23
+      ],
+      "latency_s": 55.49,
+      "latency_mean_s": 55.495,
+      "latency_std_s": 4.617,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 21,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 disable port 7",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "disable_port",
+      "expected_params": {
+        "port": "1/7"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/7"
+            }
+          },
+          "latency_s": 51.84,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/7"
+            }
+          },
+          "latency_s": 51.78,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "disable_port",
+        "parameters": {
+          "port": "1/7"
+        }
+      },
+      "content": "",
+      "completion_tokens": 44,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.84,
+        51.78
+      ],
+      "latency_s": 51.81,
+      "latency_mean_s": 51.81,
+      "latency_std_s": 0.042,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 22,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 enable poe on port 4",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_poe_mode",
+      "expected_params": {
+        "port": "1/4",
+        "mode": "enable"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/4",
+              "mode": "enable"
+            }
+          },
+          "latency_s": 52.41,
+          "completion_tokens": 52,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/4",
+              "mode": "enable"
+            }
+          },
+          "latency_s": 52.62,
+          "completion_tokens": 52,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_mode",
+        "parameters": {
+          "port": "1/4",
+          "mode": "enable"
+        }
+      },
+      "content": "",
+      "completion_tokens": 52,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.41,
+        52.62
+      ],
+      "latency_s": 52.52,
+      "latency_mean_s": 52.515,
+      "latency_std_s": 0.148,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 23,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 disable poe on port 2",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_poe_mode",
+      "expected_params": {
+        "port": "1/2",
+        "mode": "disable"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/2",
+              "mode": "disable"
+            }
+          },
+          "latency_s": 52.53,
+          "completion_tokens": 52,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/2",
+              "mode": "disable"
+            }
+          },
+          "latency_s": 52.52,
+          "completion_tokens": 52,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_mode",
+        "parameters": {
+          "port": "1/2",
+          "mode": "disable"
+        }
+      },
+      "content": "",
+      "completion_tokens": 52,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.53,
+        52.52
+      ],
+      "latency_s": 52.53,
+      "latency_mean_s": 52.525,
+      "latency_std_s": 0.007,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 24,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 turn on port 6",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "enable_port",
+      "expected_params": {
+        "port": "1/6"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/6",
+              "mode": "enable"
+            }
+          },
+          "latency_s": 52.44,
+          "completion_tokens": 52,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/6",
+              "mode": "enable"
+            }
+          },
+          "latency_s": 52.42,
+          "completion_tokens": 52,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_mode",
+        "parameters": {
+          "port": "1/6",
+          "mode": "enable"
+        }
+      },
+      "content": "",
+      "completion_tokens": 52,
+      "ok_tool": true,
+      "ok_command": false,
+      "ok_params_strict": false,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.44,
+        52.42
+      ],
+      "latency_s": 52.43,
+      "latency_mean_s": 52.43,
+      "latency_std_s": 0.014,
+      "pass_count": 0,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 25,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 turn off port 9",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "disable_port",
+      "expected_params": {
+        "port": "1/9"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/9"
+            }
+          },
+          "latency_s": 51.74,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/9"
+            }
+          },
+          "latency_s": 51.77,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "disable_port",
+        "parameters": {
+          "port": "1/9"
+        }
+      },
+      "content": "",
+      "completion_tokens": 44,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.74,
+        51.77
+      ],
+      "latency_s": 51.76,
+      "latency_mean_s": 51.755,
+      "latency_std_s": 0.021,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 26,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 activate interface 1",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "enable_port",
+      "expected_params": {
+        "port": "1/1"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/1"
+            }
+          },
+          "latency_s": 51.75,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/1"
+            }
+          },
+          "latency_s": 51.8,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "enable_port",
+        "parameters": {
+          "port": "1/1"
+        }
+      },
+      "content": "",
+      "completion_tokens": 44,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.75,
+        51.8
+      ],
+      "latency_s": 51.77,
+      "latency_mean_s": 51.775,
+      "latency_std_s": 0.035,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 27,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 deactivate interface 5",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "disable_port",
+      "expected_params": {
+        "port": "1/5"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/5"
+            }
+          },
+          "latency_s": 51.72,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/5"
+            }
+          },
+          "latency_s": 51.84,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "disable_port",
+        "parameters": {
+          "port": "1/5"
+        }
+      },
+      "content": "",
+      "completion_tokens": 44,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.72,
+        51.84
+      ],
+      "latency_s": 51.78,
+      "latency_mean_s": 51.78,
+      "latency_std_s": 0.085,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 28,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 enable port 8",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "enable_port",
+      "expected_params": {
+        "port": "1/8"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/8"
+            }
+          },
+          "latency_s": 51.75,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/8"
+            }
+          },
+          "latency_s": 52.02,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "enable_port",
+        "parameters": {
+          "port": "1/8"
+        }
+      },
+      "content": "",
+      "completion_tokens": 44,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.75,
+        52.02
+      ],
+      "latency_s": 51.89,
+      "latency_mean_s": 51.885,
+      "latency_std_s": 0.191,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 29,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 disable port 10",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "disable_port",
+      "expected_params": {
+        "port": "1/10"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/10"
+            }
+          },
+          "latency_s": 51.83,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/10"
+            }
+          },
+          "latency_s": 51.85,
+          "completion_tokens": 45,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "disable_port",
+        "parameters": {
+          "port": "1/10"
+        }
+      },
+      "content": "",
+      "completion_tokens": 45,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.83,
+        51.85
+      ],
+      "latency_s": 51.84,
+      "latency_mean_s": 51.84,
+      "latency_std_s": 0.014,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 30,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 enable poe port 12",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_poe_mode",
+      "expected_params": {
+        "port": "1/12",
+        "mode": "enable"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/12",
+              "mode": "enable"
+            }
+          },
+          "latency_s": 52.51,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/12",
+              "mode": "enable"
+            }
+          },
+          "latency_s": 53.76,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_mode",
+        "parameters": {
+          "port": "1/12",
+          "mode": "enable"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.51,
+        53.76
+      ],
+      "latency_s": 53.13,
+      "latency_mean_s": 53.135,
+      "latency_std_s": 0.884,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 31,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 disable poe port 11",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_poe_mode",
+      "expected_params": {
+        "port": "1/11",
+        "mode": "disable"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/11",
+              "mode": "disable"
+            }
+          },
+          "latency_s": 52.59,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_mode",
+            "parameters": {
+              "port": "1/11",
+              "mode": "disable"
+            }
+          },
+          "latency_s": 52.6,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_mode",
+        "parameters": {
+          "port": "1/11",
+          "mode": "disable"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.59,
+        52.6
+      ],
+      "latency_s": 52.59,
+      "latency_mean_s": 52.595,
+      "latency_std_s": 0.007,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 32,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 turn on interface 3",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "enable_port",
+      "expected_params": {
+        "port": "1/3"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "latency_s": 51.81,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "latency_s": 51.93,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "enable_port",
+        "parameters": {
+          "port": "1/3"
+        }
+      },
+      "content": "",
+      "completion_tokens": 44,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.81,
+        51.93
+      ],
+      "latency_s": 51.87,
+      "latency_mean_s": 51.87,
+      "latency_std_s": 0.085,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 33,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 turn off interface 4",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "disable_port",
+      "expected_params": {
+        "port": "1/4"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/4"
+            }
+          },
+          "latency_s": 51.76,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "disable_port",
+            "parameters": {
+              "port": "1/4"
+            }
+          },
+          "latency_s": 51.84,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "disable_port",
+        "parameters": {
+          "port": "1/4"
+        }
+      },
+      "content": "",
+      "completion_tokens": 44,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.76,
+        51.84
+      ],
+      "latency_s": 51.8,
+      "latency_mean_s": 51.8,
+      "latency_std_s": 0.057,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 34,
+      "level": "level2_enable_disable",
+      "input": "@poesw1 activate port 2",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "enable_port",
+      "expected_params": {
+        "port": "1/2"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/2"
+            }
+          },
+          "latency_s": 51.76,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/2"
+            }
+          },
+          "latency_s": 51.77,
+          "completion_tokens": 44,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "enable_port",
+        "parameters": {
+          "port": "1/2"
+        }
+      },
+      "content": "",
+      "completion_tokens": 44,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        51.76,
+        51.77
+      ],
+      "latency_s": 51.77,
+      "latency_mean_s": 51.765,
+      "latency_std_s": 0.007,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 35,
+      "level": "level3_single_param",
+      "input": "@poesw1 set port 2 speed to 1000",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_speed",
+      "expected_params": {
+        "port": "1/2",
+        "speed": "1000"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/2",
+              "speed": "1000"
+            }
+          },
+          "latency_s": 52.76,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/2",
+              "speed": "1000"
+            }
+          },
+          "latency_s": 52.76,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_speed",
+        "parameters": {
+          "port": "1/2",
+          "speed": "1000"
+        }
+      },
+      "content": "",
+      "completion_tokens": 54,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.76,
+        52.76
+      ],
+      "latency_s": 52.76,
+      "latency_mean_s": 52.76,
+      "latency_std_s": 0.0,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 36,
+      "level": "level3_single_param",
+      "input": "@poesw1 set port 5 speed to auto",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_speed",
+      "expected_params": {
+        "port": "1/5",
+        "speed": "auto"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/5",
+              "speed": "auto"
+            }
+          },
+          "latency_s": 52.36,
+          "completion_tokens": 51,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/5",
+              "speed": "auto"
+            }
+          },
+          "latency_s": 52.35,
+          "completion_tokens": 51,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_speed",
+        "parameters": {
+          "port": "1/5",
+          "speed": "auto"
+        }
+      },
+      "content": "",
+      "completion_tokens": 51,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.36,
+        52.35
+      ],
+      "latency_s": 52.36,
+      "latency_mean_s": 52.355,
+      "latency_std_s": 0.007,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 37,
+      "level": "level3_single_param",
+      "input": "@poesw1 set port 3 duplex to full",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_duplex",
+      "expected_params": {
+        "port": "1/3",
+        "duplex": "full"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/3",
+              "duplex": "full"
+            }
+          },
+          "latency_s": 52.51,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/3",
+              "duplex": "full"
+            }
+          },
+          "latency_s": 52.5,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_duplex",
+        "parameters": {
+          "port": "1/3",
+          "duplex": "full"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.51,
+        52.5
+      ],
+      "latency_s": 52.5,
+      "latency_mean_s": 52.505,
+      "latency_std_s": 0.007,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 38,
+      "level": "level3_single_param",
+      "input": "@poesw1 configure port 7 speed 100",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_speed",
+      "expected_params": {
+        "port": "1/7",
+        "speed": "100"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/7",
+              "speed": "100"
+            }
+          },
+          "latency_s": 52.6,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/7",
+              "speed": "100"
+            }
+          },
+          "latency_s": 52.52,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_speed",
+        "parameters": {
+          "port": "1/7",
+          "speed": "100"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.6,
+        52.52
+      ],
+      "latency_s": 52.56,
+      "latency_mean_s": 52.56,
+      "latency_std_s": 0.057,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 39,
+      "level": "level3_single_param",
+      "input": "@poesw1 set interface 4 duplex half",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_duplex",
+      "expected_params": {
+        "port": "1/4",
+        "duplex": "half"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/4",
+              "duplex": "half"
+            }
+          },
+          "latency_s": 52.7,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/4",
+              "duplex": "half"
+            }
+          },
+          "latency_s": 52.51,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_duplex",
+        "parameters": {
+          "port": "1/4",
+          "duplex": "half"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.7,
+        52.51
+      ],
+      "latency_s": 52.61,
+      "latency_mean_s": 52.605,
+      "latency_std_s": 0.134,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 40,
+      "level": "level3_single_param",
+      "input": "@poesw1 change port 8 speed to 10",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_speed",
+      "expected_params": {
+        "port": "1/8",
+        "speed": "10"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/8",
+              "speed": "10"
+            }
+          },
+          "latency_s": 52.51,
+          "completion_tokens": 52,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/8",
+              "speed": "10"
+            }
+          },
+          "latency_s": 52.57,
+          "completion_tokens": 52,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_speed",
+        "parameters": {
+          "port": "1/8",
+          "speed": "10"
+        }
+      },
+      "content": "",
+      "completion_tokens": 52,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.51,
+        52.57
+      ],
+      "latency_s": 52.54,
+      "latency_mean_s": 52.54,
+      "latency_std_s": 0.042,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 41,
+      "level": "level3_single_param",
+      "input": "@poesw1 set port 1 speed 1000",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_speed",
+      "expected_params": {
+        "port": "1/1",
+        "speed": "1000"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/1",
+              "speed": "1000"
+            }
+          },
+          "latency_s": 52.65,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/1",
+              "speed": "1000"
+            }
+          },
+          "latency_s": 52.66,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_speed",
+        "parameters": {
+          "port": "1/1",
+          "speed": "1000"
+        }
+      },
+      "content": "",
+      "completion_tokens": 54,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.65,
+        52.66
+      ],
+      "latency_s": 52.66,
+      "latency_mean_s": 52.655,
+      "latency_std_s": 0.007,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 42,
+      "level": "level3_single_param",
+      "input": "@poesw1 configure port 6 duplex full",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_duplex",
+      "expected_params": {
+        "port": "1/6",
+        "duplex": "full"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/6",
+              "duplex": "full"
+            }
+          },
+          "latency_s": 52.51,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/6",
+              "duplex": "full"
+            }
+          },
+          "latency_s": 52.59,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_duplex",
+        "parameters": {
+          "port": "1/6",
+          "duplex": "full"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.51,
+        52.59
+      ],
+      "latency_s": 52.55,
+      "latency_mean_s": 52.55,
+      "latency_std_s": 0.057,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 43,
+      "level": "level3_single_param",
+      "input": "@poesw1 set interface 9 speed auto",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_speed",
+      "expected_params": {
+        "port": "1/9",
+        "speed": "auto"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/9",
+              "speed": "auto"
+            }
+          },
+          "latency_s": 52.36,
+          "completion_tokens": 51,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/9",
+              "speed": "auto"
+            }
+          },
+          "latency_s": 55.33,
+          "completion_tokens": 51,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_speed",
+        "parameters": {
+          "port": "1/9",
+          "speed": "auto"
+        }
+      },
+      "content": "",
+      "completion_tokens": 51,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.36,
+        55.33
+      ],
+      "latency_s": 53.84,
+      "latency_mean_s": 53.845,
+      "latency_std_s": 2.1,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 44,
+      "level": "level3_single_param",
+      "input": "@poesw1 change interface 10 duplex half",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_duplex",
+      "expected_params": {
+        "port": "1/10",
+        "duplex": "half"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/10",
+              "duplex": "half"
+            }
+          },
+          "latency_s": 52.57,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/10",
+              "duplex": "half"
+            }
+          },
+          "latency_s": 52.68,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_duplex",
+        "parameters": {
+          "port": "1/10",
+          "duplex": "half"
+        }
+      },
+      "content": "",
+      "completion_tokens": 54,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.57,
+        52.68
+      ],
+      "latency_s": 52.62,
+      "latency_mean_s": 52.625,
+      "latency_std_s": 0.078,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 45,
+      "level": "level3_single_param",
+      "input": "@poesw1 set port 11 speed to 100",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_speed",
+      "expected_params": {
+        "port": "1/11",
+        "speed": "100"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/11",
+              "speed": "100"
+            }
+          },
+          "latency_s": 52.63,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/11",
+              "speed": "100"
+            }
+          },
+          "latency_s": 52.72,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_speed",
+        "parameters": {
+          "port": "1/11",
+          "speed": "100"
+        }
+      },
+      "content": "",
+      "completion_tokens": 54,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.63,
+        52.72
+      ],
+      "latency_s": 52.67,
+      "latency_mean_s": 52.675,
+      "latency_std_s": 0.064,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 46,
+      "level": "level3_single_param",
+      "input": "@poesw1 configure interface 12 speed 10",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_speed",
+      "expected_params": {
+        "port": "1/12",
+        "speed": "10"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/12",
+              "speed": "10"
+            }
+          },
+          "latency_s": 52.67,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/12",
+              "speed": "10"
+            }
+          },
+          "latency_s": 52.6,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_speed",
+        "parameters": {
+          "port": "1/12",
+          "speed": "10"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.67,
+        52.6
+      ],
+      "latency_s": 52.64,
+      "latency_mean_s": 52.635,
+      "latency_std_s": 0.049,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 47,
+      "level": "level3_single_param",
+      "input": "@poesw1 set port 5 duplex full",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_duplex",
+      "expected_params": {
+        "port": "1/5",
+        "duplex": "full"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/5",
+              "duplex": "full"
+            }
+          },
+          "latency_s": 52.61,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/5",
+              "duplex": "full"
+            }
+          },
+          "latency_s": 52.54,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_duplex",
+        "parameters": {
+          "port": "1/5",
+          "duplex": "full"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.61,
+        52.54
+      ],
+      "latency_s": 52.58,
+      "latency_mean_s": 52.575,
+      "latency_std_s": 0.049,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 48,
+      "level": "level3_single_param",
+      "input": "@poesw1 change port 7 speed auto",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_speed",
+      "expected_params": {
+        "port": "1/7",
+        "speed": "auto"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/7",
+              "speed": "auto"
+            }
+          },
+          "latency_s": 52.36,
+          "completion_tokens": 51,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/7",
+              "speed": "auto"
+            }
+          },
+          "latency_s": 52.32,
+          "completion_tokens": 51,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_speed",
+        "parameters": {
+          "port": "1/7",
+          "speed": "auto"
+        }
+      },
+      "content": "",
+      "completion_tokens": 51,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.36,
+        52.32
+      ],
+      "latency_s": 52.34,
+      "latency_mean_s": 52.34,
+      "latency_std_s": 0.028,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 49,
+      "level": "level3_single_param",
+      "input": "@poesw1 set interface 3 duplex half",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_port_duplex",
+      "expected_params": {
+        "port": "1/3",
+        "duplex": "half"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/3",
+              "duplex": "half"
+            }
+          },
+          "latency_s": 52.53,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_duplex",
+            "parameters": {
+              "port": "1/3",
+              "duplex": "half"
+            }
+          },
+          "latency_s": 52.8,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_port_duplex",
+        "parameters": {
+          "port": "1/3",
+          "duplex": "half"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.53,
+        52.8
+      ],
+      "latency_s": 52.66,
+      "latency_mean_s": 52.665,
+      "latency_std_s": 0.191,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 50,
+      "level": "level4_multi_param",
+      "input": "@poesw1 set poe power limit to 25W on port 5",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_poe_power_limit",
+      "expected_params": {
+        "port": "1/5",
+        "power_limit": 25
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/5",
+              "power_limit": 25
+            }
+          },
+          "latency_s": 52.86,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/5",
+              "power_limit": 25
+            }
+          },
+          "latency_s": 52.84,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_power_limit",
+        "parameters": {
+          "port": "1/5",
+          "power_limit": 25
+        }
+      },
+      "content": "",
+      "completion_tokens": 55,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.86,
+        52.84
+      ],
+      "latency_s": 52.85,
+      "latency_mean_s": 52.85,
+      "latency_std_s": 0.014,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 51,
+      "level": "level4_multi_param",
+      "input": "@poesw1 assign port 2 to vlan 10",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_access_vlan",
+      "expected_params": {
+        "port": "1/2",
+        "vlan_id": 10
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/2",
+              "vlan_id": 10
+            }
+          },
+          "latency_s": 52.54,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/2",
+              "vlan_id": 10
+            }
+          },
+          "latency_s": 52.62,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_access_vlan",
+        "parameters": {
+          "port": "1/2",
+          "vlan_id": 10
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.54,
+        52.62
+      ],
+      "latency_s": 52.58,
+      "latency_mean_s": 52.58,
+      "latency_std_s": 0.057,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 52,
+      "level": "level4_multi_param",
+      "input": "@poesw1 set port 6 description Front Door Camera",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "set_port_description",
+      "expected_params": {
+        "port": "1/6",
+        "description": "Front Door Camera"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set_port_description",
+            "parameters": {
+              "port": "1/6",
+              "description": "Front Door Camera"
+            }
+          },
+          "latency_s": 63.14,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set_port_description",
+            "parameters": {
+              "port": "1/6",
+              "description": "Front Door Camera"
+            }
+          },
+          "latency_s": 52.57,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "set_port_description",
+        "parameters": {
+          "port": "1/6",
+          "description": "Front Door Camera"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        63.14,
+        52.57
+      ],
+      "latency_s": 57.86,
+      "latency_mean_s": 57.855,
+      "latency_std_s": 7.474,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 53,
+      "level": "level4_multi_param",
+      "input": "@poesw1 configure vlan 20 on port 3",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_access_vlan",
+      "expected_params": {
+        "port": "1/3",
+        "vlan_id": 20
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/3",
+              "vlan_id": 20
+            }
+          },
+          "latency_s": 52.54,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/3",
+              "vlan_id": 20
+            }
+          },
+          "latency_s": 52.55,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_access_vlan",
+        "parameters": {
+          "port": "1/3",
+          "vlan_id": 20
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.54,
+        52.55
+      ],
+      "latency_s": 52.55,
+      "latency_mean_s": 52.545,
+      "latency_std_s": 0.007,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 54,
+      "level": "level4_multi_param",
+      "input": "@poesw1 set poe limit 30 watts port 7",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_poe_power_limit",
+      "expected_params": {
+        "port": "1/7",
+        "power_limit": 30
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/7",
+              "power_limit": 30
+            }
+          },
+          "latency_s": 52.73,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/7",
+              "power_limit": 30
+            }
+          },
+          "latency_s": 52.8,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_power_limit",
+        "parameters": {
+          "port": "1/7",
+          "power_limit": 30
+        }
+      },
+      "content": "",
+      "completion_tokens": 55,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.73,
+        52.8
+      ],
+      "latency_s": 52.77,
+      "latency_mean_s": 52.765,
+      "latency_std_s": 0.049,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 55,
+      "level": "level4_multi_param",
+      "input": "@poesw1 set port 4 description Server Room Switch",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "set_port_description",
+      "expected_params": {
+        "port": "1/4",
+        "description": "Server Room Switch"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set_port_description",
+            "parameters": {
+              "port": "1/4",
+              "description": "Server Room Switch"
+            }
+          },
+          "latency_s": 52.55,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set_port_description",
+            "parameters": {
+              "port": "1/4",
+              "description": "Server Room Switch"
+            }
+          },
+          "latency_s": 52.59,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "set_port_description",
+        "parameters": {
+          "port": "1/4",
+          "description": "Server Room Switch"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.55,
+        52.59
+      ],
+      "latency_s": 52.57,
+      "latency_mean_s": 52.57,
+      "latency_std_s": 0.028,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 56,
+      "level": "level4_multi_param",
+      "input": "@poesw1 put port 9 in vlan 100",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_access_vlan",
+      "expected_params": {
+        "port": "1/9",
+        "vlan_id": 100
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/9",
+              "vlan_id": 100
+            }
+          },
+          "latency_s": 52.6,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/9",
+              "vlan_id": 100
+            }
+          },
+          "latency_s": 52.65,
+          "completion_tokens": 54,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_access_vlan",
+        "parameters": {
+          "port": "1/9",
+          "vlan_id": 100
+        }
+      },
+      "content": "",
+      "completion_tokens": 54,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.6,
+        52.65
+      ],
+      "latency_s": 52.62,
+      "latency_mean_s": 52.625,
+      "latency_std_s": 0.035,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 57,
+      "level": "level4_multi_param",
+      "input": "@poesw1 configure poe power 15W port 1",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_poe_power_limit",
+      "expected_params": {
+        "port": "1/1",
+        "power_limit": 15
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/1",
+              "power_limit": 15
+            }
+          },
+          "latency_s": 52.7,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/1",
+              "power_limit": 15
+            }
+          },
+          "latency_s": 52.8,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_power_limit",
+        "parameters": {
+          "port": "1/1",
+          "power_limit": 15
+        }
+      },
+      "content": "",
+      "completion_tokens": 55,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.7,
+        52.8
+      ],
+      "latency_s": 52.75,
+      "latency_mean_s": 52.75,
+      "latency_std_s": 0.071,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 58,
+      "level": "level4_multi_param",
+      "input": "@poesw1 assign port 8 vlan 50",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_access_vlan",
+      "expected_params": {
+        "port": "1/8",
+        "vlan_id": 50
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/8",
+              "vlan_id": 50
+            }
+          },
+          "latency_s": 52.5,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/8",
+              "vlan_id": 50
+            }
+          },
+          "latency_s": 52.61,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_access_vlan",
+        "parameters": {
+          "port": "1/8",
+          "vlan_id": 50
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.5,
+        52.61
+      ],
+      "latency_s": 52.55,
+      "latency_mean_s": 52.555,
+      "latency_std_s": 0.078,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 59,
+      "level": "level4_multi_param",
+      "input": "@poesw1 set port 10 description Lobby Access Point",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "set_port_description",
+      "expected_params": {
+        "port": "1/10",
+        "description": "Lobby Access Point"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set_port_description",
+            "parameters": {
+              "port": "1/10",
+              "description": "Lobby Access Point"
+            }
+          },
+          "latency_s": 52.63,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set_port_description",
+            "parameters": {
+              "port": "1/10",
+              "description": "Lobby Access Point"
+            }
+          },
+          "latency_s": 52.76,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "set_port_description",
+        "parameters": {
+          "port": "1/10",
+          "description": "Lobby Access Point"
+        }
+      },
+      "content": "",
+      "completion_tokens": 55,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.63,
+        52.76
+      ],
+      "latency_s": 52.7,
+      "latency_mean_s": 52.695,
+      "latency_std_s": 0.092,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 60,
+      "level": "level4_multi_param",
+      "input": "@poesw1 set poe power limit 20 on port 11",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_poe_power_limit",
+      "expected_params": {
+        "port": "1/11",
+        "power_limit": 20
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/11",
+              "power_limit": 20
+            }
+          },
+          "latency_s": 52.79,
+          "completion_tokens": 56,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/11",
+              "power_limit": 20
+            }
+          },
+          "latency_s": 52.91,
+          "completion_tokens": 56,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_power_limit",
+        "parameters": {
+          "port": "1/11",
+          "power_limit": 20
+        }
+      },
+      "content": "",
+      "completion_tokens": 56,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.79,
+        52.91
+      ],
+      "latency_s": 52.85,
+      "latency_mean_s": 52.85,
+      "latency_std_s": 0.085,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 61,
+      "level": "level4_multi_param",
+      "input": "@poesw1 configure port 12 vlan 200",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_access_vlan",
+      "expected_params": {
+        "port": "1/12",
+        "vlan_id": 200
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/12",
+              "vlan_id": 200
+            }
+          },
+          "latency_s": 52.65,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/12",
+              "vlan_id": 200
+            }
+          },
+          "latency_s": 52.75,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_access_vlan",
+        "parameters": {
+          "port": "1/12",
+          "vlan_id": 200
+        }
+      },
+      "content": "",
+      "completion_tokens": 55,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.65,
+        52.75
+      ],
+      "latency_s": 52.7,
+      "latency_mean_s": 52.7,
+      "latency_std_s": 0.071,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 62,
+      "level": "level4_multi_param",
+      "input": "@poesw1 set port 5 description Conference Room TV",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "set_port_description",
+      "expected_params": {
+        "port": "1/5",
+        "description": "Conference Room TV"
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set_port_description",
+            "parameters": {
+              "port": "1/5",
+              "description": "Conference Room TV"
+            }
+          },
+          "latency_s": 52.49,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set_port_description",
+            "parameters": {
+              "port": "1/5",
+              "description": "Conference Room TV"
+            }
+          },
+          "latency_s": 52.66,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "set_port_description",
+        "parameters": {
+          "port": "1/5",
+          "description": "Conference Room TV"
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.49,
+        52.66
+      ],
+      "latency_s": 52.58,
+      "latency_mean_s": 52.575,
+      "latency_std_s": 0.12,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 63,
+      "level": "level4_multi_param",
+      "input": "@poesw1 assign interface 2 to vlan 30",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_access_vlan",
+      "expected_params": {
+        "port": "1/2",
+        "vlan_id": 30
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/2",
+              "vlan_id": 30
+            }
+          },
+          "latency_s": 62.34,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_access_vlan",
+            "parameters": {
+              "port": "1/2",
+              "vlan_id": 30
+            }
+          },
+          "latency_s": 52.77,
+          "completion_tokens": 53,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_access_vlan",
+        "parameters": {
+          "port": "1/2",
+          "vlan_id": 30
+        }
+      },
+      "content": "",
+      "completion_tokens": 53,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        62.34,
+        52.77
+      ],
+      "latency_s": 57.56,
+      "latency_mean_s": 57.555,
+      "latency_std_s": 6.767,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    },
+    {
+      "idx": 64,
+      "level": "level4_multi_param",
+      "input": "@poesw1 configure poe limit 25 watts on port 6",
+      "expected_tool": "configure_device_setting",
+      "expected_command": "configure_poe_power_limit",
+      "expected_params": {
+        "port": "1/6",
+        "power_limit": 25
+      },
+      "reps": [
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/6",
+              "power_limit": 25
+            }
+          },
+          "latency_s": 52.82,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        {
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/6",
+              "power_limit": 25
+            }
+          },
+          "latency_s": 52.7,
+          "completion_tokens": 55,
+          "content": "",
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        }
+      ],
+      "got_tool": "configure_device_setting",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "configure_poe_power_limit",
+        "parameters": {
+          "port": "1/6",
+          "power_limit": 25
+        }
+      },
+      "content": "",
+      "completion_tokens": 55,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        52.82,
+        52.7
+      ],
+      "latency_s": 52.76,
+      "latency_mean_s": 52.76,
+      "latency_std_s": 0.085,
+      "pass_count": 2,
+      "n_reps": 2,
+      "stable": true
+    }
+  ],
+  "provenance": {
+    "schema_version": 2,
+    "timestamp_utc": "2026-09-10T21:06:47.477774+00:00",
+    "host": "client",
+    "python": "3.12.3",
+    "harness_sha256": "1839a393c954fc33ec6561f87571e6eeda43e878dd0411c254671044a4847356",
+    "cases_file": "suites/test_cases.yaml",
+    "cases_sha256": "414bd0afe130d501adfb3038963f55b2151390a336de257f7646a6561d4a7a52",
+    "tools_source": "dev-import",
+    "tool_definitions_sha256": "573a2eb8758f115de775dff1b30ea323a75fd3dd98fb82a9df758df4df93363e",
+    "tool_names": [
+      "query_device_info",
+      "search_documentation",
+      "diagnose_port_issues",
+      "configure_device_setting"
+    ],
+    "request_config": {
+      "temperature": 0,
+      "max_tokens": 512,
+      "extra_body": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "enable_think": false
+      },
+      "omit_params": []
+    },
+    "endpoint_models": {
+      "data": [
+        {
+          "id": "qualcomm/qwen3-4b-2507-q4_0:Q4_0",
+          "created": 0,
+          "object": "model",
+          "owned_by": "qualcomm"
+        },
+        {
+          "id": "qualcomm/qwen3-4b-4k",
+          "created": 0,
+          "object": "model",
+          "owned_by": "qualcomm"
+        },
+        {
+          "id": "qualcomm/gemma4-e4b",
+          "created": 0,
+          "object": "model",
+          "owned_by": "qualcomm"
+        }
+      ],
+      "object": "list"
+    },
+    "board": {
+      "os": {
+        "VERSION_ID": "1.6-ver.1.2.1",
+        "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+      },
+      "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+      "loadavg": "2.51 6.22 6.04 1/608 1681784",
+      "containers": [
+        "gx qualcomm/geniex:v0.4.0 Up 16 hours"
+      ],
+      "geniex_version": [
+        "GenieX CLI Version:     v0.4.0",
+        "QAIRT Runtime Version:  v2.45.0.260326",
+        "LlamaCPP Runtime Hash:  6ba5ef2"
+      ],
+      "thermal_max_c": {
+        "cpu": 53.7,
+        "nsp": 53.0,
+        "all": 54.8
+      },
+      "cpu_busy": 0.002,
+      "thermal_zones": {
+        "aoss-2-thermal": 52.7,
+        "cpu-1-0-0-thermal": 53.7,
+        "nsp-1-2-0-thermal": 53.0,
+        "ddrss-0-thermal": 53.4,
+        "cpuss-1-0-thermal": 53.0,
+        "aoss-3-thermal": 52.7,
+        "cpu-1-0-1-thermal": 53.7,
+        "cpu-1-1-1-thermal": 53.4,
+        "cpu-1-2-1-thermal": 53.0,
+        "cpu-1-3-1-thermal": 52.7,
+        "nsp-0-0-1-thermal": 52.7,
+        "nsp-0-1-1-thermal": 52.7,
+        "cpu-1-1-0-thermal": 52.7,
+        "nsp-0-2-1-thermal": 52.7,
+        "nsp-1-0-1-thermal": 52.7,
+        "nsp-1-1-1-thermal": 52.7,
+        "nsp-1-2-1-thermal": 52.7,
+        "ddrss-1-thermal": 53.7,
+        "cpuss-1-1-thermal": 53.0,
+        "aoss-0-thermal": 52.3,
+        "cpu-0-0-0-thermal": 52.7,
+        "cpu-0-1-0-thermal": 52.3,
+        "cpu-0-2-0-thermal": 52.3,
+        "cpu-1-2-0-thermal": 53.0,
+        "cpu-0-3-0-thermal": 52.7,
+        "gpuss-0-thermal": 52.3,
+        "gpuss-1-thermal": 52.0,
+        "gpuss-2-thermal": 52.0,
+        "audio-thermal": 52.3,
+        "camss-0-thermal": 53.4,
+        "pcie-0-thermal": 53.1,
+        "cpuss-0-0-thermal": 52.3,
+        "aoss-1-thermal": 52.1,
+        "cpu-0-0-1-thermal": 52.1,
+        "cpu-1-3-0-thermal": 53.0,
+        "cpu-0-1-1-thermal": 52.5,
+        "cpu-0-2-1-thermal": 52.8,
+        "cpu-0-3-1-thermal": 52.5,
+        "gpuss-3-thermal": 52.5,
+        "gpuss-4-thermal": 52.1,
+        "gpuss-5-thermal": 52.1,
+        "video-thermal": 52.8,
+        "camss-1-thermal": 53.6,
+        "pcie-1-thermal": 52.8,
+        "cpuss-0-1-thermal": 53.2,
+        "nsp-0-0-0-thermal": 51.9,
+        "soc-therm": 54.8,
+        "ufs0-therm": 54.8,
+        "xo-therm": 54.2,
+        "sdram-therm": 53.8,
+        "pm8775-0-thermal": 49.5,
+        "pm8775-1-thermal": 51.1,
+        "pm8775-2-thermal": 49.3,
+        "pm8775-3-thermal": 50.2,
+        "pmm8654au_0_mbg_tz": 49.0,
+        "pmm8654au_1_mbg_tz": 51.0,
+        "nsp-0-1-0-thermal": 52.7,
+        "pmm8654au_2_mbg_tz": 49.4,
+        "pmm8654au_3_mbg_tz": 50.0,
+        "nsp-0-2-0-thermal": 53.0,
+        "nsp-1-0-0-thermal": 51.9,
+        "nsp-1-1-0-thermal": 52.3
+      }
+    },
+    "board_after": {
+      "os": {
+        "VERSION_ID": "1.6-ver.1.2.1",
+        "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+      },
+      "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+      "loadavg": "8.00 8.03 8.00 1/614 1693977",
+      "containers": [
+        "gx qualcomm/geniex:v0.4.0 Up 18 hours"
+      ],
+      "geniex_version": [
+        "GenieX CLI Version:     v0.4.0",
+        "QAIRT Runtime Version:  v2.45.0.260326",
+        "LlamaCPP Runtime Hash:  6ba5ef2"
+      ],
+      "thermal_max_c": {
+        "cpu": 61.0,
+        "nsp": 59.2,
+        "all": 61.0
+      },
+      "cpu_busy": 0.007,
+      "thermal_zones": {
+        "aoss-2-thermal": 59.2,
+        "cpu-1-0-0-thermal": 60.3,
+        "nsp-1-2-0-thermal": 58.8,
+        "ddrss-0-thermal": 60.3,
+        "cpuss-1-0-thermal": 60.7,
+        "aoss-3-thermal": 58.8,
+        "cpu-1-0-1-thermal": 61.0,
+        "cpu-1-1-1-thermal": 61.0,
+        "cpu-1-2-1-thermal": 59.9,
+        "cpu-1-3-1-thermal": 59.6,
+        "nsp-0-0-1-thermal": 58.5,
+        "nsp-0-1-1-thermal": 58.5,
+        "cpu-1-1-0-thermal": 59.6,
+        "nsp-0-2-1-thermal": 59.2,
+        "nsp-1-0-1-thermal": 58.8,
+        "nsp-1-1-1-thermal": 59.2,
+        "nsp-1-2-1-thermal": 59.2,
+        "ddrss-1-thermal": 60.3,
+        "cpuss-1-1-thermal": 59.9,
+        "aoss-0-thermal": 58.5,
+        "cpu-0-0-0-thermal": 58.9,
+        "cpu-0-1-0-thermal": 58.9,
+        "cpu-0-2-0-thermal": 59.3,
+        "cpu-1-2-0-thermal": 59.6,
+        "cpu-0-3-0-thermal": 58.9,
+        "gpuss-0-thermal": 57.4,
+        "gpuss-1-thermal": 57.4,
+        "gpuss-2-thermal": 57.4,
+        "audio-thermal": 58.5,
+        "camss-0-thermal": 59.3,
+        "pcie-0-thermal": 59.3,
+        "cpuss-0-0-thermal": 59.3,
+        "aoss-1-thermal": 58.3,
+        "cpu-0-0-1-thermal": 58.7,
+        "cpu-1-3-0-thermal": 58.8,
+        "cpu-0-1-1-thermal": 59.0,
+        "cpu-0-2-1-thermal": 59.0,
+        "cpu-0-3-1-thermal": 58.7,
+        "gpuss-3-thermal": 57.6,
+        "gpuss-4-thermal": 57.6,
+        "gpuss-5-thermal": 57.6,
+        "video-thermal": 58.3,
+        "camss-1-thermal": 59.0,
+        "pcie-1-thermal": 58.7,
+        "cpuss-0-1-thermal": 59.0,
+        "nsp-0-0-0-thermal": 57.7,
+        "soc-therm": 58.7,
+        "ufs0-therm": 57.4,
+        "xo-therm": 56.9,
+        "sdram-therm": 58.8,
+        "pm8775-0-thermal": 51.9,
+        "pm8775-1-thermal": 53.8,
+        "pm8775-2-thermal": 54.6,
+        "pm8775-3-thermal": 54.4,
+        "pmm8654au_0_mbg_tz": 51.8,
+        "pmm8654au_1_mbg_tz": 53.7,
+        "nsp-0-1-0-thermal": 58.5,
+        "pmm8654au_2_mbg_tz": 54.5,
+        "pmm8654au_3_mbg_tz": 54.3,
+        "nsp-0-2-0-thermal": 58.8,
+        "nsp-1-0-0-thermal": 58.1,
+        "nsp-1-1-0-thermal": 58.1
+      }
+    }
+  },
+  "readiness": [
+    {
+      "before": "warmup",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "2.51 6.22 6.04 1/608 1681784",
+        "containers": [
+          "gx qualcomm/geniex:v0.4.0 Up 16 hours"
+        ],
+        "geniex_version": [
+          "GenieX CLI Version:     v0.4.0",
+          "QAIRT Runtime Version:  v2.45.0.260326",
+          "LlamaCPP Runtime Hash:  6ba5ef2"
+        ],
+        "thermal_max_c": {
+          "cpu": 53.7,
+          "nsp": 53.0,
+          "all": 54.8
+        },
+        "cpu_busy": 0.002,
+        "thermal_zones": {
+          "aoss-2-thermal": 52.7,
+          "cpu-1-0-0-thermal": 53.7,
+          "nsp-1-2-0-thermal": 53.0,
+          "ddrss-0-thermal": 53.4,
+          "cpuss-1-0-thermal": 53.0,
+          "aoss-3-thermal": 52.7,
+          "cpu-1-0-1-thermal": 53.7,
+          "cpu-1-1-1-thermal": 53.4,
+          "cpu-1-2-1-thermal": 53.0,
+          "cpu-1-3-1-thermal": 52.7,
+          "nsp-0-0-1-thermal": 52.7,
+          "nsp-0-1-1-thermal": 52.7,
+          "cpu-1-1-0-thermal": 52.7,
+          "nsp-0-2-1-thermal": 52.7,
+          "nsp-1-0-1-thermal": 52.7,
+          "nsp-1-1-1-thermal": 52.7,
+          "nsp-1-2-1-thermal": 52.7,
+          "ddrss-1-thermal": 53.7,
+          "cpuss-1-1-thermal": 53.0,
+          "aoss-0-thermal": 52.3,
+          "cpu-0-0-0-thermal": 52.7,
+          "cpu-0-1-0-thermal": 52.3,
+          "cpu-0-2-0-thermal": 52.3,
+          "cpu-1-2-0-thermal": 53.0,
+          "cpu-0-3-0-thermal": 52.7,
+          "gpuss-0-thermal": 52.3,
+          "gpuss-1-thermal": 52.0,
+          "gpuss-2-thermal": 52.0,
+          "audio-thermal": 52.3,
+          "camss-0-thermal": 53.4,
+          "pcie-0-thermal": 53.1,
+          "cpuss-0-0-thermal": 52.3,
+          "aoss-1-thermal": 52.1,
+          "cpu-0-0-1-thermal": 52.1,
+          "cpu-1-3-0-thermal": 53.0,
+          "cpu-0-1-1-thermal": 52.5,
+          "cpu-0-2-1-thermal": 52.8,
+          "cpu-0-3-1-thermal": 52.5,
+          "gpuss-3-thermal": 52.5,
+          "gpuss-4-thermal": 52.1,
+          "gpuss-5-thermal": 52.1,
+          "video-thermal": 52.8,
+          "camss-1-thermal": 53.6,
+          "pcie-1-thermal": 52.8,
+          "cpuss-0-1-thermal": 53.2,
+          "nsp-0-0-0-thermal": 51.9,
+          "soc-therm": 54.8,
+          "ufs0-therm": 54.8,
+          "xo-therm": 54.2,
+          "sdram-therm": 53.8,
+          "pm8775-0-thermal": 49.5,
+          "pm8775-1-thermal": 51.1,
+          "pm8775-2-thermal": 49.3,
+          "pm8775-3-thermal": 50.2,
+          "pmm8654au_0_mbg_tz": 49.0,
+          "pmm8654au_1_mbg_tz": 51.0,
+          "nsp-0-1-0-thermal": 52.7,
+          "pmm8654au_2_mbg_tz": 49.4,
+          "pmm8654au_3_mbg_tz": 50.0,
+          "nsp-0-2-0-thermal": 53.0,
+          "nsp-1-0-0-thermal": 51.9,
+          "nsp-1-1-0-thermal": 52.3
+        }
+      }
+    },
+    {
+      "before": "rep1",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "3.78 5.93 5.97 1/611 1682737",
+        "containers": [
+          "gx qualcomm/geniex:v0.4.0 Up 16 hours"
+        ],
+        "geniex_version": [
+          "GenieX CLI Version:     v0.4.0",
+          "QAIRT Runtime Version:  v2.45.0.260326",
+          "LlamaCPP Runtime Hash:  6ba5ef2"
+        ],
+        "thermal_max_c": {
+          "cpu": 53.7,
+          "nsp": 53.0,
+          "all": 54.8
+        },
+        "cpu_busy": 0.006,
+        "thermal_zones": {
+          "aoss-2-thermal": 52.7,
+          "cpu-1-0-0-thermal": 53.4,
+          "nsp-1-2-0-thermal": 53.0,
+          "ddrss-0-thermal": 53.4,
+          "cpuss-1-0-thermal": 53.7,
+          "aoss-3-thermal": 53.0,
+          "cpu-1-0-1-thermal": 53.7,
+          "cpu-1-1-1-thermal": 53.0,
+          "cpu-1-2-1-thermal": 53.0,
+          "cpu-1-3-1-thermal": 53.0,
+          "nsp-0-0-1-thermal": 52.7,
+          "nsp-0-1-1-thermal": 52.3,
+          "cpu-1-1-0-thermal": 53.0,
+          "nsp-0-2-1-thermal": 52.3,
+          "nsp-1-0-1-thermal": 52.7,
+          "nsp-1-1-1-thermal": 52.3,
+          "nsp-1-2-1-thermal": 53.0,
+          "ddrss-1-thermal": 53.7,
+          "cpuss-1-1-thermal": 53.4,
+          "aoss-0-thermal": 52.3,
+          "cpu-0-0-0-thermal": 52.7,
+          "cpu-0-1-0-thermal": 52.3,
+          "cpu-0-2-0-thermal": 52.7,
+          "cpu-1-2-0-thermal": 53.4,
+          "cpu-0-3-0-thermal": 53.1,
+          "gpuss-0-thermal": 52.3,
+          "gpuss-1-thermal": 52.0,
+          "gpuss-2-thermal": 52.3,
+          "audio-thermal": 52.7,
+          "camss-0-thermal": 53.4,
+          "pcie-0-thermal": 53.8,
+          "cpuss-0-0-thermal": 52.7,
+          "aoss-1-thermal": 52.1,
+          "cpu-0-0-1-thermal": 52.5,
+          "cpu-1-3-0-thermal": 53.0,
+          "cpu-0-1-1-thermal": 52.5,
+          "cpu-0-2-1-thermal": 52.8,
+          "cpu-0-3-1-thermal": 52.8,
+          "gpuss-3-thermal": 52.1,
+          "gpuss-4-thermal": 52.1,
+          "gpuss-5-thermal": 52.1,
+          "video-thermal": 53.2,
+          "camss-1-thermal": 53.6,
+          "pcie-1-thermal": 52.5,
+          "cpuss-0-1-thermal": 52.8,
+          "nsp-0-0-0-thermal": 51.9,
+          "soc-therm": 54.8,
+          "ufs0-therm": 54.5,
+          "xo-therm": 54.0,
+          "sdram-therm": 53.8,
+          "pm8775-0-thermal": 49.1,
+          "pm8775-1-thermal": 51.0,
+          "pm8775-2-thermal": 49.4,
+          "pm8775-3-thermal": 50.3,
+          "pmm8654au_0_mbg_tz": 49.2,
+          "pmm8654au_1_mbg_tz": 51.0,
+          "nsp-0-1-0-thermal": 52.7,
+          "pmm8654au_2_mbg_tz": 49.3,
+          "pmm8654au_3_mbg_tz": 50.5,
+          "nsp-0-2-0-thermal": 53.0,
+          "nsp-1-0-0-thermal": 52.3,
+          "nsp-1-1-0-thermal": 52.3
+        }
+      }
+    },
+    {
+      "before": "rep2",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "2.48 6.32 7.42 1/613 1687871",
+        "containers": [
+          "gx qualcomm/geniex:v0.4.0 Up 17 hours"
+        ],
+        "geniex_version": [
+          "GenieX CLI Version:     v0.4.0",
+          "QAIRT Runtime Version:  v2.45.0.260326",
+          "LlamaCPP Runtime Hash:  6ba5ef2"
+        ],
+        "thermal_max_c": {
+          "cpu": 53.7,
+          "nsp": 53.0,
+          "all": 54.7
+        },
+        "cpu_busy": 0.007,
+        "thermal_zones": {
+          "aoss-2-thermal": 52.3,
+          "cpu-1-0-0-thermal": 53.4,
+          "nsp-1-2-0-thermal": 52.7,
+          "ddrss-0-thermal": 53.4,
+          "cpuss-1-0-thermal": 53.4,
+          "aoss-3-thermal": 52.7,
+          "cpu-1-0-1-thermal": 53.7,
+          "cpu-1-1-1-thermal": 53.0,
+          "cpu-1-2-1-thermal": 53.0,
+          "cpu-1-3-1-thermal": 52.7,
+          "nsp-0-0-1-thermal": 52.7,
+          "nsp-0-1-1-thermal": 52.3,
+          "cpu-1-1-0-thermal": 52.7,
+          "nsp-0-2-1-thermal": 52.3,
+          "nsp-1-0-1-thermal": 52.7,
+          "nsp-1-1-1-thermal": 52.3,
+          "nsp-1-2-1-thermal": 53.0,
+          "ddrss-1-thermal": 53.7,
+          "cpuss-1-1-thermal": 53.4,
+          "aoss-0-thermal": 52.7,
+          "cpu-0-0-0-thermal": 52.7,
+          "cpu-0-1-0-thermal": 53.1,
+          "cpu-0-2-0-thermal": 52.7,
+          "cpu-1-2-0-thermal": 53.0,
+          "cpu-0-3-0-thermal": 52.3,
+          "gpuss-0-thermal": 52.0,
+          "gpuss-1-thermal": 51.6,
+          "gpuss-2-thermal": 52.0,
+          "audio-thermal": 52.7,
+          "camss-0-thermal": 53.4,
+          "pcie-0-thermal": 53.4,
+          "cpuss-0-0-thermal": 53.1,
+          "aoss-1-thermal": 52.1,
+          "cpu-0-0-1-thermal": 52.8,
+          "cpu-1-3-0-thermal": 52.7,
+          "cpu-0-1-1-thermal": 52.5,
+          "cpu-0-2-1-thermal": 52.8,
+          "cpu-0-3-1-thermal": 52.5,
+          "gpuss-3-thermal": 52.5,
+          "gpuss-4-thermal": 52.1,
+          "gpuss-5-thermal": 52.1,
+          "video-thermal": 52.8,
+          "camss-1-thermal": 53.6,
+          "pcie-1-thermal": 52.5,
+          "cpuss-0-1-thermal": 52.8,
+          "nsp-0-0-0-thermal": 51.9,
+          "soc-therm": 54.7,
+          "ufs0-therm": 54.3,
+          "xo-therm": 54.1,
+          "sdram-therm": 53.5,
+          "pm8775-0-thermal": 48.9,
+          "pm8775-1-thermal": 50.8,
+          "pm8775-2-thermal": 49.3,
+          "pm8775-3-thermal": 49.9,
+          "pmm8654au_0_mbg_tz": 48.7,
+          "pmm8654au_1_mbg_tz": 50.7,
+          "nsp-0-1-0-thermal": 51.9,
+          "pmm8654au_2_mbg_tz": 49.3,
+          "pmm8654au_3_mbg_tz": 50.0,
+          "nsp-0-2-0-thermal": 52.7,
+          "nsp-1-0-0-thermal": 52.3,
+          "nsp-1-1-0-thermal": 52.3
+        }
+      }
+    }
+  ]
+}
