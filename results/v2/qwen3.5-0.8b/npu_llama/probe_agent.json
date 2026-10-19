@@ -1,0 +1,1468 @@
+{
+  "label": "model=qwen3.5-0.8b;path=npu_llama;probe=agent",
+  "url": "http://<board>:18384",
+  "model": "qualcomm/qwen3.5-0.8b-q4_0:Q4_0",
+  "gen_tokens": 128,
+  "repeats": 5,
+  "method": "stream",
+  "method_reason": "explicit --method=stream",
+  "method_note": "Two measurement methods, chosen via --method (default 'auto'). 'diff': two identical non-streaming requests per rep that differ only in max_tokens (1 vs gen_tokens). tA_s/tB_s are their wall-clock latencies; ctA/ctB are usage.completion_tokens from each response; pt is usage.prompt_tokens from request A. ttft_s = tA_s -- NOT a pure prefill-only measurement: it includes prefill, one decode step, and request/response overhead. prefill_tok_s = pt / tA_s. decode_tok_s = (ctB - ctA) / (tB_s - tA_s), or null with decode_skipped='early_stop' if ctB - ctA < 16, or decode_skipped='server_ignores_max_tokens' instead if EVERY rep at that length had ctA == ctB (the server did not honor max_tokens=1, so decode speed cannot be inferred this way). e2e_s = tB_s. 'stream': one streaming (SSE) request per rep with max_tokens=gen_tokens. ttft_s = arrival time of the first chunk whose delta.content is non-empty. n_out = usage.completion_tokens if the server sends a final usage chunk (requested via stream_options.include_usage, retried once without it on HTTP 400), else the number of content chunks received (token_source records which). prefill_tok_s = pt / ttft_s, where pt is the PER-LENGTH prompt token count from that length's ordinary (non-streaming) calibration request -- not a per-rep value. decode_tok_s = (n_out - 1) / (t_last_chunk - t_first_chunk) when n_out >= 16 and that duration is positive, else null with a decode_skipped reason. e2e_s = wall-clock time to [DONE]/EOF. 'auto': calibrates the first length, then sends one streaming probe request (max_tokens=gen_tokens) at that length; uses 'stream' for the whole run if it yields >=4 content chunks, else 'diff'. The outcome is recorded as top-level 'method' and 'method_reason'. Calibration requests (finding a prompt whose token count is close to a length's target) are always non-streaming with max_tokens=1 and are excluded from all timing, in both methods -- if a server ignores max_tokens this only costs calibration time, not correctness. Per-length summary keys (ttft_s, prefill_tok_s, decode_tok_s, e2e_s as mean/std) have the same meaning and shape in both methods. If calibration fails for a length after the first, that length is recorded as {'target','error','reps':[]} and the run continues; the process exits 4 (no output file written) only if the FIRST length's calibration fails (server looks unusable); exits 5 (output file still written) if the file was written but at least one later length failed calibration; exits 0 if every length produced data.",
+  "provenance": {
+    "schema_version": 3,
+    "label": "model=qwen3.5-0.8b;path=npu_llama;probe=agent",
+    "server_version": "GenieX CLI Version:     v0.8.0\nQAIRT Runtime Version:  2.45\nLlamaCPP Runtime Hash:  9425611",
+    "timestamp_utc": "2026-10-17T06:55:49.748412+00:00",
+    "host": "client",
+    "python": "3.12.3",
+    "harness_sha256": "92eba3e066c4e1fe6e72565b35e72f79238cbe5c302157185443891420fad84d",
+    "request_config": {
+      "temperature": 0,
+      "gen_tokens": 128,
+      "extra_body": {
+        "enable_think": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      }
+    },
+    "endpoint_models": {
+      "data": [
+        {
+          "id": "qualcomm/qwen3.5-0.8b-q4_0:Q4_0",
+          "created": 0,
+          "object": "model",
+          "owned_by": "qualcomm"
+        }
+      ],
+      "object": "list"
+    },
+    "board": {
+      "os": {
+        "VERSION_ID": "1.6-ver.1.2.1",
+        "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+      },
+      "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+      "loadavg": "4.36 6.29 6.65 1/583 1324185",
+      "containers": [],
+      "gx_container_geniex_version": [],
+      "thermal_max_c": {
+        "cpu": 53.9,
+        "nsp": 53.0,
+        "all": 54.5
+      },
+      "cpu_busy": 0.004,
+      "thermal_zones": {
+        "aoss-2-thermal": 52.7,
+        "cpu-1-0-0-thermal": 53.7,
+        "nsp-1-2-0-thermal": 52.7,
+        "ddrss-0-thermal": 54.1,
+        "cpuss-1-0-thermal": 53.7,
+        "aoss-3-thermal": 52.7,
+        "cpu-1-0-1-thermal": 53.4,
+        "cpu-1-1-1-thermal": 53.0,
+        "cpu-1-2-1-thermal": 53.0,
+        "cpu-1-3-1-thermal": 53.4,
+        "nsp-0-0-1-thermal": 52.7,
+        "nsp-0-1-1-thermal": 52.7,
+        "cpu-1-1-0-thermal": 53.0,
+        "nsp-0-2-1-thermal": 52.7,
+        "nsp-1-0-1-thermal": 53.0,
+        "nsp-1-1-1-thermal": 52.7,
+        "nsp-1-2-1-thermal": 53.0,
+        "ddrss-1-thermal": 54.1,
+        "cpuss-1-1-thermal": 53.7,
+        "aoss-0-thermal": 52.3,
+        "cpu-0-0-0-thermal": 53.1,
+        "cpu-0-1-0-thermal": 52.7,
+        "cpu-0-2-0-thermal": 52.3,
+        "cpu-1-2-0-thermal": 53.4,
+        "cpu-0-3-0-thermal": 52.3,
+        "gpuss-0-thermal": 52.3,
+        "gpuss-1-thermal": 52.0,
+        "gpuss-2-thermal": 52.3,
+        "audio-thermal": 53.1,
+        "camss-0-thermal": 53.4,
+        "pcie-0-thermal": 53.8,
+        "cpuss-0-0-thermal": 52.7,
+        "aoss-1-thermal": 52.8,
+        "cpu-0-0-1-thermal": 52.8,
+        "cpu-1-3-0-thermal": 53.0,
+        "cpu-0-1-1-thermal": 53.2,
+        "cpu-0-2-1-thermal": 52.5,
+        "cpu-0-3-1-thermal": 53.9,
+        "gpuss-3-thermal": 52.5,
+        "gpuss-4-thermal": 52.5,
+        "gpuss-5-thermal": 52.5,
+        "video-thermal": 53.2,
+        "camss-1-thermal": 53.6,
+        "pcie-1-thermal": 52.8,
+        "cpuss-0-1-thermal": 53.2,
+        "nsp-0-0-0-thermal": 52.3,
+        "soc-therm": 54.5,
+        "ufs0-therm": 54.2,
+        "xo-therm": 53.3,
+        "sdram-therm": 53.9,
+        "pm8775-0-thermal": 48.6,
+        "pm8775-1-thermal": 50.9,
+        "pm8775-2-thermal": 49.7,
+        "pm8775-3-thermal": 50.4,
+        "pmm8654au_0_mbg_tz": 48.7,
+        "pmm8654au_1_mbg_tz": 50.9,
+        "nsp-0-1-0-thermal": 52.3,
+        "pmm8654au_2_mbg_tz": 49.6,
+        "pmm8654au_3_mbg_tz": 50.3,
+        "nsp-0-2-0-thermal": 53.0,
+        "nsp-1-0-0-thermal": 51.9,
+        "nsp-1-1-0-thermal": 52.7
+      }
+    },
+    "board_after": {
+      "os": {
+        "VERSION_ID": "1.6-ver.1.2.1",
+        "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+      },
+      "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+      "loadavg": "6.36 6.12 6.50 1/584 1329951",
+      "containers": [],
+      "gx_container_geniex_version": [],
+      "thermal_max_c": {
+        "cpu": 60.3,
+        "nsp": 56.7,
+        "all": 60.3
+      },
+      "cpu_busy": 0.005,
+      "thermal_zones": {
+        "aoss-2-thermal": 57.4,
+        "cpu-1-0-0-thermal": 58.5,
+        "nsp-1-2-0-thermal": 56.3,
+        "ddrss-0-thermal": 58.5,
+        "cpuss-1-0-thermal": 59.6,
+        "aoss-3-thermal": 57.0,
+        "cpu-1-0-1-thermal": 58.5,
+        "cpu-1-1-1-thermal": 60.3,
+        "cpu-1-2-1-thermal": 58.8,
+        "cpu-1-3-1-thermal": 58.5,
+        "nsp-0-0-1-thermal": 55.6,
+        "nsp-0-1-1-thermal": 55.6,
+        "cpu-1-1-0-thermal": 57.4,
+        "nsp-0-2-1-thermal": 56.7,
+        "nsp-1-0-1-thermal": 56.3,
+        "nsp-1-1-1-thermal": 56.7,
+        "nsp-1-2-1-thermal": 56.7,
+        "ddrss-1-thermal": 58.1,
+        "cpuss-1-1-thermal": 58.1,
+        "aoss-0-thermal": 56.3,
+        "cpu-0-0-0-thermal": 57.4,
+        "cpu-0-1-0-thermal": 56.7,
+        "cpu-0-2-0-thermal": 56.7,
+        "cpu-1-2-0-thermal": 57.4,
+        "cpu-0-3-0-thermal": 57.1,
+        "gpuss-0-thermal": 54.9,
+        "gpuss-1-thermal": 54.5,
+        "gpuss-2-thermal": 54.9,
+        "audio-thermal": 56.0,
+        "camss-0-thermal": 56.7,
+        "pcie-0-thermal": 56.7,
+        "cpuss-0-0-thermal": 57.1,
+        "aoss-1-thermal": 56.1,
+        "cpu-0-0-1-thermal": 56.9,
+        "cpu-1-3-0-thermal": 57.4,
+        "cpu-0-1-1-thermal": 56.5,
+        "cpu-0-2-1-thermal": 56.9,
+        "cpu-0-3-1-thermal": 56.9,
+        "gpuss-3-thermal": 55.0,
+        "gpuss-4-thermal": 54.7,
+        "gpuss-5-thermal": 54.7,
+        "video-thermal": 56.1,
+        "camss-1-thermal": 56.9,
+        "pcie-1-thermal": 56.1,
+        "cpuss-0-1-thermal": 56.9,
+        "nsp-0-0-0-thermal": 55.2,
+        "soc-therm": 55.2,
+        "ufs0-therm": 53.9,
+        "xo-therm": 53.0,
+        "sdram-therm": 55.0,
+        "pm8775-0-thermal": 48.6,
+        "pm8775-1-thermal": 51.0,
+        "pm8775-2-thermal": 50.8,
+        "pm8775-3-thermal": 51.6,
+        "pmm8654au_0_mbg_tz": 48.4,
+        "pmm8654au_1_mbg_tz": 51.1,
+        "nsp-0-1-0-thermal": 55.2,
+        "pmm8654au_2_mbg_tz": 50.7,
+        "pmm8654au_3_mbg_tz": 51.5,
+        "nsp-0-2-0-thermal": 55.9,
+        "nsp-1-0-0-thermal": 55.2,
+        "nsp-1-1-0-thermal": 55.2
+      }
+    }
+  },
+  "lengths": [
+    {
+      "target": 256,
+      "prompt_tokens": 262,
+      "reps": [
+        {
+          "ttft_s": 0.332,
+          "prefill_tok_s": 790.135,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 262,
+          "token_source": "usage",
+          "e2e_s": 4.871,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 262,
+              "prompt_ms": 316.771,
+              "prompt_per_second": 827.0959147144151,
+              "predicted_n": 128,
+              "predicted_ms": 4539.158,
+              "predicted_per_second": 28.19906246929497
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 28.193,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 0.33,
+          "prefill_tok_s": 794.157,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 262,
+          "token_source": "usage",
+          "e2e_s": 4.99,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 262,
+              "prompt_ms": 315.891,
+              "prompt_per_second": 829.400014561985,
+              "predicted_n": 128,
+              "predicted_ms": 4660.585,
+              "predicted_per_second": 27.464363379275348
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 27.456,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 0.329,
+          "prefill_tok_s": 796.178,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 262,
+          "token_source": "usage",
+          "e2e_s": 4.987,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 262,
+              "prompt_ms": 315.532,
+              "prompt_per_second": 830.3436735418278,
+              "predicted_n": 128,
+              "predicted_ms": 4658.233,
+              "predicted_per_second": 27.47823047923966
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 27.465,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 0.329,
+          "prefill_tok_s": 795.708,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 262,
+          "token_source": "usage",
+          "e2e_s": 4.911,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 262,
+              "prompt_ms": 315.508,
+              "prompt_per_second": 830.4068359597854,
+              "predicted_n": 128,
+              "predicted_ms": 4582.143,
+              "predicted_per_second": 27.93452757803499
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 27.932,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 0.328,
+          "prefill_tok_s": 798.567,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 262,
+          "token_source": "usage",
+          "e2e_s": 4.89,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 262,
+              "prompt_ms": 315,
+              "prompt_per_second": 831.7460317460317,
+              "predicted_n": 128,
+              "predicted_ms": 4561.705,
+              "predicted_per_second": 28.05968382435953
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 28.055,
+          "decode_tokens_measured": 128
+        }
+      ],
+      "ttft_s": {
+        "mean": 0.33,
+        "std": 0.002
+      },
+      "prefill_tok_s": {
+        "mean": 794.949,
+        "std": 3.122
+      },
+      "decode_tok_s": {
+        "mean": 27.82,
+        "std": 0.341,
+        "n": 5
+      },
+      "e2e_s": {
+        "mean": 4.93,
+        "std": 0.055
+      }
+    },
+    {
+      "target": 512,
+      "prompt_tokens": 523,
+      "reps": [
+        {
+          "ttft_s": 0.557,
+          "prefill_tok_s": 941.075,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 524,
+          "token_source": "usage",
+          "e2e_s": 5.195,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 524,
+              "prompt_ms": 539.969,
+              "prompt_per_second": 970.4260800157045,
+              "predicted_n": 128,
+              "predicted_ms": 4639.125,
+              "predicted_per_second": 27.591410018052972
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 27.578,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 0.553,
+          "prefill_tok_s": 948.351,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 524,
+          "token_source": "usage",
+          "e2e_s": 5.163,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 524,
+              "prompt_ms": 539.346,
+              "prompt_per_second": 971.5470217633949,
+              "predicted_n": 128,
+              "predicted_ms": 4611.228,
+              "predicted_per_second": 27.758332487571643
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 27.776,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 0.554,
+          "prefill_tok_s": 946.037,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 524,
+          "token_source": "usage",
+          "e2e_s": 5.395,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 524,
+              "prompt_ms": 538.551,
+              "prompt_per_second": 972.9812032658002,
+              "predicted_n": 128,
+              "predicted_ms": 4842.269,
+              "predicted_per_second": 26.43388874100138
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.435,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 0.565,
+          "prefill_tok_s": 927.959,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 524,
+          "token_source": "usage",
+          "e2e_s": 5.248,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 524,
+              "prompt_ms": 547,
+              "prompt_per_second": 957.9524680073125,
+              "predicted_n": 128,
+              "predicted_ms": 4684.792,
+              "predicted_per_second": 27.322451028775664
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 27.322,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 0.576,
+          "prefill_tok_s": 910.063,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 524,
+          "token_source": "usage",
+          "e2e_s": 5.29,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 524,
+              "prompt_ms": 561.45,
+              "prompt_per_second": 933.2977112832843,
+              "predicted_n": 128,
+              "predicted_ms": 4715.822,
+              "predicted_per_second": 27.142669931138197
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 27.166,
+          "decode_tokens_measured": 128
+        }
+      ],
+      "ttft_s": {
+        "mean": 0.561,
+        "std": 0.01
+      },
+      "prefill_tok_s": {
+        "mean": 934.697,
+        "std": 15.874
+      },
+      "decode_tok_s": {
+        "mean": 27.255,
+        "std": 0.515,
+        "n": 5
+      },
+      "e2e_s": {
+        "mean": 5.258,
+        "std": 0.091
+      }
+    },
+    {
+      "target": 1024,
+      "prompt_tokens": 1023,
+      "reps": [
+        {
+          "ttft_s": 1.008,
+          "prefill_tok_s": 1014.586,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 1023,
+          "token_source": "usage",
+          "e2e_s": 5.826,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 1023,
+              "prompt_ms": 991.76,
+              "prompt_per_second": 1031.499556344277,
+              "predicted_n": 128,
+              "predicted_ms": 4819.036,
+              "predicted_per_second": 26.56132886328303
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.56,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 0.999,
+          "prefill_tok_s": 1024.471,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 1023,
+          "token_source": "usage",
+          "e2e_s": 5.627,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 1023,
+              "prompt_ms": 983.115,
+              "prompt_per_second": 1040.5700248699288,
+              "predicted_n": 128,
+              "predicted_ms": 4629.887,
+              "predicted_per_second": 27.646463077824578
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 27.657,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 1.024,
+          "prefill_tok_s": 999.42,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 1023,
+          "token_source": "usage",
+          "e2e_s": 5.755,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 1023,
+              "prompt_ms": 1005.954,
+              "prompt_per_second": 1016.9451088220734,
+              "predicted_n": 128,
+              "predicted_ms": 4732.104,
+              "predicted_per_second": 27.049278714077293
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 27.057,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 1.004,
+          "prefill_tok_s": 1019.063,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 1023,
+          "token_source": "usage",
+          "e2e_s": 5.827,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 1023,
+              "prompt_ms": 985.602,
+              "prompt_per_second": 1037.9443223532421,
+              "predicted_n": 128,
+              "predicted_ms": 4824.111,
+              "predicted_per_second": 26.53338615135514
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.533,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 1.002,
+          "prefill_tok_s": 1021.156,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 1023,
+          "token_source": "usage",
+          "e2e_s": 5.825,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 1023,
+              "prompt_ms": 986.058,
+              "prompt_per_second": 1037.4643276561826,
+              "predicted_n": 128,
+              "predicted_ms": 4823.999,
+              "predicted_per_second": 26.534002183665464
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.608,
+          "decode_tokens_measured": 128
+        }
+      ],
+      "ttft_s": {
+        "mean": 1.007,
+        "std": 0.01
+      },
+      "prefill_tok_s": {
+        "mean": 1015.739,
+        "std": 9.802
+      },
+      "decode_tok_s": {
+        "mean": 26.883,
+        "std": 0.483,
+        "n": 5
+      },
+      "e2e_s": {
+        "mean": 5.772,
+        "std": 0.087
+      }
+    },
+    {
+      "target": 2048,
+      "prompt_tokens": 2041,
+      "reps": [
+        {
+          "ttft_s": 1.997,
+          "prefill_tok_s": 1021.864,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2041,
+          "token_source": "usage",
+          "e2e_s": 6.959,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2041,
+              "prompt_ms": 1976.643,
+              "prompt_per_second": 1032.5587372125367,
+              "predicted_n": 128,
+              "predicted_ms": 4962.715,
+              "predicted_per_second": 25.79233343039042
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 25.782,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 2.0,
+          "prefill_tok_s": 1020.588,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2041,
+          "token_source": "usage",
+          "e2e_s": 6.823,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2041,
+              "prompt_ms": 1980.478,
+              "prompt_per_second": 1030.5592892220968,
+              "predicted_n": 128,
+              "predicted_ms": 4823.846,
+              "predicted_per_second": 26.534843774034247
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.529,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 2.023,
+          "prefill_tok_s": 1009.117,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2041,
+          "token_source": "usage",
+          "e2e_s": 6.821,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2041,
+              "prompt_ms": 1989.428,
+              "prompt_per_second": 1025.9230291319918,
+              "predicted_n": 128,
+              "predicted_ms": 4799.529,
+              "predicted_per_second": 26.669283590118948
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.68,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 2.005,
+          "prefill_tok_s": 1018.114,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2041,
+          "token_source": "usage",
+          "e2e_s": 6.966,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2041,
+              "prompt_ms": 1984.878,
+              "prompt_per_second": 1028.2747856543324,
+              "predicted_n": 128,
+              "predicted_ms": 4962.38,
+              "predicted_per_second": 25.794074617421483
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 25.802,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 1.99,
+          "prefill_tok_s": 1025.877,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2041,
+          "token_source": "usage",
+          "e2e_s": 6.821,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2041,
+              "prompt_ms": 1970.037,
+              "prompt_per_second": 1036.0211508717857,
+              "predicted_n": 128,
+              "predicted_ms": 4832.733,
+              "predicted_per_second": 26.48604837055968
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.489,
+          "decode_tokens_measured": 128
+        }
+      ],
+      "ttft_s": {
+        "mean": 2.003,
+        "std": 0.012
+      },
+      "prefill_tok_s": {
+        "mean": 1019.112,
+        "std": 6.253
+      },
+      "decode_tok_s": {
+        "mean": 26.256,
+        "std": 0.43,
+        "n": 5
+      },
+      "e2e_s": {
+        "mean": 6.878,
+        "std": 0.077
+      }
+    },
+    {
+      "target": 2800,
+      "prompt_tokens": 2796,
+      "reps": [
+        {
+          "ttft_s": 2.782,
+          "prefill_tok_s": 1005.163,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2796,
+          "token_source": "usage",
+          "e2e_s": 7.695,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2796,
+              "prompt_ms": 2754.519,
+              "prompt_per_second": 1015.0592535393656,
+              "predicted_n": 128,
+              "predicted_ms": 4914.598,
+              "predicted_per_second": 26.044856568126225
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.047,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 2.794,
+          "prefill_tok_s": 1000.855,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2796,
+          "token_source": "usage",
+          "e2e_s": 7.867,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2796,
+              "prompt_ms": 2768.62,
+              "prompt_per_second": 1009.88940338508,
+              "predicted_n": 128,
+              "predicted_ms": 5074.853,
+              "predicted_per_second": 25.22240545686742
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 25.206,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 2.767,
+          "prefill_tok_s": 1010.478,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2796,
+          "token_source": "usage",
+          "e2e_s": 7.732,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2796,
+              "prompt_ms": 2744.206,
+              "prompt_per_second": 1018.8739475097715,
+              "predicted_n": 128,
+              "predicted_ms": 4965.964,
+              "predicted_per_second": 25.775458702479522
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 25.796,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 2.791,
+          "prefill_tok_s": 1001.96,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2796,
+          "token_source": "usage",
+          "e2e_s": 7.623,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2796,
+              "prompt_ms": 2767.242,
+              "prompt_per_second": 1010.3922967344381,
+              "predicted_n": 128,
+              "predicted_ms": 4833.089,
+              "predicted_per_second": 26.484097437477356
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.482,
+          "decode_tokens_measured": 128
+        },
+        {
+          "ttft_s": 2.78,
+          "prefill_tok_s": 1005.789,
+          "n_chunks": 128,
+          "n_out": 128,
+          "prompt_tokens": 2796,
+          "token_source": "usage",
+          "e2e_s": 7.691,
+          "server_extra": {
+            "timings": {
+              "prompt_n": 2796,
+              "prompt_ms": 2754.394,
+              "prompt_per_second": 1015.1053189921267,
+              "predicted_n": 128,
+              "predicted_ms": 4910.994,
+              "predicted_per_second": 26.06396994172667
+            }
+          },
+          "max_tokens_honored": true,
+          "decode_tok_s": 26.058,
+          "decode_tokens_measured": 128
+        }
+      ],
+      "ttft_s": {
+        "mean": 2.783,
+        "std": 0.011
+      },
+      "prefill_tok_s": {
+        "mean": 1004.849,
+        "std": 3.774
+      },
+      "decode_tok_s": {
+        "mean": 25.918,
+        "std": 0.468,
+        "n": 5
+      },
+      "e2e_s": {
+        "mean": 7.722,
+        "std": 0.09
+      }
+    }
+  ],
+  "thermal": {
+    "n_samples": 13,
+    "interval_s": 20.0,
+    "max_all_c": 65.6,
+    "mean_all_c": 61.1,
+    "max_cpu_c": 65.6,
+    "max_nsp_c": 63.2
+  },
+  "thermal_trace": [
+    {
+      "t_s": 0.5,
+      "all": 57.4,
+      "cpu": 57.4,
+      "nsp": 55.6,
+      "load1": 6.36
+    },
+    {
+      "t_s": 21.0,
+      "all": 54.7,
+      "cpu": 54.5,
+      "nsp": 53.4,
+      "load1": 4.74
+    },
+    {
+      "t_s": 41.5,
+      "all": 65.0,
+      "cpu": 65.0,
+      "nsp": 59.6,
+      "load1": 4.46
+    },
+    {
+      "t_s": 62.0,
+      "all": 54.9,
+      "cpu": 54.1,
+      "nsp": 53.4,
+      "load1": 5.24
+    },
+    {
+      "t_s": 82.5,
+      "all": 65.0,
+      "cpu": 65.0,
+      "nsp": 59.6,
+      "load1": 5.3
+    },
+    {
+      "t_s": 103.0,
+      "all": 54.5,
+      "cpu": 54.1,
+      "nsp": 53.4,
+      "load1": 5.36
+    },
+    {
+      "t_s": 123.5,
+      "all": 65.4,
+      "cpu": 65.4,
+      "nsp": 62.5,
+      "load1": 5.39
+    },
+    {
+      "t_s": 144.0,
+      "all": 54.5,
+      "cpu": 54.1,
+      "nsp": 53.7,
+      "load1": 5.35
+    },
+    {
+      "t_s": 164.5,
+      "all": 64.9,
+      "cpu": 64.9,
+      "nsp": 63.2,
+      "load1": 4.91
+    },
+    {
+      "t_s": 184.9,
+      "all": 65.0,
+      "cpu": 65.0,
+      "nsp": 59.2,
+      "load1": 5.72
+    },
+    {
+      "t_s": 205.4,
+      "all": 62.3,
+      "cpu": 62.3,
+      "nsp": 57.4,
+      "load1": 5.08
+    },
+    {
+      "t_s": 225.8,
+      "all": 65.4,
+      "cpu": 65.4,
+      "nsp": 57.7,
+      "load1": 5.83
+    },
+    {
+      "t_s": 246.3,
+      "all": 65.6,
+      "cpu": 65.6,
+      "nsp": 60.3,
+      "load1": 6.3
+    }
+  ],
+  "readiness": [
+    {
+      "before": "warmup",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "4.36 6.29 6.65 1/583 1324185",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 53.9,
+          "nsp": 53.0,
+          "all": 54.5
+        },
+        "cpu_busy": 0.004,
+        "thermal_zones": {
+          "aoss-2-thermal": 52.7,
+          "cpu-1-0-0-thermal": 53.7,
+          "nsp-1-2-0-thermal": 52.7,
+          "ddrss-0-thermal": 54.1,
+          "cpuss-1-0-thermal": 53.7,
+          "aoss-3-thermal": 52.7,
+          "cpu-1-0-1-thermal": 53.4,
+          "cpu-1-1-1-thermal": 53.0,
+          "cpu-1-2-1-thermal": 53.0,
+          "cpu-1-3-1-thermal": 53.4,
+          "nsp-0-0-1-thermal": 52.7,
+          "nsp-0-1-1-thermal": 52.7,
+          "cpu-1-1-0-thermal": 53.0,
+          "nsp-0-2-1-thermal": 52.7,
+          "nsp-1-0-1-thermal": 53.0,
+          "nsp-1-1-1-thermal": 52.7,
+          "nsp-1-2-1-thermal": 53.0,
+          "ddrss-1-thermal": 54.1,
+          "cpuss-1-1-thermal": 53.7,
+          "aoss-0-thermal": 52.3,
+          "cpu-0-0-0-thermal": 53.1,
+          "cpu-0-1-0-thermal": 52.7,
+          "cpu-0-2-0-thermal": 52.3,
+          "cpu-1-2-0-thermal": 53.4,
+          "cpu-0-3-0-thermal": 52.3,
+          "gpuss-0-thermal": 52.3,
+          "gpuss-1-thermal": 52.0,
+          "gpuss-2-thermal": 52.3,
+          "audio-thermal": 53.1,
+          "camss-0-thermal": 53.4,
+          "pcie-0-thermal": 53.8,
+          "cpuss-0-0-thermal": 52.7,
+          "aoss-1-thermal": 52.8,
+          "cpu-0-0-1-thermal": 52.8,
+          "cpu-1-3-0-thermal": 53.0,
+          "cpu-0-1-1-thermal": 53.2,
+          "cpu-0-2-1-thermal": 52.5,
+          "cpu-0-3-1-thermal": 53.9,
+          "gpuss-3-thermal": 52.5,
+          "gpuss-4-thermal": 52.5,
+          "gpuss-5-thermal": 52.5,
+          "video-thermal": 53.2,
+          "camss-1-thermal": 53.6,
+          "pcie-1-thermal": 52.8,
+          "cpuss-0-1-thermal": 53.2,
+          "nsp-0-0-0-thermal": 52.3,
+          "soc-therm": 54.5,
+          "ufs0-therm": 54.2,
+          "xo-therm": 53.3,
+          "sdram-therm": 53.9,
+          "pm8775-0-thermal": 48.6,
+          "pm8775-1-thermal": 50.9,
+          "pm8775-2-thermal": 49.7,
+          "pm8775-3-thermal": 50.4,
+          "pmm8654au_0_mbg_tz": 48.7,
+          "pmm8654au_1_mbg_tz": 50.9,
+          "nsp-0-1-0-thermal": 52.3,
+          "pmm8654au_2_mbg_tz": 49.6,
+          "pmm8654au_3_mbg_tz": 50.3,
+          "nsp-0-2-0-thermal": 53.0,
+          "nsp-1-0-0-thermal": 51.9,
+          "nsp-1-1-0-thermal": 52.7
+        }
+      }
+    },
+    {
+      "before": "length_256",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "4.36 6.29 6.65 2/583 1324461",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 54.1,
+          "nsp": 53.4,
+          "all": 54.5
+        },
+        "cpu_busy": 0.004,
+        "thermal_zones": {
+          "aoss-2-thermal": 53.0,
+          "cpu-1-0-0-thermal": 53.7,
+          "nsp-1-2-0-thermal": 53.0,
+          "ddrss-0-thermal": 53.7,
+          "cpuss-1-0-thermal": 53.4,
+          "aoss-3-thermal": 52.7,
+          "cpu-1-0-1-thermal": 53.7,
+          "cpu-1-1-1-thermal": 54.1,
+          "cpu-1-2-1-thermal": 53.0,
+          "cpu-1-3-1-thermal": 53.0,
+          "nsp-0-0-1-thermal": 52.7,
+          "nsp-0-1-1-thermal": 52.7,
+          "cpu-1-1-0-thermal": 53.0,
+          "nsp-0-2-1-thermal": 52.7,
+          "nsp-1-0-1-thermal": 53.0,
+          "nsp-1-1-1-thermal": 53.0,
+          "nsp-1-2-1-thermal": 53.4,
+          "ddrss-1-thermal": 54.1,
+          "cpuss-1-1-thermal": 53.4,
+          "aoss-0-thermal": 52.7,
+          "cpu-0-0-0-thermal": 52.7,
+          "cpu-0-1-0-thermal": 52.7,
+          "cpu-0-2-0-thermal": 52.7,
+          "cpu-1-2-0-thermal": 53.0,
+          "cpu-0-3-0-thermal": 52.7,
+          "gpuss-0-thermal": 52.0,
+          "gpuss-1-thermal": 52.0,
+          "gpuss-2-thermal": 52.0,
+          "audio-thermal": 52.7,
+          "camss-0-thermal": 53.4,
+          "pcie-0-thermal": 53.4,
+          "cpuss-0-0-thermal": 53.1,
+          "aoss-1-thermal": 52.8,
+          "cpu-0-0-1-thermal": 52.8,
+          "cpu-1-3-0-thermal": 53.4,
+          "cpu-0-1-1-thermal": 53.9,
+          "cpu-0-2-1-thermal": 52.5,
+          "cpu-0-3-1-thermal": 52.8,
+          "gpuss-3-thermal": 52.5,
+          "gpuss-4-thermal": 52.1,
+          "gpuss-5-thermal": 52.1,
+          "video-thermal": 53.2,
+          "camss-1-thermal": 53.6,
+          "pcie-1-thermal": 52.8,
+          "cpuss-0-1-thermal": 53.2,
+          "nsp-0-0-0-thermal": 52.7,
+          "soc-therm": 54.5,
+          "ufs0-therm": 54.2,
+          "xo-therm": 53.2,
+          "sdram-therm": 53.8,
+          "pm8775-0-thermal": 48.6,
+          "pm8775-1-thermal": 50.7,
+          "pm8775-2-thermal": 49.6,
+          "pm8775-3-thermal": 50.3,
+          "pmm8654au_0_mbg_tz": 48.7,
+          "pmm8654au_1_mbg_tz": 50.8,
+          "nsp-0-1-0-thermal": 52.7,
+          "pmm8654au_2_mbg_tz": 49.5,
+          "pmm8654au_3_mbg_tz": 50.2,
+          "nsp-0-2-0-thermal": 53.0,
+          "nsp-1-0-0-thermal": 52.3,
+          "nsp-1-1-0-thermal": 52.3
+        }
+      }
+    },
+    {
+      "before": "length_512",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "4.82 6.18 6.60 1/583 1325561",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 53.7,
+          "nsp": 52.7,
+          "all": 54.3
+        },
+        "cpu_busy": 0.006,
+        "thermal_zones": {
+          "aoss-2-thermal": 52.3,
+          "cpu-1-0-0-thermal": 53.4,
+          "nsp-1-2-0-thermal": 52.7,
+          "ddrss-0-thermal": 53.4,
+          "cpuss-1-0-thermal": 53.7,
+          "aoss-3-thermal": 52.7,
+          "cpu-1-0-1-thermal": 53.7,
+          "cpu-1-1-1-thermal": 53.4,
+          "cpu-1-2-1-thermal": 52.7,
+          "cpu-1-3-1-thermal": 53.0,
+          "nsp-0-0-1-thermal": 52.7,
+          "nsp-0-1-1-thermal": 52.3,
+          "cpu-1-1-0-thermal": 52.7,
+          "nsp-0-2-1-thermal": 52.3,
+          "nsp-1-0-1-thermal": 52.7,
+          "nsp-1-1-1-thermal": 52.3,
+          "nsp-1-2-1-thermal": 52.7,
+          "ddrss-1-thermal": 53.7,
+          "cpuss-1-1-thermal": 53.4,
+          "aoss-0-thermal": 52.3,
+          "cpu-0-0-0-thermal": 53.1,
+          "cpu-0-1-0-thermal": 52.3,
+          "cpu-0-2-0-thermal": 52.3,
+          "cpu-1-2-0-thermal": 52.7,
+          "cpu-0-3-0-thermal": 52.7,
+          "gpuss-0-thermal": 52.3,
+          "gpuss-1-thermal": 51.6,
+          "gpuss-2-thermal": 52.0,
+          "audio-thermal": 52.7,
+          "camss-0-thermal": 53.1,
+          "pcie-0-thermal": 53.1,
+          "cpuss-0-0-thermal": 52.7,
+          "aoss-1-thermal": 52.1,
+          "cpu-0-0-1-thermal": 52.5,
+          "cpu-1-3-0-thermal": 53.0,
+          "cpu-0-1-1-thermal": 52.5,
+          "cpu-0-2-1-thermal": 52.5,
+          "cpu-0-3-1-thermal": 52.5,
+          "gpuss-3-thermal": 51.7,
+          "gpuss-4-thermal": 52.1,
+          "gpuss-5-thermal": 51.7,
+          "video-thermal": 52.5,
+          "camss-1-thermal": 53.2,
+          "pcie-1-thermal": 52.8,
+          "cpuss-0-1-thermal": 52.8,
+          "nsp-0-0-0-thermal": 51.9,
+          "soc-therm": 54.3,
+          "ufs0-therm": 53.9,
+          "xo-therm": 53.0,
+          "sdram-therm": 53.7,
+          "pm8775-0-thermal": 48.4,
+          "pm8775-1-thermal": 50.5,
+          "pm8775-2-thermal": 49.0,
+          "pm8775-3-thermal": 50.0,
+          "pmm8654au_0_mbg_tz": 48.2,
+          "pmm8654au_1_mbg_tz": 50.6,
+          "nsp-0-1-0-thermal": 52.3,
+          "pmm8654au_2_mbg_tz": 49.1,
+          "pmm8654au_3_mbg_tz": 50.0,
+          "nsp-0-2-0-thermal": 52.7,
+          "nsp-1-0-0-thermal": 52.3,
+          "nsp-1-1-0-thermal": 52.3
+        }
+      }
+    },
+    {
+      "before": "length_1024",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "4.93 6.08 6.56 2/584 1326665",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 53.7,
+          "nsp": 53.0,
+          "all": 54.0
+        },
+        "cpu_busy": 0.004,
+        "thermal_zones": {
+          "aoss-2-thermal": 52.3,
+          "cpu-1-0-0-thermal": 53.0,
+          "nsp-1-2-0-thermal": 52.3,
+          "ddrss-0-thermal": 53.0,
+          "cpuss-1-0-thermal": 53.7,
+          "aoss-3-thermal": 52.3,
+          "cpu-1-0-1-thermal": 53.4,
+          "cpu-1-1-1-thermal": 53.7,
+          "cpu-1-2-1-thermal": 53.0,
+          "cpu-1-3-1-thermal": 53.0,
+          "nsp-0-0-1-thermal": 52.3,
+          "nsp-0-1-1-thermal": 51.9,
+          "cpu-1-1-0-thermal": 52.7,
+          "nsp-0-2-1-thermal": 52.3,
+          "nsp-1-0-1-thermal": 52.7,
+          "nsp-1-1-1-thermal": 52.3,
+          "nsp-1-2-1-thermal": 53.0,
+          "ddrss-1-thermal": 53.7,
+          "cpuss-1-1-thermal": 53.4,
+          "aoss-0-thermal": 52.3,
+          "cpu-0-0-0-thermal": 52.7,
+          "cpu-0-1-0-thermal": 52.7,
+          "cpu-0-2-0-thermal": 52.7,
+          "cpu-1-2-0-thermal": 52.7,
+          "cpu-0-3-0-thermal": 52.3,
+          "gpuss-0-thermal": 51.6,
+          "gpuss-1-thermal": 51.6,
+          "gpuss-2-thermal": 51.6,
+          "audio-thermal": 52.3,
+          "camss-0-thermal": 53.1,
+          "pcie-0-thermal": 53.1,
+          "cpuss-0-0-thermal": 52.7,
+          "aoss-1-thermal": 52.1,
+          "cpu-0-0-1-thermal": 52.8,
+          "cpu-1-3-0-thermal": 53.0,
+          "cpu-0-1-1-thermal": 52.5,
+          "cpu-0-2-1-thermal": 52.5,
+          "cpu-0-3-1-thermal": 52.5,
+          "gpuss-3-thermal": 51.7,
+          "gpuss-4-thermal": 51.7,
+          "gpuss-5-thermal": 51.7,
+          "video-thermal": 52.5,
+          "camss-1-thermal": 53.2,
+          "pcie-1-thermal": 52.5,
+          "cpuss-0-1-thermal": 53.2,
+          "nsp-0-0-0-thermal": 51.6,
+          "soc-therm": 54.0,
+          "ufs0-therm": 53.5,
+          "xo-therm": 52.6,
+          "sdram-therm": 53.4,
+          "pm8775-0-thermal": 48.2,
+          "pm8775-1-thermal": 50.0,
+          "pm8775-2-thermal": 49.0,
+          "pm8775-3-thermal": 49.6,
+          "pmm8654au_0_mbg_tz": 48.0,
+          "pmm8654au_1_mbg_tz": 50.1,
+          "nsp-0-1-0-thermal": 52.3,
+          "pmm8654au_2_mbg_tz": 48.9,
+          "pmm8654au_3_mbg_tz": 49.6,
+          "nsp-0-2-0-thermal": 52.7,
+          "nsp-1-0-0-thermal": 51.9,
+          "nsp-1-1-0-thermal": 51.9
+        }
+      }
+    },
+    {
+      "before": "length_2048",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "4.53 5.88 6.47 1/583 1327763",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 53.9,
+          "nsp": 52.7,
+          "all": 53.9
+        },
+        "cpu_busy": 0.006,
+        "thermal_zones": {
+          "aoss-2-thermal": 51.9,
+          "cpu-1-0-0-thermal": 53.4,
+          "nsp-1-2-0-thermal": 52.3,
+          "ddrss-0-thermal": 53.4,
+          "cpuss-1-0-thermal": 53.0,
+          "aoss-3-thermal": 52.3,
+          "cpu-1-0-1-thermal": 53.4,
+          "cpu-1-1-1-thermal": 52.7,
+          "cpu-1-2-1-thermal": 53.0,
+          "cpu-1-3-1-thermal": 52.7,
+          "nsp-0-0-1-thermal": 52.3,
+          "nsp-0-1-1-thermal": 51.9,
+          "cpu-1-1-0-thermal": 52.3,
+          "nsp-0-2-1-thermal": 52.3,
+          "nsp-1-0-1-thermal": 52.3,
+          "nsp-1-1-1-thermal": 52.3,
+          "nsp-1-2-1-thermal": 52.7,
+          "ddrss-1-thermal": 53.7,
+          "cpuss-1-1-thermal": 53.4,
+          "aoss-0-thermal": 52.0,
+          "cpu-0-0-0-thermal": 52.7,
+          "cpu-0-1-0-thermal": 52.3,
+          "cpu-0-2-0-thermal": 52.0,
+          "cpu-1-2-0-thermal": 53.0,
+          "cpu-0-3-0-thermal": 52.3,
+          "gpuss-0-thermal": 51.6,
+          "gpuss-1-thermal": 52.0,
+          "gpuss-2-thermal": 51.6,
+          "audio-thermal": 52.3,
+          "camss-0-thermal": 53.1,
+          "pcie-0-thermal": 53.1,
+          "cpuss-0-0-thermal": 52.3,
+          "aoss-1-thermal": 52.1,
+          "cpu-0-0-1-thermal": 52.1,
+          "cpu-1-3-0-thermal": 53.0,
+          "cpu-0-1-1-thermal": 52.5,
+          "cpu-0-2-1-thermal": 52.5,
+          "cpu-0-3-1-thermal": 53.9,
+          "gpuss-3-thermal": 51.7,
+          "gpuss-4-thermal": 51.7,
+          "gpuss-5-thermal": 51.7,
+          "video-thermal": 52.5,
+          "camss-1-thermal": 53.2,
+          "pcie-1-thermal": 52.1,
+          "cpuss-0-1-thermal": 52.8,
+          "nsp-0-0-0-thermal": 51.9,
+          "soc-therm": 53.8,
+          "ufs0-therm": 53.4,
+          "xo-therm": 52.5,
+          "sdram-therm": 53.3,
+          "pm8775-0-thermal": 48.1,
+          "pm8775-1-thermal": 50.0,
+          "pm8775-2-thermal": 48.8,
+          "pm8775-3-thermal": 49.6,
+          "pmm8654au_0_mbg_tz": 48.1,
+          "pmm8654au_1_mbg_tz": 50.1,
+          "nsp-0-1-0-thermal": 52.3,
+          "pmm8654au_2_mbg_tz": 48.6,
+          "pmm8654au_3_mbg_tz": 49.5,
+          "nsp-0-2-0-thermal": 52.7,
+          "nsp-1-0-0-thermal": 51.9,
+          "nsp-1-1-0-thermal": 51.6
+        }
+      }
+    },
+    {
+      "before": "length_2800",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "5.08 5.89 6.44 2/583 1328870",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 53.6,
+          "nsp": 53.0,
+          "all": 54.1
+        },
+        "cpu_busy": 0.015,
+        "thermal_zones": {
+          "aoss-2-thermal": 52.3,
+          "cpu-1-0-0-thermal": 53.0,
+          "nsp-1-2-0-thermal": 52.3,
+          "ddrss-0-thermal": 53.4,
+          "cpuss-1-0-thermal": 53.4,
+          "aoss-3-thermal": 52.7,
+          "cpu-1-0-1-thermal": 53.4,
+          "cpu-1-1-1-thermal": 52.7,
+          "cpu-1-2-1-thermal": 52.7,
+          "cpu-1-3-1-thermal": 53.0,
+          "nsp-0-0-1-thermal": 52.7,
+          "nsp-0-1-1-thermal": 52.3,
+          "cpu-1-1-0-thermal": 52.3,
+          "nsp-0-2-1-thermal": 52.3,
+          "nsp-1-0-1-thermal": 52.3,
+          "nsp-1-1-1-thermal": 52.3,
+          "nsp-1-2-1-thermal": 53.0,
+          "ddrss-1-thermal": 53.7,
+          "cpuss-1-1-thermal": 53.4,
+          "aoss-0-thermal": 52.0,
+          "cpu-0-0-0-thermal": 52.7,
+          "cpu-0-1-0-thermal": 52.7,
+          "cpu-0-2-0-thermal": 52.0,
+          "cpu-1-2-0-thermal": 53.0,
+          "cpu-0-3-0-thermal": 52.3,
+          "gpuss-0-thermal": 51.6,
+          "gpuss-1-thermal": 51.6,
+          "gpuss-2-thermal": 51.6,
+          "audio-thermal": 52.3,
+          "camss-0-thermal": 53.4,
+          "pcie-0-thermal": 53.1,
+          "cpuss-0-0-thermal": 52.7,
+          "aoss-1-thermal": 52.1,
+          "cpu-0-0-1-thermal": 52.1,
+          "cpu-1-3-0-thermal": 52.7,
+          "cpu-0-1-1-thermal": 52.1,
+          "cpu-0-2-1-thermal": 52.8,
+          "cpu-0-3-1-thermal": 53.6,
+          "gpuss-3-thermal": 51.7,
+          "gpuss-4-thermal": 51.7,
+          "gpuss-5-thermal": 52.1,
+          "video-thermal": 52.5,
+          "camss-1-thermal": 53.2,
+          "pcie-1-thermal": 52.5,
+          "cpuss-0-1-thermal": 52.8,
+          "nsp-0-0-0-thermal": 51.9,
+          "soc-therm": 54.1,
+          "ufs0-therm": 53.5,
+          "xo-therm": 52.6,
+          "sdram-therm": 53.4,
+          "pm8775-0-thermal": 48.4,
+          "pm8775-1-thermal": 50.4,
+          "pm8775-2-thermal": 49.0,
+          "pm8775-3-thermal": 49.9,
+          "pmm8654au_0_mbg_tz": 48.5,
+          "pmm8654au_1_mbg_tz": 50.3,
+          "nsp-0-1-0-thermal": 52.3,
+          "pmm8654au_2_mbg_tz": 49.2,
+          "pmm8654au_3_mbg_tz": 49.9,
+          "nsp-0-2-0-thermal": 53.0,
+          "nsp-1-0-0-thermal": 51.9,
+          "nsp-1-1-0-thermal": 51.9
+        }
+      }
+    }
+  ]
+}

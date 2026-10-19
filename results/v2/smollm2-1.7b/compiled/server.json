@@ -1,0 +1,23 @@
+{
+  "model": "smollm2-1.7b",
+  "path": "compiled",
+  "server_cmd": "nohup env <env> /root/geniex-v080/geniex-cli-linux-arm64-v0.8.0/geniex --data-dir /root/eab-data --skip-update --log info serve --host 0.0.0.0:18384 -c npu --nctx 4096 --keepalive 3600 > /root/eab-serve.log 2>&1 &",
+  "server_options": "--nctx 4096 --keepalive 3600",
+  "power_mode": "server default (burst)",
+  "server_version": "GenieX CLI Version:     v0.8.0\nQAIRT Runtime Version:  2.45\nLlamaCPP Runtime Hash:  9425611",
+  "artifact": "SmolLM2-1.7B-Instruct/smollm2_1_7b_it-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+  "artifact_sha256": "a6f8e88979a937293ed48224b58131969b699e73ad6440b3d564137555c02599",
+  "gguf_source": null,
+  "bundle": {
+    "context": 4096,
+    "parts": 3,
+    "largest_part_gb": 0.53
+  },
+  "served_model_id": "qualcomm/smollm2-1.7b-w4a16",
+  "started": "2026-10-16T14:04:11Z",
+  "load_check": {
+    "load_and_first_reply_s": 1.81,
+    "reply": "{\"id\": \"\", \"choices\": [{\"finish_reason\": \"stop\", \"index\": 0, \"logprobs\": {\"content\": null, \"refusal\": null}, \"message\": {\"content\": \"ok.\", \"refusal\": \"\", \"role\": \"assistant\", \"annotations\": null, \"audio\": {\"id\": \"\", \"data\": \"\", \"expires_at\": 0, \"transcript\": \"\"}, \"function_call\": {\"arguments\": \"\", \""
+  },
+  "server_log_runtime_lines": "HTP arch v73 detected.\nHTP arch: v73\n"
+}

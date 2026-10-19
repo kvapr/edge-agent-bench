@@ -1,0 +1,19 @@
+{
+  "model": "smollm2-1.7b",
+  "path": "npu_llama",
+  "server_cmd": "nohup env <env> /root/geniex-v080/geniex-cli-linux-arm64-v0.8.0/geniex --data-dir /root/eab-data --skip-update --log info serve --host 0.0.0.0:18384 -c npu --nctx 4096 --keepalive 3600 > /root/eab-serve.log 2>&1 &",
+  "server_options": "--nctx 4096 --keepalive 3600",
+  "power_mode": "server default (burst)",
+  "server_version": "GenieX CLI Version:     v0.8.0\nQAIRT Runtime Version:  2.45\nLlamaCPP Runtime Hash:  9425611",
+  "artifact": "SmolLM2-1.7B-Instruct/SmolLM2-1.7B-Instruct-Q4_0.gguf",
+  "artifact_sha256": "99b866e77adee858930244229afa833dbe3372a7bf122905ea506119c6911ae8",
+  "gguf_source": "community (bartowski); the catalog has no GGUF for this model",
+  "bundle": null,
+  "served_model_id": "qualcomm/smollm2-1.7b-q4_0:Q4_0",
+  "started": "2026-10-16T13:39:05Z",
+  "load_check": {
+    "load_and_first_reply_s": 2.67,
+    "reply": "{\"id\": \"\", \"choices\": [{\"finish_reason\": \"stop\", \"index\": 0, \"logprobs\": {\"content\": null, \"refusal\": null}, \"message\": {\"content\": \"Ok.\", \"refusal\": \"\", \"role\": \"assistant\", \"annotations\": null, \"audio\": {\"id\": \"\", \"data\": \"\", \"expires_at\": 0, \"transcript\": \"\"}, \"function_call\": {\"arguments\": \"\", \""
+  },
+  "server_log_runtime_lines": "Using 1 device(s): HTP0\n[Optimise] context params: n_ctx=4096, n_batch=2048, n_ubatch=1024, n_seq_max=1, n_threads=8, n_threads_batch=8, flash_attn_type=1, swa_full=false, kv_unified=false, no_perf=false, n_rs_seq=0, n_outputs_max=0, n_outputs_max_per_seq=1\n[Optimise] model params: n_gpu_layers=-1, load_mode=none\n[Optimise] threadpool attached: n_threads=8, n_threads_batch=8, strict_cpu=false, poll=1000, pinned_cores=[none]\n"
+}

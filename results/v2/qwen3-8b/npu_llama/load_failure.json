@@ -1,0 +1,19 @@
+{
+  "load_failure": true,
+  "model": "qwen3-8b",
+  "path": "npu_llama",
+  "server_cmd": "nohup env <env> /root/geniex-v080/geniex-cli-linux-arm64-v0.8.0/geniex --data-dir /root/eab-data --skip-update --log info serve --host 0.0.0.0:18384 -c npu --nctx 4096 --keepalive 3600 > /root/eab-serve.log 2>&1 &",
+  "server_options": "--nctx 4096 --keepalive 3600",
+  "power_mode": "server default (burst)",
+  "server_version": "GenieX CLI Version:     v0.8.0\nQAIRT Runtime Version:  2.45\nLlamaCPP Runtime Hash:  9425611",
+  "artifact": "Qwen3-8B/Qwen3-8B-Q4_0.gguf",
+  "artifact_sha256": "a0b977b71f4cacf4e750fee52fbb3cd803dca7148da457941b4d4e44f520aced",
+  "gguf_source": "self-quantized Q4_0 from the unsloth BF16 GGUF (no Q4_0 published)",
+  "bundle": null,
+  "served_model_id": "qualcomm/qwen3-8b-q4_0:Q4_0",
+  "started": "2026-10-16T04:46:15Z",
+  "load_check": {
+    "error": "TimeoutError: timed out"
+  },
+  "server_log_tail": ""
+}

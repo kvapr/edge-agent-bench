@@ -1,0 +1,43 @@
+{
+  "question": "Can Qwen3-4B-Instruct-2507 Q4_0 load on the GenieX v0.8.0 llama.cpp NPU path, and does any documented llama.cpp Hexagon setting help?",
+  "date": "2026-10-15",
+  "server": "GenieX v0.8.0 (llama.cpp 9425611), serve -c npu --nctx 4096",
+  "attempts": [
+    {
+      "setting": "default",
+      "loaded": false,
+      "devices_used": 1,
+      "failed_buffer_bytes": 1065046016,
+      "reply": "{\"code\":-100000,\"error\":\"SDKError(Unknown error)\"}"
+    },
+    {
+      "setting": "GGML_HEXAGON_NDEV=2",
+      "loaded": false,
+      "devices_used": 1,
+      "failed_buffer_bytes": 1065046016,
+      "reply": "{\"code\":-100000,\"error\":\"SDKError(Unknown error)\"}"
+    },
+    {
+      "setting": "GGML_HEXAGON_MBUF=512",
+      "loaded": false,
+      "devices_used": 1,
+      "failed_buffer_bytes": 275107840,
+      "reply": "{\"code\":-100000,\"error\":\"SDKError(Unknown error)\"}"
+    },
+    {
+      "setting": "GGML_HEXAGON_MBUF=256",
+      "loaded": false,
+      "devices_used": 1,
+      "failed_buffer_bytes": 340340736,
+      "reply": "{\"code\":-100000,\"error\":\"SDKError(Unknown error)\"}"
+    },
+    {
+      "setting": "GGML_HEXAGON_HOSTBUF=0",
+      "loaded": false,
+      "devices_used": 1,
+      "failed_buffer_bytes": 1065046016,
+      "reply": "{\"code\":-100000,\"error\":\"SDKError(Unknown error)\"}"
+    }
+  ],
+  "conclusion": "Fails in every setting. GenieX selects one HTP device itself, so GGML_HEXAGON_NDEV has no effect; GGML_HEXAGON_MBUF splits allocations into smaller buffers but mapping still fails, so the limit is the total memory one NPU session can map, not the size of a single buffer; GGML_HEXAGON_HOSTBUF=0 changes nothing."
+}

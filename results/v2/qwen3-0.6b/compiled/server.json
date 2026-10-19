@@ -1,0 +1,23 @@
+{
+  "model": "qwen3-0.6b",
+  "path": "compiled",
+  "server_cmd": "nohup env <env> /root/geniex-v080/geniex-cli-linux-arm64-v0.8.0/geniex --data-dir /root/eab-data --skip-update --log info serve --host 0.0.0.0:18384 -c npu --nctx 4096 --keepalive 3600 > /root/eab-serve.log 2>&1 &",
+  "server_options": "--nctx 4096 --keepalive 3600",
+  "power_mode": "server default (burst)",
+  "server_version": "GenieX CLI Version:     v0.8.0\nQAIRT Runtime Version:  2.45\nLlamaCPP Runtime Hash:  9425611",
+  "artifact": "Qwen3-0.6B/qwen3_0_6b-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+  "artifact_sha256": "6d3784f8bc2d7db44fb43ebfca04affea8ad5caf8f94957a71c52a22116bf21d",
+  "gguf_source": null,
+  "bundle": {
+    "context": 4096,
+    "parts": 2,
+    "largest_part_gb": 0.438
+  },
+  "served_model_id": "qualcomm/qwen3-0.6b-w4a16",
+  "started": "2026-10-15T16:30:00Z",
+  "load_check": {
+    "load_and_first_reply_s": 2.2,
+    "reply": "{\"id\": \"\", \"choices\": [{\"finish_reason\": \"stop\", \"index\": 0, \"logprobs\": {\"content\": null, \"refusal\": null}, \"message\": {\"content\": \"ok\", \"refusal\": \"\", \"role\": \"assistant\", \"annotations\": null, \"audio\": {\"id\": \"\", \"data\": \"\", \"expires_at\": 0, \"transcript\": \"\"}, \"function_call\": {\"arguments\": \"\", \"n"
+  },
+  "server_log_runtime_lines": "HTP arch v73 detected.\nHTP arch: v73\n"
+}

@@ -1,0 +1,20 @@
+{
+  "load_failure": true,
+  "model": "gemma-4-e2b",
+  "path": "npu_llama",
+  "server_cmd": "nohup env <env> /root/geniex-v080/geniex-cli-linux-arm64-v0.8.0/geniex --data-dir /root/eab-data --skip-update --log info serve --host 0.0.0.0:18384 -c npu --nctx 4096 --keepalive 3600 > /root/eab-serve.log 2>&1 &",
+  "server_options": "--nctx 4096 --keepalive 3600",
+  "power_mode": "server default (burst)",
+  "server_version": "GenieX CLI Version:     v0.8.0\nQAIRT Runtime Version:  2.45\nLlamaCPP Runtime Hash:  9425611",
+  "artifact": "Gemma-4-E2B-it/gemma-4-E2B_q4_0-it.gguf",
+  "artifact_sha256": "fa401b55b07ee70a54c6dae3903c783a6e65064312529ea57175cb5f8dec6634",
+  "gguf_source": "catalog",
+  "bundle": null,
+  "served_model_id": "qualcomm/gemma-4-e2b-q4_0:Q4_0",
+  "started": "2026-10-17T04:54:40Z",
+  "load_check": {
+    "http_status": 500,
+    "body": "{\"code\":-100000,\"error\":\"SDKError(Unknown error)\"}"
+  },
+  "server_log_tail": "\u001b[2mOct 17 04:51:35.541\u001b[0m \u001b[93mWRN\u001b[0m \u001b[2mgo/ml.go:235\u001b[0m [ML] [plugins/llama_cpp/src/plugin.cpp:52:ggml_to_geniex_log] ggml-hex: HTP0 buffer mapping failed : domain_id 3 size 1073745920 fd 29 error 0x00000001\n\u001b[2mOct 17 04:51:35.541\u001b[0m \u001b[91mERR\u001b[0m \u001b[2mgo/ml.go:237\u001b[0m [ML] [src/llm.cpp:157:geniex_llm_generate] llm generate error: ggml-hex: fastrpc_mmap failed (see log for details)\n"
+}
