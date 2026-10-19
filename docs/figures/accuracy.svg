@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="504" viewBox="0 0 720 504" role="img" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>End to end accuracy of readable configurations</title>
+<desc>Pooled end to end accuracy with 95% item bootstrap intervals for the 19 readable configurations, sorted.</desc>
+<rect width="720" height="504" fill="#ffffff"/>
+<text x="16.0" y="26.0" font-size="11" fill="#898781" text-anchor="start">Model</text>
+<text x="196.0" y="26.0" font-size="11" fill="#898781" text-anchor="start">Serving path</text>
+<line x1="330.0" y1="34.0" x2="330.0" y2="460.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="330.0" y="474.0" font-size="11" fill="#898781" text-anchor="middle">0</text>
+<line x1="396.8" y1="34.0" x2="396.8" y2="460.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="396.8" y="474.0" font-size="11" fill="#898781" text-anchor="middle">20</text>
+<line x1="463.6" y1="34.0" x2="463.6" y2="460.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="463.6" y="474.0" font-size="11" fill="#898781" text-anchor="middle">40</text>
+<line x1="530.4" y1="34.0" x2="530.4" y2="460.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="530.4" y="474.0" font-size="11" fill="#898781" text-anchor="middle">60</text>
+<line x1="597.2" y1="34.0" x2="597.2" y2="460.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="597.2" y="474.0" font-size="11" fill="#898781" text-anchor="middle">80</text>
+<line x1="664.0" y1="34.0" x2="664.0" y2="460.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="664.0" y="474.0" font-size="11" fill="#898781" text-anchor="middle">100</text>
+<text x="497.0" y="492.0" font-size="12" fill="#52514e" text-anchor="middle">End to end accuracy, % of 260 items (95% bootstrap interval)</text>
+<text x="16.0" y="55.0" font-size="12" fill="#0b0b0b" text-anchor="start">Gemma-4-E4B-it</text>
+<circle cx="201.0" cy="51.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="55.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="628.9" y1="51.0" x2="649.0" y2="51.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="628.9" y1="47.0" x2="628.9" y2="55.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="649.0" y1="47.0" x2="649.0" y2="55.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="639.6" cy="51.0" r="4.8" fill="#2a78d6"><title>Gemma-4-E4B-it, CPU (llama.cpp): 92.7% (89.5-95.5)</title></circle>
+<text x="657.0" y="55.0" font-size="11" fill="#0b0b0b" text-anchor="start">92.7</text>
+<text x="16.0" y="77.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-4B-Instruct-2507</text>
+<circle cx="201.0" cy="73.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="77.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="622.0" y1="73.0" x2="644.7" y2="73.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="622.0" y1="69.0" x2="622.0" y2="77.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="644.7" y1="69.0" x2="644.7" y2="77.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="634.0" cy="73.0" r="4.8" fill="#2a78d6"><title>Qwen3-4B-Instruct-2507, CPU (llama.cpp): 91.0% (87.4-94.2)</title></circle>
+<text x="652.7" y="77.0" font-size="11" fill="#0b0b0b" text-anchor="start">91.0</text>
+<text x="16.0" y="99.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-4B</text>
+<circle cx="201.0" cy="95.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="99.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="615.2" y1="95.0" x2="639.6" y2="95.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="615.2" y1="91.0" x2="615.2" y2="99.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="639.6" y1="91.0" x2="639.6" y2="99.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="628.0" cy="95.0" r="4.8" fill="#2a78d6"><title>Qwen3-4B, CPU (llama.cpp): 89.2% (85.4-92.7)</title></circle>
+<text x="647.6" y="99.0" font-size="11" fill="#0b0b0b" text-anchor="start">89.2</text>
+<text x="16.0" y="121.0" font-size="12" fill="#0b0b0b" text-anchor="start">Granite-4.0-H-Micro</text>
+<circle cx="201.0" cy="117.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="121.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="596.3" y1="117.0" x2="625.5" y2="117.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="596.3" y1="113.0" x2="596.3" y2="121.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="625.5" y1="113.0" x2="625.5" y2="121.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="611.3" cy="117.0" r="4.8" fill="#2a78d6"><title>Granite-4.0-H-Micro, CPU (llama.cpp): 84.2% (79.7-88.5)</title></circle>
+<text x="633.5" y="121.0" font-size="11" fill="#0b0b0b" text-anchor="start">84.2</text>
+<text x="16.0" y="143.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-4B-Instruct-2507</text>
+<path d="M201.0,132.7 L207.3,139.0 L201.0,145.3 L194.7,139.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="211.0" y="143.0" font-size="11" fill="#52514e" text-anchor="start">NPU (compiled)</text>
+<line x1="580.5" y1="139.0" x2="612.6" y2="139.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="580.5" y1="135.0" x2="580.5" y2="143.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="612.6" y1="135.0" x2="612.6" y2="143.0" stroke="#eb6834" stroke-width="1.5"/>
+<path d="M597.2,132.7 L603.5,139.0 L597.2,145.3 L590.9,139.0 Z" fill="#eb6834"><title>Qwen3-4B-Instruct-2507, NPU (compiled): 80.0% (75.0-84.6)</title></path>
+<text x="620.6" y="143.0" font-size="11" fill="#0b0b0b" text-anchor="start">80.0</text>
+<text x="16.0" y="165.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-8B</text>
+<circle cx="201.0" cy="161.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="165.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="574.1" y1="161.0" x2="607.5" y2="161.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="574.1" y1="157.0" x2="574.1" y2="165.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="607.5" y1="157.0" x2="607.5" y2="165.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="591.2" cy="161.0" r="4.8" fill="#2a78d6"><title>Qwen3-8B, CPU (llama.cpp): 78.2% (73.1-83.1)</title></circle>
+<text x="615.5" y="165.0" font-size="11" fill="#0b0b0b" text-anchor="start">78.2</text>
+<text x="16.0" y="187.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-8B</text>
+<path d="M201.0,176.7 L207.3,183.0 L201.0,189.3 L194.7,183.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="211.0" y="187.0" font-size="11" fill="#52514e" text-anchor="start">NPU (compiled)</text>
+<line x1="572.8" y1="183.0" x2="606.2" y2="183.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="572.8" y1="179.0" x2="572.8" y2="187.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="606.2" y1="179.0" x2="606.2" y2="187.0" stroke="#eb6834" stroke-width="1.5"/>
+<path d="M589.5,176.7 L595.8,183.0 L589.5,189.3 L583.2,183.0 Z" fill="#eb6834"><title>Qwen3-8B, NPU (compiled): 77.7% (72.7-82.7)</title></path>
+<text x="614.2" y="187.0" font-size="11" fill="#0b0b0b" text-anchor="start">77.7</text>
+<text x="16.0" y="209.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-1.7B</text>
+<circle cx="201.0" cy="205.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="209.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="539.4" y1="205.0" x2="577.5" y2="205.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="539.4" y1="201.0" x2="539.4" y2="209.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="577.5" y1="201.0" x2="577.5" y2="209.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="558.7" cy="205.0" r="4.8" fill="#2a78d6"><title>Qwen3-1.7B, CPU (llama.cpp): 68.5% (62.7-74.1)</title></circle>
+<text x="585.5" y="209.0" font-size="11" fill="#0b0b0b" text-anchor="start">68.5</text>
+<text x="16.0" y="231.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-1.7B</text>
+<rect x="196.8" y="222.8" width="8.3" height="8.3" fill="#199e70" stroke="#ffffff" stroke-width="1.5"></rect>
+<text x="211.0" y="231.0" font-size="11" fill="#52514e" text-anchor="start">NPU (llama.cpp)</text>
+<line x1="538.1" y1="227.0" x2="576.2" y2="227.0" stroke="#199e70" stroke-width="1.5"/>
+<line x1="538.1" y1="223.0" x2="538.1" y2="231.0" stroke="#199e70" stroke-width="1.5"/>
+<line x1="576.2" y1="223.0" x2="576.2" y2="231.0" stroke="#199e70" stroke-width="1.5"/>
+<rect x="553.2" y="222.8" width="8.3" height="8.3" fill="#199e70"><title>Qwen3-1.7B, NPU (llama.cpp): 68.1% (62.3-73.7)</title></rect>
+<text x="584.2" y="231.0" font-size="11" fill="#0b0b0b" text-anchor="start">68.1</text>
+<text x="16.0" y="253.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3.5-2B</text>
+<circle cx="201.0" cy="249.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="253.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="493.6" y1="249.0" x2="531.7" y2="249.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="493.6" y1="245.0" x2="493.6" y2="253.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="531.7" y1="245.0" x2="531.7" y2="253.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="512.8" cy="249.0" r="4.8" fill="#2a78d6"><title>Qwen3.5-2B, CPU (llama.cpp): 54.7% (49.0-60.4)</title></circle>
+<text x="539.7" y="253.0" font-size="11" fill="#0b0b0b" text-anchor="start">54.7</text>
+<text x="16.0" y="275.0" font-size="12" fill="#0b0b0b" text-anchor="start">Gemma-4-E2B-it</text>
+<circle cx="201.0" cy="271.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="275.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="464.9" y1="271.0" x2="505.1" y2="271.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="464.9" y1="267.0" x2="464.9" y2="275.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="505.1" y1="267.0" x2="505.1" y2="275.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="485.0" cy="271.0" r="4.8" fill="#2a78d6"><title>Gemma-4-E2B-it, CPU (llama.cpp): 46.4% (40.4-52.4)</title></circle>
+<text x="513.1" y="275.0" font-size="11" fill="#0b0b0b" text-anchor="start">46.4</text>
+<text x="16.0" y="297.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3.5-0.8B</text>
+<circle cx="201.0" cy="293.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="297.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="401.1" y1="293.0" x2="433.6" y2="293.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="401.1" y1="289.0" x2="401.1" y2="297.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="433.6" y1="289.0" x2="433.6" y2="297.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="417.4" cy="293.0" r="4.8" fill="#2a78d6"><title>Qwen3.5-0.8B, CPU (llama.cpp): 26.2% (21.3-31.0)</title></circle>
+<text x="441.6" y="297.0" font-size="11" fill="#0b0b0b" text-anchor="start">26.2</text>
+<text x="16.0" y="319.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3.5-0.8B</text>
+<rect x="196.8" y="310.8" width="8.3" height="8.3" fill="#199e70" stroke="#ffffff" stroke-width="1.5"></rect>
+<text x="211.0" y="319.0" font-size="11" fill="#52514e" text-anchor="start">NPU (llama.cpp)</text>
+<line x1="381.8" y1="315.0" x2="411.4" y2="315.0" stroke="#199e70" stroke-width="1.5"/>
+<line x1="381.8" y1="311.0" x2="381.8" y2="319.0" stroke="#199e70" stroke-width="1.5"/>
+<line x1="411.4" y1="311.0" x2="411.4" y2="319.0" stroke="#199e70" stroke-width="1.5"/>
+<rect x="391.8" y="310.8" width="8.3" height="8.3" fill="#199e70"><title>Qwen3.5-0.8B, NPU (llama.cpp): 19.7% (15.5-24.4)</title></rect>
+<text x="419.4" y="319.0" font-size="11" fill="#0b0b0b" text-anchor="start">19.7</text>
+<text x="16.0" y="341.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-1.7B</text>
+<path d="M201.0,330.7 L207.3,337.0 L201.0,343.3 L194.7,337.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="211.0" y="341.0" font-size="11" fill="#52514e" text-anchor="start">NPU (compiled)</text>
+<line x1="371.1" y1="337.0" x2="400.7" y2="337.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="371.1" y1="333.0" x2="371.1" y2="341.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="400.7" y1="333.0" x2="400.7" y2="341.0" stroke="#eb6834" stroke-width="1.5"/>
+<path d="M385.2,330.7 L391.5,337.0 L385.2,343.3 L378.9,337.0 Z" fill="#eb6834"><title>Qwen3-1.7B, NPU (compiled): 16.5% (12.3-21.2)</title></path>
+<text x="408.7" y="341.0" font-size="11" fill="#0b0b0b" text-anchor="start">16.5</text>
+<text x="16.0" y="363.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-4B</text>
+<path d="M201.0,352.7 L207.3,359.0 L201.0,365.3 L194.7,359.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="211.0" y="363.0" font-size="11" fill="#52514e" text-anchor="start">NPU (compiled)</text>
+<line x1="364.7" y1="359.0" x2="394.2" y2="359.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="364.7" y1="355.0" x2="364.7" y2="363.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="394.2" y1="355.0" x2="394.2" y2="363.0" stroke="#eb6834" stroke-width="1.5"/>
+<path d="M378.8,352.7 L385.1,359.0 L378.8,365.3 L372.5,359.0 Z" fill="#eb6834"><title>Qwen3-4B, NPU (compiled): 14.6% (10.4-19.2)</title></path>
+<text x="402.2" y="363.0" font-size="11" fill="#0b0b0b" text-anchor="start">14.6</text>
+<text x="16.0" y="385.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-0.6B</text>
+<path d="M201.0,374.7 L207.3,381.0 L201.0,387.3 L194.7,381.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="211.0" y="385.0" font-size="11" fill="#52514e" text-anchor="start">NPU (compiled)</text>
+<line x1="331.3" y1="381.0" x2="342.8" y2="381.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="331.3" y1="377.0" x2="331.3" y2="385.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="342.8" y1="377.0" x2="342.8" y2="385.0" stroke="#eb6834" stroke-width="1.5"/>
+<path d="M336.4,374.7 L342.7,381.0 L336.4,387.3 L330.1,381.0 Z" fill="#eb6834"><title>Qwen3-0.6B, NPU (compiled): 1.9% (0.4-3.8)</title></path>
+<text x="350.8" y="385.0" font-size="11" fill="#0b0b0b" text-anchor="start">1.9</text>
+<text x="16.0" y="407.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-0.6B</text>
+<circle cx="201.0" cy="403.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="211.0" y="407.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<line x1="330.0" y1="403.0" x2="339.0" y2="403.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="330.0" y1="399.0" x2="330.0" y2="407.0" stroke="#2a78d6" stroke-width="1.5"/>
+<line x1="339.0" y1="399.0" x2="339.0" y2="407.0" stroke="#2a78d6" stroke-width="1.5"/>
+<circle cx="333.9" cy="403.0" r="4.8" fill="#2a78d6"><title>Qwen3-0.6B, CPU (llama.cpp): 1.2% (0.0-2.7)</title></circle>
+<text x="347.0" y="407.0" font-size="11" fill="#0b0b0b" text-anchor="start">1.2</text>
+<text x="16.0" y="429.0" font-size="12" fill="#0b0b0b" text-anchor="start">Qwen3-0.6B</text>
+<rect x="196.8" y="420.8" width="8.3" height="8.3" fill="#199e70" stroke="#ffffff" stroke-width="1.5"></rect>
+<text x="211.0" y="429.0" font-size="11" fill="#52514e" text-anchor="start">NPU (llama.cpp)</text>
+<line x1="330.0" y1="425.0" x2="335.6" y2="425.0" stroke="#199e70" stroke-width="1.5"/>
+<line x1="330.0" y1="421.0" x2="330.0" y2="429.0" stroke="#199e70" stroke-width="1.5"/>
+<line x1="335.6" y1="421.0" x2="335.6" y2="429.0" stroke="#199e70" stroke-width="1.5"/>
+<rect x="328.0" y="420.8" width="8.3" height="8.3" fill="#199e70"><title>Qwen3-0.6B, NPU (llama.cpp): 0.6% (0.0-1.7)</title></rect>
+<text x="343.6" y="429.0" font-size="11" fill="#0b0b0b" text-anchor="start">0.6</text>
+<text x="16.0" y="451.0" font-size="12" fill="#0b0b0b" text-anchor="start">SmolLM2-1.7B-Instruct</text>
+<path d="M201.0,440.7 L207.3,447.0 L201.0,453.3 L194.7,447.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="211.0" y="451.0" font-size="11" fill="#52514e" text-anchor="start">NPU (compiled)</text>
+<line x1="330.0" y1="447.0" x2="333.9" y2="447.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="330.0" y1="443.0" x2="330.0" y2="451.0" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="333.9" y1="443.0" x2="333.9" y2="451.0" stroke="#eb6834" stroke-width="1.5"/>
+<path d="M331.3,440.7 L337.6,447.0 L331.3,453.3 L325.0,447.0 Z" fill="#eb6834"><title>SmolLM2-1.7B-Instruct, NPU (compiled): 0.4% (0.0-1.2)</title></path>
+<text x="341.9" y="451.0" font-size="11" fill="#0b0b0b" text-anchor="start">0.4</text>
+</svg>

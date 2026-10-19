@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="416" viewBox="0 0 720 416" role="img" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Time to first token against prompt length</title>
+<desc>Mean time to first token over 5 repetitions at five prompt lengths, for two models on each serving path they loaded on; end labels give the value at about 2,800 tokens and the speed-up over the CPU.</desc>
+<rect width="720" height="416" fill="#ffffff"/>
+<circle cx="21.0" cy="16.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="31.0" y="20.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<rect x="140.3" y="11.8" width="8.3" height="8.3" fill="#199e70" stroke="#ffffff" stroke-width="1.5"></rect>
+<text x="154.4" y="20.0" font-size="11" fill="#52514e" text-anchor="start">NPU (llama.cpp)</text>
+<path d="M267.8,9.7 L274.1,16.0 L267.8,22.3 L261.5,16.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="277.8" y="20.0" font-size="11" fill="#52514e" text-anchor="start">NPU (compiled)</text>
+<text transform="translate(18,206.0) rotate(-90)" font-size="12" fill="#52514e" text-anchor="middle">Time to first token, s (log scale)</text>
+<text x="56.0" y="350.0" font-size="11" fill="#898781" text-anchor="end">0.1</text>
+<text x="56.0" y="305.5" font-size="11" fill="#898781" text-anchor="end">0.3</text>
+<text x="56.0" y="256.7" font-size="11" fill="#898781" text-anchor="end">1</text>
+<text x="56.0" y="212.1" font-size="11" fill="#898781" text-anchor="end">3</text>
+<text x="56.0" y="163.3" font-size="11" fill="#898781" text-anchor="end">10</text>
+<text x="56.0" y="118.8" font-size="11" fill="#898781" text-anchor="end">30</text>
+<text x="56.0" y="70.0" font-size="11" fill="#898781" text-anchor="end">100</text>
+<text x="64.0" y="54.0" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="600">Qwen3-1.7B</text>
+<line x1="64.0" y1="346.0" x2="260.0" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="64.0" y1="301.5" x2="260.0" y2="301.5" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="64.0" y1="252.7" x2="260.0" y2="252.7" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="64.0" y1="208.1" x2="260.0" y2="208.1" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="64.0" y1="159.3" x2="260.0" y2="159.3" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="64.0" y1="114.8" x2="260.0" y2="114.8" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="64.0" y1="66.0" x2="260.0" y2="66.0" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="64.0" y1="66.0" x2="64.0" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="64.0" y="362.0" font-size="11" fill="#898781" text-anchor="middle">0</text>
+<line x1="129.3" y1="66.0" x2="129.3" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="129.3" y="362.0" font-size="11" fill="#898781" text-anchor="middle">1,000</text>
+<line x1="194.7" y1="66.0" x2="194.7" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="194.7" y="362.0" font-size="11" fill="#898781" text-anchor="middle">2,000</text>
+<line x1="260.0" y1="66.0" x2="260.0" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="260.0" y="362.0" font-size="11" fill="#898781" text-anchor="middle">3,000</text>
+<text x="162.0" y="380.0" font-size="12" fill="#52514e" text-anchor="middle">Prompt length, tokens</text>
+<polyline points="81.1,237.7 98.2,208.0 130.8,179.3 197.3,145.2 246.7,129.7" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="81.1" cy="237.7" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, CPU (llama.cpp): 1.45 s at 262 tokens</title></circle>
+<circle cx="98.2" cy="208.0" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, CPU (llama.cpp): 3.01 s at 524 tokens</title></circle>
+<circle cx="130.8" cy="179.3" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, CPU (llama.cpp): 6.11 s at 1,023 tokens</title></circle>
+<circle cx="197.3" cy="145.2" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, CPU (llama.cpp): 14.18 s at 2,041 tokens</title></circle>
+<circle cx="246.7" cy="129.7" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, CPU (llama.cpp): 20.78 s at 2,796 tokens</title></circle>
+<polyline points="81.1,297.1 98.2,277.2 130.8,253.5 197.3,223.7 246.7,209.1" fill="none" stroke="#199e70" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="77.9" y="293.9" width="6.5" height="6.5" fill="#199e70" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (llama.cpp): 0.33 s at 262 tokens</title></rect>
+<rect x="95.0" y="274.0" width="6.5" height="6.5" fill="#199e70" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (llama.cpp): 0.55 s at 524 tokens</title></rect>
+<rect x="127.6" y="250.2" width="6.5" height="6.5" fill="#199e70" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (llama.cpp): 0.98 s at 1,023 tokens</title></rect>
+<rect x="194.1" y="220.5" width="6.5" height="6.5" fill="#199e70" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (llama.cpp): 2.04 s at 2,041 tokens</title></rect>
+<rect x="243.4" y="205.9" width="6.5" height="6.5" fill="#199e70" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (llama.cpp): 2.93 s at 2,796 tokens</title></rect>
+<polyline points="81.2,311.3 98.3,293.6 130.9,274.0 197.3,243.3 246.7,229.1" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M81.2,306.4 L86.1,311.3 L81.2,316.2 L76.3,311.3 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (compiled): 0.24 s at 263 tokens</title></path>
+<path d="M98.3,288.7 L103.2,293.6 L98.3,298.5 L93.4,293.6 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (compiled): 0.36 s at 525 tokens</title></path>
+<path d="M130.9,269.1 L135.8,274.0 L130.9,278.9 L126.0,274.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (compiled): 0.59 s at 1,024 tokens</title></path>
+<path d="M197.3,238.4 L202.2,243.3 L197.3,248.2 L192.4,243.3 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (compiled): 1.26 s at 2,041 tokens</title></path>
+<path d="M246.7,224.2 L251.6,229.1 L246.7,234.0 L241.8,229.1 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (compiled): 1.79 s at 2,796 tokens</title></path>
+<text x="268.0" y="133.7" font-size="11" fill="#0b0b0b" text-anchor="start">20.78 s</text>
+<text x="268.0" y="213.1" font-size="11" fill="#0b0b0b" text-anchor="start">2.93 s, 7.1x</text>
+<text x="268.0" y="233.1" font-size="11" fill="#0b0b0b" text-anchor="start">1.79 s, 11.6x</text>
+<text x="388.0" y="54.0" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="600">Qwen3-4B-Instruct-2507</text>
+<line x1="388.0" y1="346.0" x2="584.0" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="388.0" y1="301.5" x2="584.0" y2="301.5" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="388.0" y1="252.7" x2="584.0" y2="252.7" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="388.0" y1="208.1" x2="584.0" y2="208.1" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="388.0" y1="159.3" x2="584.0" y2="159.3" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="388.0" y1="114.8" x2="584.0" y2="114.8" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="388.0" y1="66.0" x2="584.0" y2="66.0" stroke="#e1e0d9" stroke-width="1"/>
+<line x1="388.0" y1="66.0" x2="388.0" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="388.0" y="362.0" font-size="11" fill="#898781" text-anchor="middle">0</text>
+<line x1="453.3" y1="66.0" x2="453.3" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="453.3" y="362.0" font-size="11" fill="#898781" text-anchor="middle">1,000</text>
+<line x1="518.7" y1="66.0" x2="518.7" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="518.7" y="362.0" font-size="11" fill="#898781" text-anchor="middle">2,000</text>
+<line x1="584.0" y1="66.0" x2="584.0" y2="346.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="584.0" y="362.0" font-size="11" fill="#898781" text-anchor="middle">3,000</text>
+<text x="486.0" y="380.0" font-size="12" fill="#52514e" text-anchor="middle">Prompt length, tokens</text>
+<polyline points="405.1,201.9 422.0,172.8 454.9,143.3 521.5,109.9 570.6,92.4" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="405.1" cy="201.9" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, CPU (llama.cpp): 3.50 s at 261 tokens</title></circle>
+<circle cx="422.0" cy="172.8" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, CPU (llama.cpp): 7.17 s at 520 tokens</title></circle>
+<circle cx="454.9" cy="143.3" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, CPU (llama.cpp): 14.85 s at 1,024 tokens</title></circle>
+<circle cx="521.5" cy="109.9" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, CPU (llama.cpp): 33.83 s at 2,044 tokens</title></circle>
+<circle cx="570.6" cy="92.4" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, CPU (llama.cpp): 52.20 s at 2,795 tokens</title></circle>
+<polyline points="405.1,292.9 422.0,274.1 454.9,254.4 521.5,223.0 570.6,208.1" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M405.1,288.0 L410.0,292.9 L405.1,297.8 L400.2,292.9 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, NPU (compiled): 0.37 s at 261 tokens</title></path>
+<path d="M422.0,269.2 L426.9,274.1 L422.0,279.0 L417.1,274.1 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, NPU (compiled): 0.59 s at 521 tokens</title></path>
+<path d="M454.9,249.5 L459.8,254.4 L454.9,259.3 L450.0,254.4 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, NPU (compiled): 0.96 s at 1,024 tokens</title></path>
+<path d="M521.5,218.1 L526.4,223.0 L521.5,227.9 L516.6,223.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, NPU (compiled): 2.08 s at 2,044 tokens</title></path>
+<path d="M570.6,203.2 L575.5,208.1 L570.6,213.0 L565.7,208.1 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, NPU (compiled): 3.00 s at 2,795 tokens</title></path>
+<text x="592.0" y="96.4" font-size="11" fill="#0b0b0b" text-anchor="start">52.20 s</text>
+<text x="592.0" y="212.1" font-size="11" fill="#0b0b0b" text-anchor="start">3.00 s, 17.4x</text>
+<text x="580.0" y="336.0" font-size="11" fill="#898781" text-anchor="end">NPU (llama.cpp) did not load</text>
+<text x="360.0" y="404.0" font-size="11" fill="#52514e" text-anchor="middle">End labels give the time at about 2,800 prompt tokens and the speed-up over the CPU.</text>
+</svg>

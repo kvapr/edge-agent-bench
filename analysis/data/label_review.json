@@ -1,0 +1,130 @@
+{
+ "description": "Paraphrases whose expected label is debatable when read against the system prompt and the tool descriptions in suites/tools_nested.json. Each entry keeps the suite label and names the plausible alternative answers. analysis/report_robustness.py regrades these items accepting an alternative, and leaves every other item and the published headline numbers unchanged.",
+ "sources": {
+  "robustness": "flagged in the robustness review of the version 2 results, from the item text and the tool descriptions, before regrading",
+  "grader": "flagged in the grader audit of the version 2 results; 'primary' is its main list, 'wider' its list of looser alternatives"
+ },
+ "grading": "An alternative passes when the reply is a structured call to the named tool with device_name poesw1 (case-insensitive). For diagnose_port_issues the port is a top-level argument and may be written in any format that tool's schema lists ('3', '1/3', 'Gi1/3', 'GigabitEthernet1/3'); it must name the expected port. For a query_device_info alternative the command_name must match; that command takes no parameters.",
+ "items": [
+  {
+   "idx": 3, "style": "A",
+   "input": "@poesw1 what's going on with port 5?",
+   "expected": {"tool": "query_device_info", "command": "show_port_status", "params": {"port": "1/5"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/5"}}],
+   "rationale": "The casual 'what's going on with' reads as a fault question, the form of the diagnose tool's own example 'What's wrong with the camera on port 7?'.",
+   "robustness": true, "grader": "wider"
+  },
+  {
+   "idx": 5, "style": "C",
+   "input": "@poesw1 port 5 hasn't shown up in the monitoring dashboard — can you check its status?",
+   "expected": {"tool": "query_device_info", "command": "show_port_status", "params": {"port": "1/5"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/5"}}],
+   "rationale": "The request reports a symptom before asking for status, and the prompt routes port troubleshooting to diagnose_port_issues.",
+   "robustness": true, "grader": "primary"
+  },
+  {
+   "idx": 11, "style": "C",
+   "input": "The camera on port 3 looks dead, @poesw1 — check whether it's getting power.",
+   "expected": {"tool": "query_device_info", "command": "show_poe_status", "params": {"port": "1/3"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/3"}}],
+   "rationale": "A camera that looks dead is nearly the diagnose tool's example 'What's wrong with the camera on port 7?', and that tool also reports PoE status.",
+   "robustness": true, "grader": "primary"
+  },
+  {
+   "idx": 12, "style": "A",
+   "input": "@poesw1 what vlans are set up right now?",
+   "expected": {"tool": "query_device_info", "command": "show_vlan_config", "params": {}},
+   "alternatives": [{"tool": "query_device_info", "command": "show_vlan_membership", "params": {}}],
+   "rationale": "Asking which VLANs exist is an overview, which the schema describes as show_vlan_membership (summary of VLANs and member ports).",
+   "robustness": true, "grader": "primary"
+  },
+  {
+   "idx": 14, "style": "C",
+   "input": "@poesw1 I'm troubleshooting a segmentation issue and need to see how the vlans are laid out on this switch.",
+   "expected": {"tool": "query_device_info", "command": "show_vlan_config", "params": {}},
+   "alternatives": [{"tool": "query_device_info", "command": "show_vlan_membership", "params": {}}],
+   "rationale": "How the VLANs are laid out is a fair reading of the VLAN membership summary as well as of the per-port configuration.",
+   "robustness": true, "grader": "primary"
+  },
+  {
+   "idx": 32, "style": "C",
+   "input": "The access point on port 7 won't boot, @poesw1 — check if it's actually receiving PoE.",
+   "expected": {"tool": "query_device_info", "command": "show_poe_status", "params": {"port": "1/7"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/7"}}],
+   "rationale": "A device on a port that will not boot is the case the diagnose tool names ('why a device connected to a port isn't working'), and its checks include PoE status.",
+   "robustness": true, "grader": "primary"
+  },
+  {
+   "idx": 39, "style": "A",
+   "input": "@poesw1 what's up with interface 6?",
+   "expected": {"tool": "query_device_info", "command": "show_port_status", "params": {"port": "1/6"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/6"}}],
+   "rationale": "The same idiom as item 3; 'what's up with' can mean 'what is wrong with'.",
+   "robustness": true, "grader": "wider"
+  },
+  {
+   "idx": 41, "style": "C",
+   "input": "@poesw1 interface 6 hasn't logged any traffic today — check its status.",
+   "expected": {"tool": "query_device_info", "command": "show_port_status", "params": {"port": "1/6"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/6"}}],
+   "rationale": "A port with no traffic all day is a connectivity symptom, which the diagnose tool covers with status and error counters.",
+   "robustness": true, "grader": "primary"
+  },
+  {
+   "idx": 44, "style": "C",
+   "input": "The phone on port 4 keeps rebooting, @poesw1 — check whether its poe power is stable.",
+   "expected": {"tool": "query_device_info", "command": "show_poe_status", "params": {"port": "1/4"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/4"}}],
+   "rationale": "A phone that keeps rebooting describes PoE power cycling, a pattern the diagnose tool says it detects.",
+   "robustness": true, "grader": "primary"
+  },
+  {
+   "idx": 45, "style": "A",
+   "input": "@poesw1 what's the vlan setup look like?",
+   "expected": {"tool": "query_device_info", "command": "show_vlan_config", "params": {}},
+   "alternatives": [{"tool": "query_device_info", "command": "show_vlan_membership", "params": {}}],
+   "rationale": "Asking what the VLAN setup looks like is an overview, which the schema describes as show_vlan_membership.",
+   "robustness": false, "grader": "primary"
+  },
+  {
+   "idx": 47, "style": "C",
+   "input": "@poesw1 I'm auditing the network layout — show me how the vlans are configured.",
+   "expected": {"tool": "query_device_info", "command": "show_vlan_config", "params": {}},
+   "alternatives": [{"tool": "query_device_info", "command": "show_vlan_membership", "params": {}}],
+   "rationale": "'How the vlans are configured' points to show_vlan_config, but for a layout audit the membership summary is a weaker alternative.",
+   "robustness": false, "grader": "wider"
+  },
+  {
+   "idx": 50, "style": "C",
+   "input": "@poesw1 we think port 9 might be misconfigured — pull up its details to confirm.",
+   "expected": {"tool": "query_device_info", "command": "show_port_status", "params": {"port": "1/9"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/9"}}],
+   "rationale": "A suspected misconfiguration is a possible fault, so diagnostics are a weaker alternative, although 'pull up its details' asks for status.",
+   "robustness": false, "grader": "wider"
+  },
+  {
+   "idx": 56, "style": "C",
+   "input": "@poesw1 interface 12 was flapping earlier — check its status now.",
+   "expected": {"tool": "query_device_info", "command": "show_port_status", "params": {"port": "1/12"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/12"}}],
+   "rationale": "Flapping is named in the diagnose tool's description ('Port 2 keeps flapping', 'detects link flapping').",
+   "robustness": true, "grader": "primary"
+  },
+  {
+   "idx": 78, "style": "A",
+   "input": "@poesw1 get interface 1 back online.",
+   "expected": {"tool": "configure_device_setting", "command": "enable_port", "params": {"port": "1/1"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/1"}}],
+   "rationale": "'Back online' may describe recovery from a fault rather than an administrative enable; the enable_port label remains the more direct reading.",
+   "robustness": false, "grader": "wider"
+  },
+  {
+   "idx": 98, "style": "C",
+   "input": "@poesw1 interface 3 dropped out of the topology map — get it back up and running.",
+   "expected": {"tool": "configure_device_setting", "command": "enable_port", "params": {"port": "1/3"}},
+   "alternatives": [{"tool": "diagnose_port_issues", "params": {"port": "1/3"}}],
+   "rationale": "Dropping out of the topology map is a symptom, not a stated shutdown; the enable_port label assumes the port was administratively disabled, and diagnosing first is a defensible reading.",
+   "robustness": true, "grader": "primary"
+  }
+ ]
+}

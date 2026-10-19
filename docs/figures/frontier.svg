@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="492" viewBox="0 0 720 492" role="img" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Accuracy against agent turn time</title>
+<desc>Pooled end to end accuracy against median canonical turn time on a log axis for the 19 readable configurations, with the Pareto frontier.</desc>
+<rect width="720" height="492" fill="#ffffff"/>
+<line x1="58.0" y1="44.0" x2="58.0" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="58.0" y="460.0" font-size="11" fill="#898781" text-anchor="middle">2</text>
+<line x1="125.0" y1="44.0" x2="125.0" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="125.0" y="460.0" font-size="11" fill="#898781" text-anchor="middle">3</text>
+<line x1="209.3" y1="44.0" x2="209.3" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="209.3" y="460.0" font-size="11" fill="#898781" text-anchor="middle">5</text>
+<line x1="323.8" y1="44.0" x2="323.8" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="323.8" y="460.0" font-size="11" fill="#898781" text-anchor="middle">10</text>
+<line x1="438.2" y1="44.0" x2="438.2" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="438.2" y="460.0" font-size="11" fill="#898781" text-anchor="middle">20</text>
+<line x1="505.2" y1="44.0" x2="505.2" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="505.2" y="460.0" font-size="11" fill="#898781" text-anchor="middle">30</text>
+<line x1="589.5" y1="44.0" x2="589.5" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="589.5" y="460.0" font-size="11" fill="#898781" text-anchor="middle">50</text>
+<line x1="704.0" y1="44.0" x2="704.0" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="704.0" y="460.0" font-size="11" fill="#898781" text-anchor="middle">100</text>
+<line x1="58.0" y1="444.0" x2="704.0" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="448.0" font-size="11" fill="#898781" text-anchor="end">0</text>
+<line x1="58.0" y1="364.0" x2="704.0" y2="364.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="368.0" font-size="11" fill="#898781" text-anchor="end">20</text>
+<line x1="58.0" y1="284.0" x2="704.0" y2="284.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="288.0" font-size="11" fill="#898781" text-anchor="end">40</text>
+<line x1="58.0" y1="204.0" x2="704.0" y2="204.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="208.0" font-size="11" fill="#898781" text-anchor="end">60</text>
+<line x1="58.0" y1="124.0" x2="704.0" y2="124.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="128.0" font-size="11" fill="#898781" text-anchor="end">80</text>
+<line x1="58.0" y1="44.0" x2="704.0" y2="44.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="48.0" font-size="11" fill="#898781" text-anchor="end">100</text>
+<text x="381.0" y="480.0" font-size="12" fill="#52514e" text-anchor="middle">Median agent turn time, s (log scale; 65 canonical cases)</text>
+<text transform="translate(16,244.0) rotate(-90)" font-size="12" fill="#52514e" text-anchor="middle">End to end accuracy, % of 260 items</text>
+<line x1="125.7" y1="436.3" x2="176.8" y2="436.3" stroke="#52514e" stroke-width="1.5"/>
+<line x1="176.8" y1="436.3" x2="176.8" y2="377.8" stroke="#52514e" stroke-width="1.5"/>
+<line x1="176.8" y1="377.8" x2="216.0" y2="377.8" stroke="#52514e" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="216.0" y1="377.8" x2="216.0" y2="365.0" stroke="#52514e" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="216.0" y1="365.0" x2="217.4" y2="365.0" stroke="#52514e" stroke-width="1.5"/>
+<line x1="217.4" y1="365.0" x2="217.4" y2="171.7" stroke="#52514e" stroke-width="1.5"/>
+<line x1="217.4" y1="171.7" x2="257.9" y2="171.7" stroke="#52514e" stroke-width="1.5"/>
+<line x1="257.9" y1="171.7" x2="257.9" y2="124.0" stroke="#52514e" stroke-width="1.5"/>
+<line x1="257.9" y1="124.0" x2="531.4" y2="124.0" stroke="#52514e" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="531.4" y1="124.0" x2="531.4" y2="107.1" stroke="#52514e" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="531.4" y1="107.1" x2="588.6" y2="107.1" stroke="#52514e" stroke-width="1.5"/>
+<line x1="588.6" y1="107.1" x2="588.6" y2="73.2" stroke="#52514e" stroke-width="1.5"/>
+<text x="394.6" y="117.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="600">Pareto frontier</text>
+<circle cx="460.0" cy="376.0" r="4.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="470.0" y="380.0" font-size="11" fill="#52514e" text-anchor="start">CPU (llama.cpp)</text>
+<rect x="455.8" y="388.8" width="8.3" height="8.3" fill="#199e70" stroke="#ffffff" stroke-width="1.5"></rect>
+<text x="470.0" y="397.0" font-size="11" fill="#52514e" text-anchor="start">NPU (llama.cpp)</text>
+<path d="M460.0,403.7 L466.3,410.0 L460.0,416.3 L453.7,410.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="470.0" y="414.0" font-size="11" fill="#52514e" text-anchor="start">NPU (compiled)</text>
+<line x1="454.0" y1="427.0" x2="468.0" y2="427.0" stroke="#52514e" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="474.0" y="431.0" font-size="11" fill="#52514e" text-anchor="start">frontier step not significant</text>
+<circle cx="588.6" cy="73.2" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Gemma-4-E4B-it, CPU (llama.cpp): 92.7%, 49.73 s</title></circle>
+<circle cx="531.4" cy="107.1" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Granite-4.0-H-Micro, CPU (llama.cpp): 84.2%, 35.16 s</title></circle>
+<path d="M257.9,117.0 L264.9,124.0 L257.9,131.0 L250.9,124.0 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, NPU (compiled): 80.0%, 6.71 s</title></path>
+<rect x="212.8" y="167.1" width="9.2" height="9.2" fill="#199e70" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (llama.cpp): 68.1%, 5.25 s</title></rect>
+<rect x="211.4" y="360.4" width="9.2" height="9.2" fill="#199e70" stroke="#ffffff" stroke-width="1.5"><title>Qwen3.5-0.8B, NPU (llama.cpp): 19.7%, 5.21 s</title></rect>
+<path d="M176.8,370.8 L183.8,377.8 L176.8,384.8 L169.8,377.8 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, NPU (compiled): 16.5%, 4.11 s</title></path>
+<path d="M125.7,429.3 L132.7,436.3 L125.7,443.3 L118.7,436.3 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-0.6B, NPU (compiled): 1.9%, 3.01 s</title></path>
+<circle cx="599.0" cy="79.9" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B-Instruct-2507, CPU (llama.cpp): 91.0%, 52.93 s</title></circle>
+<circle cx="599.3" cy="87.1" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B, CPU (llama.cpp): 89.2%, 53.03 s</title></circle>
+<circle cx="664.0" cy="131.2" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-8B, CPU (llama.cpp): 78.2%, 78.51 s</title></circle>
+<path d="M319.4,126.2 L326.4,133.2 L319.4,140.2 L312.4,133.2 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-8B, NPU (compiled): 77.7%, 9.74 s</title></path>
+<circle cx="456.5" cy="170.2" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-1.7B, CPU (llama.cpp): 68.5%, 22.34 s</title></circle>
+<circle cx="446.2" cy="225.0" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3.5-2B, CPU (llama.cpp): 54.7%, 20.99 s</title></circle>
+<circle cx="495.4" cy="258.4" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Gemma-4-E2B-it, CPU (llama.cpp): 46.4%, 28.27 s</title></circle>
+<circle cx="340.6" cy="339.4" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3.5-0.8B, CPU (llama.cpp): 26.2%, 11.08 s</title></circle>
+<path d="M249.4,378.5 L256.4,385.5 L249.4,392.5 L242.4,385.5 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-4B, NPU (compiled): 14.6%, 6.37 s</title></path>
+<circle cx="360.3" cy="439.4" r="5.3" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-0.6B, CPU (llama.cpp): 1.2%, 12.47 s</title></circle>
+<rect x="134.2" y="436.8" width="9.2" height="9.2" fill="#199e70" stroke="#ffffff" stroke-width="1.5"><title>Qwen3-0.6B, NPU (llama.cpp): 0.6%, 3.26 s</title></rect>
+<path d="M248.9,435.5 L255.9,442.5 L248.9,449.5 L241.9,442.5 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"><title>SmolLM2-1.7B-Instruct, NPU (compiled): 0.4%, 6.36 s</title></path>
+<text x="579.6" y="77.2" font-size="11" fill="#0b0b0b" text-anchor="end">Gemma-4-E4B</text>
+<text x="524.4" y="100.1" font-size="11" fill="#0b0b0b" text-anchor="end">Granite-4.0-H-Micro</text>
+<text x="248.9" y="128.0" font-size="11" fill="#0b0b0b" text-anchor="end">Qwen3-4B-2507</text>
+<text x="208.4" y="175.7" font-size="11" fill="#0b0b0b" text-anchor="end">Qwen3-1.7B</text>
+<text x="225.0" y="369.0" font-size="11" fill="#0b0b0b" text-anchor="start">Qwen3.5-0.8B</text>
+<text x="167.8" y="381.8" font-size="11" fill="#0b0b0b" text-anchor="end">Qwen3-1.7B</text>
+<text x="132.2" y="427.3" font-size="11" fill="#0b0b0b" text-anchor="middle">Qwen3-0.6B</text>
+<text x="608.0" y="83.9" font-size="11" fill="#0b0b0b" text-anchor="start">Qwen3-4B-2507</text>
+<text x="606.3" y="101.1" font-size="11" fill="#0b0b0b" text-anchor="start">Qwen3-4B</text>
+<text x="655.0" y="135.2" font-size="11" fill="#0b0b0b" text-anchor="end">Qwen3-8B</text>
+<text x="328.4" y="137.2" font-size="11" fill="#0b0b0b" text-anchor="start">Qwen3-8B</text>
+<text x="465.5" y="174.2" font-size="11" fill="#0b0b0b" text-anchor="start">Qwen3-1.7B</text>
+<text x="455.2" y="229.0" font-size="11" fill="#0b0b0b" text-anchor="start">Qwen3.5-2B</text>
+<text x="504.4" y="262.4" font-size="11" fill="#0b0b0b" text-anchor="start">Gemma-4-E2B</text>
+<text x="349.6" y="343.4" font-size="11" fill="#0b0b0b" text-anchor="start">Qwen3.5-0.8B</text>
+<text x="258.4" y="389.5" font-size="11" fill="#0b0b0b" text-anchor="start">Qwen3-4B</text>
+<text x="360.3" y="430.4" font-size="11" fill="#0b0b0b" text-anchor="middle">Qwen3-0.6B</text>
+<text x="248.9" y="433.5" font-size="11" fill="#0b0b0b" text-anchor="middle">SmolLM2-1.7B</text>
+</svg>

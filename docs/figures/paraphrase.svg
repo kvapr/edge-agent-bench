@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="494" viewBox="0 0 720 494" role="img" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Accuracy by phrasing style</title>
+<desc>Canonical and per-style paraphrase accuracy for the 11 functional configurations, each as a line in its path's colour, with the pool mean and its 95% item bootstrap interval.</desc>
+<rect width="720" height="494" fill="#ffffff"/>
+<line x1="58.0" y1="444.0" x2="420.0" y2="444.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="448.0" font-size="11" fill="#898781" text-anchor="end">0</text>
+<line x1="58.0" y1="360.0" x2="420.0" y2="360.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="364.0" font-size="11" fill="#898781" text-anchor="end">20</text>
+<line x1="58.0" y1="276.0" x2="420.0" y2="276.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="280.0" font-size="11" fill="#898781" text-anchor="end">40</text>
+<line x1="58.0" y1="192.0" x2="420.0" y2="192.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="196.0" font-size="11" fill="#898781" text-anchor="end">60</text>
+<line x1="58.0" y1="108.0" x2="420.0" y2="108.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="112.0" font-size="11" fill="#898781" text-anchor="end">80</text>
+<line x1="58.0" y1="24.0" x2="420.0" y2="24.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="50.0" y="28.0" font-size="11" fill="#898781" text-anchor="end">100</text>
+<text x="88.0" y="462.0" font-size="12" fill="#52514e" text-anchor="middle">Canonical</text>
+<text x="188.7" y="462.0" font-size="12" fill="#52514e" text-anchor="middle">Casual (A)</text>
+<text x="289.3" y="462.0" font-size="12" fill="#52514e" text-anchor="middle">Polite (B)</text>
+<text x="390.0" y="462.0" font-size="12" fill="#52514e" text-anchor="middle">Situational (C)</text>
+<text x="239.0" y="482.0" font-size="12" fill="#52514e" text-anchor="middle">Phrasing of the request (65 requests each)</text>
+<text transform="translate(16,234.0) rotate(-90)" font-size="12" fill="#52514e" text-anchor="middle">End to end accuracy, %</text>
+<polyline points="88.0,32.6 188.7,95.1 289.3,24.0 390.0,95.1" fill="none" stroke="#2a78d6" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Qwen3-4B-Instruct-2507, CPU (llama.cpp): Canonical 97.9%, Casual (A) 83.1%, Polite (B) 100.0%, Situational (C) 83.1%</title></polyline>
+<polyline points="88.0,36.9 188.7,75.7 289.3,24.0 390.0,82.2" fill="none" stroke="#2a78d6" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Gemma-4-E4B-it, CPU (llama.cpp): Canonical 96.9%, Casual (A) 87.7%, Polite (B) 100.0%, Situational (C) 86.2%</title></polyline>
+<polyline points="88.0,36.9 188.7,101.5 289.3,30.5 390.0,108.0" fill="none" stroke="#2a78d6" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Qwen3-4B, CPU (llama.cpp): Canonical 96.9%, Casual (A) 81.5%, Polite (B) 98.5%, Situational (C) 80.0%</title></polyline>
+<polyline points="88.0,41.2 188.7,133.8 289.3,49.8 390.0,237.2" fill="none" stroke="#2a78d6" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Qwen3-8B, CPU (llama.cpp): Canonical 95.9%, Casual (A) 73.8%, Polite (B) 93.8%, Situational (C) 49.2%</title></polyline>
+<polyline points="88.0,43.4 188.7,101.5 289.3,49.8 390.0,166.2" fill="none" stroke="#2a78d6" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Granite-4.0-H-Micro, CPU (llama.cpp): Canonical 95.4%, Casual (A) 81.5%, Polite (B) 93.8%, Situational (C) 66.2%</title></polyline>
+<polyline points="88.0,62.8 188.7,224.3 289.3,56.3 390.0,282.5" fill="none" stroke="#2a78d6" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Qwen3-1.7B, CPU (llama.cpp): Canonical 90.8%, Casual (A) 52.3%, Polite (B) 92.3%, Situational (C) 38.5%</title></polyline>
+<polyline points="88.0,62.8 188.7,204.9 289.3,75.7 390.0,288.9" fill="none" stroke="#199e70" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Qwen3-1.7B, NPU (llama.cpp): Canonical 90.8%, Casual (A) 56.9%, Polite (B) 87.7%, Situational (C) 36.9%</title></polyline>
+<polyline points="88.0,62.8 188.7,146.8 289.3,49.8 390.0,172.6" fill="none" stroke="#eb6834" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Qwen3-4B-Instruct-2507, NPU (compiled): Canonical 90.8%, Casual (A) 70.8%, Polite (B) 93.8%, Situational (C) 64.6%</title></polyline>
+<polyline points="88.0,88.6 188.7,153.2 289.3,101.5 390.0,127.4" fill="none" stroke="#eb6834" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Qwen3-8B, NPU (compiled): Canonical 84.6%, Casual (A) 69.2%, Polite (B) 81.5%, Situational (C) 75.4%</title></polyline>
+<polyline points="88.0,157.5 188.7,276.0 289.3,172.6 390.0,250.2" fill="none" stroke="#2a78d6" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Qwen3.5-2B, CPU (llama.cpp): Canonical 68.2%, Casual (A) 40.0%, Polite (B) 64.6%, Situational (C) 46.2%</title></polyline>
+<polyline points="88.0,226.5 188.7,263.1 289.3,217.8 390.0,288.9" fill="none" stroke="#2a78d6" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round"><title>Gemma-4-E2B-it, CPU (llama.cpp): Canonical 51.8%, Casual (A) 43.1%, Polite (B) 53.8%, Situational (C) 36.9%</title></polyline>
+<polyline points="88.0,77.5 188.7,161.5 289.3,77.5 390.0,190.8" fill="none" stroke="#0b0b0b" stroke-width="2.5" stroke-linejoin="round"/>
+<line x1="88.0" y1="87.4" x2="88.0" y2="68.1" stroke="#0b0b0b" stroke-width="2"/>
+<line x1="84.0" y1="87.4" x2="92.0" y2="87.4" stroke="#0b0b0b" stroke-width="1.5"/>
+<line x1="84.0" y1="68.1" x2="92.0" y2="68.1" stroke="#0b0b0b" stroke-width="1.5"/>
+<circle cx="88.0" cy="77.5" r="5" fill="#0b0b0b" stroke="#ffffff" stroke-width="1.5"><title>Mean of 11 configurations, Canonical: 87.3% (84.9-89.5)</title></circle>
+<text x="97.0" y="70.5" font-size="11.5" fill="#0b0b0b" text-anchor="start" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">87.3</text>
+<line x1="188.7" y1="185.5" x2="188.7" y2="138.0" stroke="#0b0b0b" stroke-width="2"/>
+<line x1="184.7" y1="185.5" x2="192.7" y2="185.5" stroke="#0b0b0b" stroke-width="1.5"/>
+<line x1="184.7" y1="138.0" x2="192.7" y2="138.0" stroke="#0b0b0b" stroke-width="1.5"/>
+<circle cx="188.7" cy="161.5" r="5" fill="#0b0b0b" stroke="#ffffff" stroke-width="1.5"><title>Mean of 11 configurations, Casual (A): 67.3% (61.5-72.9)</title></circle>
+<text x="197.7" y="154.5" font-size="11.5" fill="#0b0b0b" text-anchor="start" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">67.3</text>
+<line x1="289.3" y1="89.2" x2="289.3" y2="66.9" stroke="#0b0b0b" stroke-width="2"/>
+<line x1="285.3" y1="89.2" x2="293.3" y2="89.2" stroke="#0b0b0b" stroke-width="1.5"/>
+<line x1="285.3" y1="66.9" x2="293.3" y2="66.9" stroke="#0b0b0b" stroke-width="1.5"/>
+<circle cx="289.3" cy="77.5" r="5" fill="#0b0b0b" stroke="#ffffff" stroke-width="1.5"><title>Mean of 11 configurations, Polite (B): 87.3% (84.5-89.8)</title></circle>
+<text x="298.3" y="70.5" font-size="11.5" fill="#0b0b0b" text-anchor="start" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">87.3</text>
+<line x1="390.0" y1="215.5" x2="390.0" y2="166.7" stroke="#0b0b0b" stroke-width="2"/>
+<line x1="386.0" y1="215.5" x2="394.0" y2="215.5" stroke="#0b0b0b" stroke-width="1.5"/>
+<line x1="386.0" y1="166.7" x2="394.0" y2="166.7" stroke="#0b0b0b" stroke-width="1.5"/>
+<circle cx="390.0" cy="190.8" r="5" fill="#0b0b0b" stroke="#ffffff" stroke-width="1.5"><title>Mean of 11 configurations, Situational (C): 60.3% (54.4-66.0)</title></circle>
+<text x="399.0" y="183.8" font-size="11.5" fill="#0b0b0b" text-anchor="start" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">60.3</text>
+<line x1="396.0" y1="82.2" x2="466.0" y2="82.2" stroke="#898781" stroke-width="0.6"/>
+<circle cx="474.0" cy="82.2" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="483.0" y="86.2" font-size="11" fill="#52514e" text-anchor="start">Gemma-4-E4B, CPU (llama.cpp)</text>
+<line x1="396.0" y1="95.1" x2="466.0" y2="96.2" stroke="#898781" stroke-width="0.6"/>
+<circle cx="474.0" cy="96.2" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="483.0" y="100.2" font-size="11" fill="#52514e" text-anchor="start">Qwen3-4B-2507, CPU (llama.cpp)</text>
+<line x1="396.0" y1="108.0" x2="466.0" y2="110.2" stroke="#898781" stroke-width="0.6"/>
+<circle cx="474.0" cy="110.2" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="483.0" y="114.2" font-size="11" fill="#52514e" text-anchor="start">Qwen3-4B, CPU (llama.cpp)</text>
+<line x1="396.0" y1="127.4" x2="466.0" y2="127.4" stroke="#898781" stroke-width="0.6"/>
+<path d="M474.0,122.5 L478.9,127.4 L474.0,132.3 L469.1,127.4 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="483.0" y="131.4" font-size="11" fill="#52514e" text-anchor="start">Qwen3-8B, NPU (compiled)</text>
+<line x1="396.0" y1="166.2" x2="466.0" y2="166.2" stroke="#898781" stroke-width="0.6"/>
+<circle cx="474.0" cy="166.2" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="483.0" y="170.2" font-size="11" fill="#52514e" text-anchor="start">Granite-4.0-H-Micro, CPU (llama.cpp)</text>
+<line x1="396.0" y1="172.6" x2="466.0" y2="180.2" stroke="#898781" stroke-width="0.6"/>
+<path d="M474.0,175.3 L478.9,180.2 L474.0,185.1 L469.1,180.2 Z" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"></path>
+<text x="483.0" y="184.2" font-size="11" fill="#52514e" text-anchor="start">Qwen3-4B-2507, NPU (compiled)</text>
+<line x1="396.0" y1="190.8" x2="466.0" y2="194.2" stroke="#898781" stroke-width="0.6"/>
+<text x="483.0" y="198.2" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="600">Mean of 11 configurations</text>
+<line x1="396.0" y1="237.2" x2="466.0" y2="237.2" stroke="#898781" stroke-width="0.6"/>
+<circle cx="474.0" cy="237.2" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="483.0" y="241.2" font-size="11" fill="#52514e" text-anchor="start">Qwen3-8B, CPU (llama.cpp)</text>
+<line x1="396.0" y1="250.2" x2="466.0" y2="251.2" stroke="#898781" stroke-width="0.6"/>
+<circle cx="474.0" cy="251.2" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="483.0" y="255.2" font-size="11" fill="#52514e" text-anchor="start">Qwen3.5-2B, CPU (llama.cpp)</text>
+<line x1="396.0" y1="282.5" x2="466.0" y2="282.5" stroke="#898781" stroke-width="0.6"/>
+<circle cx="474.0" cy="282.5" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="483.0" y="286.5" font-size="11" fill="#52514e" text-anchor="start">Qwen3-1.7B, CPU (llama.cpp)</text>
+<line x1="396.0" y1="288.9" x2="466.0" y2="296.5" stroke="#898781" stroke-width="0.6"/>
+<rect x="470.8" y="293.2" width="6.5" height="6.5" fill="#199e70" stroke="#ffffff" stroke-width="1.5"></rect>
+<text x="483.0" y="300.5" font-size="11" fill="#52514e" text-anchor="start">Qwen3-1.7B, NPU (llama.cpp)</text>
+<line x1="396.0" y1="288.9" x2="466.0" y2="310.5" stroke="#898781" stroke-width="0.6"/>
+<circle cx="474.0" cy="310.5" r="3.8" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"></circle>
+<text x="483.0" y="314.5" font-size="11" fill="#52514e" text-anchor="start">Gemma-4-E2B, CPU (llama.cpp)</text>
+</svg>

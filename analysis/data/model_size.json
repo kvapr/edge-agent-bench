@@ -1,0 +1,132 @@
+{
+ "gemma-4-e2b": {
+  "architecture": "gemma4",
+  "block_count": 35,
+  "gguf": "gemma-4-E2B_q4_0-it.gguf",
+  "output_tied": true,
+  "params_non_lookup": 2279759395,
+  "params_total": 4628569635,
+  "weight_bytes": 3333699724,
+  "weight_bytes_non_lookup": 1406941324
+ },
+ "gemma-4-e4b": {
+  "architecture": "gemma4",
+  "block_count": 42,
+  "gguf": "gemma-4-E4B_q4_0-it.gguf",
+  "output_tied": true,
+  "params_non_lookup": 4644441386,
+  "params_total": 7463013674,
+  "weight_bytes": 5139117224,
+  "weight_bytes_non_lookup": 2827007144
+ },
+ "granite-4.0-micro": {
+  "architecture": "granitehybrid",
+  "block_count": 40,
+  "gguf": "granite-4.0-h-micro-Q4_0.gguf",
+  "output_tied": true,
+  "params_non_lookup": 3191396096,
+  "params_total": 3191396096,
+  "weight_bytes": 1857182720,
+  "weight_bytes_non_lookup": 1857182720
+ },
+ "ministral-3-3b": {
+  "architecture": "mistral3",
+  "block_count": 26,
+  "gguf": "Ministral-3-3B-Instruct-2512-Q4_0.gguf",
+  "output_tied": true,
+  "params_non_lookup": 3429006336,
+  "params_total": 3429006336,
+  "weight_bytes": 2038493184,
+  "weight_bytes_non_lookup": 2038493184
+ },
+ "phi-4-mini": {
+  "architecture": "phi3",
+  "block_count": 32,
+  "gguf": "microsoft_Phi-4-mini-instruct-Q4_0.gguf",
+  "output_tied": true,
+  "params_non_lookup": 3836021856,
+  "params_total": 3836021856,
+  "weight_bytes": 2323191168,
+  "weight_bytes_non_lookup": 2323191168
+ },
+ "qwen3-0.6b": {
+  "architecture": "qwen3",
+  "block_count": 28,
+  "gguf": "Qwen3-0.6B-Q4_0.gguf",
+  "output_tied": false,
+  "params_non_lookup": 596049920,
+  "params_total": 751632384,
+  "weight_bytes": 423018496,
+  "weight_bytes_non_lookup": 335503360
+ },
+ "qwen3-1.7b": {
+  "architecture": "qwen3",
+  "block_count": 28,
+  "gguf": "Qwen3-1.7B-Q4_0.gguf",
+  "output_tied": true,
+  "params_non_lookup": 1720574976,
+  "params_total": 1720574976,
+  "weight_bytes": 1050830848,
+  "weight_bytes_non_lookup": 1050830848
+ },
+ "qwen3-4b": {
+  "architecture": "qwen3",
+  "block_count": 36,
+  "gguf": "Qwen3-4B-Q4_0.gguf",
+  "output_tied": true,
+  "params_non_lookup": 4022468096,
+  "params_total": 4022468096,
+  "weight_bytes": 2369816064,
+  "weight_bytes_non_lookup": 2369816064
+ },
+ "qwen3-4b-2507": {
+  "architecture": "qwen3",
+  "block_count": 36,
+  "gguf": "Qwen3-4B-Instruct-2507-Q4_0.gguf",
+  "output_tied": true,
+  "params_non_lookup": 4022468096,
+  "params_total": 4022468096,
+  "weight_bytes": 2369816064,
+  "weight_bytes_non_lookup": 2369816064
+ },
+ "qwen3-8b": {
+  "architecture": "qwen3",
+  "block_count": 36,
+  "gguf": "Qwen3-8B-Q4_0.gguf",
+  "output_tied": false,
+  "params_non_lookup": 7568405504,
+  "params_total": 8190735360,
+  "weight_bytes": 4768792576,
+  "weight_bytes_non_lookup": 4418732032
+ },
+ "qwen3.5-0.8b": {
+  "architecture": "qwen35",
+  "block_count": 24,
+  "gguf": "Qwen3.5-0.8B-Q4_0.gguf",
+  "output_tied": true,
+  "params_non_lookup": 752393024,
+  "params_total": 752393024,
+  "weight_bytes": 496192768,
+  "weight_bytes_non_lookup": 496192768
+ },
+ "qwen3.5-2b": {
+  "architecture": "qwen35",
+  "block_count": 24,
+  "gguf": "Qwen3.5-2B-Q4_0.gguf",
+  "output_tied": true,
+  "params_non_lookup": 1881825088,
+  "params_total": 1881825088,
+  "weight_bytes": 1203911936,
+  "weight_bytes_non_lookup": 1203911936
+ },
+ "smollm2-1.7b": {
+  "architecture": "llama",
+  "block_count": 24,
+  "gguf": "SmolLM2-1.7B-Instruct-Q4_0.gguf",
+  "output_tied": true,
+  "params_non_lookup": 1711376384,
+  "params_total": 1711376384,
+  "weight_bytes": 992092160,
+  "weight_bytes_non_lookup": 992092160
+ }
+}

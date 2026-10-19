@@ -1,0 +1,671 @@
+{
+ "catalog_release": "0.64.0",
+ "models": {
+  "gemma-4-e2b": {
+   "bundle": null,
+   "gguf": {
+    "architecture": "gemma4",
+    "bytes": 3349516256,
+    "chat_template": {
+     "chars": 18567,
+     "excerpt": [
+      "{%- if enable_thinking or tools or (messages and messages[0]['role'] in ['system', 'developer']) -%}",
+      "{%- if tools -%}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "0a2c8073c878ab1da004bee933a998606537bbb62016310352c7285c3f01c5b5",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 131072,
+    "file": "Gemma-4-E2B-it/gemma-4-E2B_q4_0-it.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": false,
+    "kv_bytes_per_token_f16": null,
+    "n_tensors": 541,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "fa401b55b07ee70a54c6dae3903c783a6e65064312529ea57175cb5f8dec6634",
+    "size_label": "4.6B"
+   },
+   "tier": "B"
+  },
+  "gemma-4-e4b": {
+   "bundle": {
+    "context_lengths": [
+     4096
+    ],
+    "context_size": 4096,
+    "file": "Gemma-4-E4B-it/gemma_4_e4b_it-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+    "jinja_template": {
+     "chars": 18505,
+     "excerpt": [
+      "{%- if enable_thinking or tools or (messages and messages[0]['role'] in ['system', 'developer']) -%}",
+      "{%- if tools -%}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "bc6330c57b364357c9534e71fe121586fd4c449c1d9283c0a9703bddc35cb1b4",
+     "tools_reference": "request-level"
+    },
+    "largest_part": "part1_of_4.bin",
+    "largest_part_bytes": 1506586624,
+    "model_id": "gemma_4_e4b_it",
+    "n_parts": 4,
+    "prefix_table_keys": [
+     "assistant_prefix",
+     "assistant_suffix",
+     "default_system_prompt",
+     "global_prefix",
+     "system_prefix",
+     "system_suffix",
+     "think_end",
+     "think_header",
+     "think_start",
+     "user_prefix",
+     "user_suffix",
+     "vision_end",
+     "vision_start"
+    ],
+    "prompt_construction": "prefix/suffix table (vision pipeline)",
+    "qairt": "2.45.0.260326154327",
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "7f6fbfe20371077b735c1c291b03208c1df4f814e0fc8ccf895f1340c737128e",
+    "tool_slot": false,
+    "tool_slot_evidence": "vision_encoder.bin present; metadata.json table keys ['assistant_prefix', 'assistant_suffix', 'default_system_prompt', 'global_prefix', 'system_prefix', 'system_suffix', 'think_end', 'think_header', 'think_start', 'user_prefix', 'user_suffix', 'vision_end', 'vision_start'] have no tool entry; the unused tokenizer_config.json template references tools: request-level",
+    "vision_encoder": true,
+    "zip_bytes": 9080957194
+   },
+   "gguf": {
+    "architecture": "gemma4",
+    "bytes": 5154941280,
+    "chat_template": {
+     "chars": 18567,
+     "excerpt": [
+      "{%- if enable_thinking or tools or (messages and messages[0]['role'] in ['system', 'developer']) -%}",
+      "{%- if tools -%}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "0a2c8073c878ab1da004bee933a998606537bbb62016310352c7285c3f01c5b5",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 131072,
+    "file": "Gemma-4-E4B-it/gemma-4-E4B_q4_0-it.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": false,
+    "kv_bytes_per_token_f16": null,
+    "n_tensors": 666,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "676c35070db6dbe52f93e9c864ee0fba4eddea94b9c875d9cb10daff453fbaee",
+    "size_label": "7.5B"
+   },
+   "tier": "A"
+  },
+  "granite-4.0-micro": {
+   "bundle": null,
+   "gguf": {
+    "architecture": "granitehybrid",
+    "bytes": 1860759584,
+    "chat_template": {
+     "chars": 6099,
+     "excerpt": [
+      "{%- set tools = available_tools %}",
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "fed2756d2d24e127b951dcf139d0b03ab7db8ef23a456128ebc9c2db4901d476",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 1048576,
+    "file": "Granite-4.0-Micro/granite-4.0-h-micro-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": true,
+    "kv_bytes_per_token_f16": 8192,
+    "n_tensors": 506,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "06ebd6a960d089bbe7057217d433a416e9348b3d2613c5ad9399c0c8f487205d",
+    "size_label": "3.2B"
+   },
+   "tier": "B"
+  },
+  "ministral-3-3b": {
+   "bundle": null,
+   "gguf": {
+    "architecture": "mistral3",
+    "bytes": 2046375200,
+    "chat_template": {
+     "chars": 7503,
+     "excerpt": [
+      "{%- if tools is defined and tools is not none and tools|length > 0 %}",
+      "{%- set tools_definition = '[AVAILABLE_TOOLS]' + (tools| tojson) + '[/AVAILABLE_TOOLS]' %}"
+     ],
+     "sha256": "a81fa42ad89f88c79d32f8f52c1cc7b1abfce90774437022e1cb22ce741ae86b",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 262144,
+    "file": "Ministral-3-3B-Instruct-2512/Ministral-3-3B-Instruct-2512-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": true,
+    "kv_bytes_per_token_f16": 106496,
+    "n_tensors": 236,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "bd1eef40a7fdb1ba9728ec977bd4aab40fb76993d6ec37377fd6522703dc88a5",
+    "size_label": "3B"
+   },
+   "tier": "B"
+  },
+  "phi-4-mini": {
+   "bundle": null,
+   "gguf": {
+    "architecture": "phi3",
+    "bytes": 2331442560,
+    "chat_template": {
+     "chars": 423,
+     "excerpt": [
+      "{% for message in messages %}{% if message['role'] == 'system' and 'tools' in message and message['tools'] is not none %}{{ '<|' + message['role'] + '|>' + message['content'] + '<|tool|>' + message['t"
+     ],
+     "sha256": "febf589225c9728ab791f52e8897d7607a823d45368f0a4c92fa68997b40cce9",
+     "tools_reference": "system-message field only"
+    },
+    "context_length_trained": 131072,
+    "file": "Phi-4-Mini-Instruct/microsoft_Phi-4-mini-instruct-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": true,
+    "kv_bytes_per_token_f16": 131072,
+    "n_tensors": 196,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "2124412a2d3410dd05c5d01796457283812210633165a2a86c909f815971518e",
+    "size_label": "mini"
+   },
+   "tier": "B"
+  },
+  "qwen3-0.6b": {
+   "bundle": {
+    "context_lengths": [
+     512,
+     1024,
+     4096
+    ],
+    "context_size": 4096,
+    "file": "Qwen3-0.6B/qwen3_0_6b-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+    "jinja_template": {
+     "chars": 4168,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+     "tools_reference": "request-level"
+    },
+    "largest_part": "part2_of_2.bin",
+    "largest_part_bytes": 437653504,
+    "model_id": "qwen3_0_6b",
+    "n_parts": 2,
+    "prefix_table_keys": [
+     "assistant_prefix",
+     "assistant_suffix",
+     "default_system_prompt",
+     "system_prefix",
+     "system_suffix",
+     "think_end",
+     "think_start",
+     "user_prefix",
+     "user_suffix"
+    ],
+    "prompt_construction": "Jinja chat template",
+    "qairt": "2.45.0.260326154327",
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "6d3784f8bc2d7db44fb43ebfca04affea8ad5caf8f94957a71c52a22116bf21d",
+    "tool_slot": true,
+    "tool_slot_evidence": "tokenizer_config.json chat_template, tools reference: request-level",
+    "vision_encoder": false,
+    "zip_bytes": 641533260
+   },
+   "gguf": {
+    "architecture": "qwen3",
+    "bytes": 428970080,
+    "chat_template": {
+     "chars": 4116,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "87a2728cb8dc9fe424d624542f6060ec05a1d285ebbec578bb078900e33396b5",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 40960,
+    "file": "Qwen3-0.6B/Qwen3-0.6B-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": false,
+    "kv_bytes_per_token_f16": 114688,
+    "n_tensors": 311,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "size_label": "0.6B"
+   },
+   "tier": "A"
+  },
+  "qwen3-1.7b": {
+   "bundle": {
+    "context_lengths": [
+     512,
+     1024,
+     2048,
+     3072,
+     4096
+    ],
+    "context_size": 4096,
+    "file": "Qwen3-1.7B/qwen3_1_7b-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+    "jinja_template": {
+     "chars": 4168,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+     "tools_reference": "request-level"
+    },
+    "largest_part": "part1_of_4.bin",
+    "largest_part_bytes": 622592000,
+    "model_id": "qwen3_1_7b",
+    "n_parts": 4,
+    "prefix_table_keys": [
+     "assistant_prefix",
+     "assistant_suffix",
+     "default_system_prompt",
+     "system_prefix",
+     "system_suffix",
+     "think_end",
+     "think_start",
+     "user_prefix",
+     "user_suffix"
+    ],
+    "prompt_construction": "Jinja chat template",
+    "qairt": "2.45.0.260326154327",
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "8f117104dc8947a28189e71161e20f9e6093a3936d2499bec9a46b3463a2a91d",
+    "tool_slot": true,
+    "tool_slot_evidence": "tokenizer_config.json chat_template, tools reference: request-level",
+    "vision_encoder": false,
+    "zip_bytes": 1536714532
+   },
+   "gguf": {
+    "architecture": "qwen3",
+    "bytes": 1056782912,
+    "chat_template": {
+     "chars": 4761,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "8428c815ac94d82064e35ff1e841dcbe260e7e53a8d0bd3b94afa2eefa9bccab",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 40960,
+    "file": "Qwen3-1.7B/Qwen3-1.7B-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": true,
+    "kv_bytes_per_token_f16": 114688,
+    "n_tensors": 310,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "c876f159707a4e4f70e045106c69db15bfc935a4981706fd4f65c6e7ea1e81c5",
+    "size_label": "1.7B"
+   },
+   "tier": "A"
+  },
+  "qwen3-4b": {
+   "bundle": {
+    "context_lengths": [
+     512,
+     1024,
+     2048,
+     3072,
+     4096
+    ],
+    "context_size": 4096,
+    "file": "Qwen3-4B/qwen3_4b-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+    "jinja_template": {
+     "chars": 4168,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+     "tools_reference": "request-level"
+    },
+    "largest_part": "part4_of_4.bin",
+    "largest_part_bytes": 1063755776,
+    "model_id": "qwen3_4b",
+    "n_parts": 4,
+    "prefix_table_keys": [
+     "assistant_prefix",
+     "assistant_suffix",
+     "default_system_prompt",
+     "system_prefix",
+     "system_suffix",
+     "think_end",
+     "think_start",
+     "user_prefix",
+     "user_suffix"
+    ],
+    "prompt_construction": "Jinja chat template",
+    "qairt": "2.45.0.260326154327",
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "701ac6c2e9ccbf9208a245ee8fce89884e3d2bf49c46cef11eb5551cf696e269",
+    "tool_slot": true,
+    "tool_slot_evidence": "tokenizer_config.json chat_template, tools reference: request-level",
+    "vision_encoder": false,
+    "zip_bytes": 2535476018
+   },
+   "gguf": {
+    "architecture": "qwen3",
+    "bytes": 2375773472,
+    "chat_template": {
+     "chars": 4905,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "5da44855ab7e0641774d5ed0ff0b4f89671d01df7d316e54d06557a962211cb4",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 40960,
+    "file": "Qwen3-4B/Qwen3-4B-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": true,
+    "kv_bytes_per_token_f16": 147456,
+    "n_tensors": 398,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "92f4a83cdfe691b216a949f915e47f35f0ed85b833aa03490c719160ac5cdf7a",
+    "size_label": "4B"
+   },
+   "tier": "A"
+  },
+  "qwen3-4b-2507": {
+   "bundle": {
+    "context_lengths": [
+     512,
+     1024,
+     2048,
+     3072,
+     4096
+    ],
+    "context_size": 4096,
+    "file": "Qwen3-4B-Instruct-2507/qwen3_4b_instruct_2507-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+    "jinja_template": {
+     "chars": 2630,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "64f85b198065d0fba2a81f37e10ed68161ce2c19a754c7100e67e0ca2ee9c326",
+     "tools_reference": "request-level"
+    },
+    "largest_part": "part4_of_4.bin",
+    "largest_part_bytes": 1063387136,
+    "model_id": "qwen3_4b_instruct_2507",
+    "n_parts": 4,
+    "prefix_table_keys": [
+     "assistant_prefix",
+     "assistant_suffix",
+     "default_system_prompt",
+     "system_prefix",
+     "system_suffix",
+     "user_prefix",
+     "user_suffix"
+    ],
+    "prompt_construction": "Jinja chat template",
+    "qairt": "2.45.0.260326154327",
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "fe31414cdfd95ec26a340d71b0120b1a5472b7f8f2b080e728e9112ea4e4a48a",
+    "tool_slot": true,
+    "tool_slot_evidence": "tokenizer_config.json chat_template, tools reference: request-level",
+    "vision_encoder": false,
+    "zip_bytes": 2534726222
+   },
+   "gguf": {
+    "architecture": "qwen3",
+    "bytes": 2375773280,
+    "chat_template": {
+     "chars": 4051,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "c979e0e71a3e21b8f208e6ab120d5cb29327885f29d2a8b18fda67a723798e18",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 262144,
+    "file": "Qwen3-4B-Instruct-2507/Qwen3-4B-Instruct-2507-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": true,
+    "kv_bytes_per_token_f16": 147456,
+    "n_tensors": 398,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "e0ba675d86ab277c61701c6793659b2ae801d95e3be791464c321e6fbf613be2",
+    "size_label": "4B"
+   },
+   "tier": "A"
+  },
+  "qwen3-8b": {
+   "bundle": {
+    "context_lengths": [
+     512,
+     1024,
+     2048,
+     3072,
+     4096
+    ],
+    "context_size": 4096,
+    "file": "Qwen3-8B/qwen3_8b-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+    "jinja_template": {
+     "chars": 4168,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+     "tools_reference": "request-level"
+    },
+    "largest_part": "part5_of_5.bin",
+    "largest_part_bytes": 1550958592,
+    "model_id": "qwen3_8b",
+    "n_parts": 5,
+    "prefix_table_keys": [
+     "assistant_prefix",
+     "assistant_suffix",
+     "default_system_prompt",
+     "system_prefix",
+     "system_suffix",
+     "think_end",
+     "think_start",
+     "user_prefix",
+     "user_suffix"
+    ],
+    "prompt_construction": "Jinja chat template",
+    "qairt": "2.45.0.260326154327",
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "ab2ae07a5da61c76e9f99fbfcc8e6fd2c77fce62d4959d94d02702d56da6d197",
+    "tool_slot": true,
+    "tool_slot_evidence": "tokenizer_config.json chat_template, tools reference: request-level",
+    "vision_encoder": false,
+    "zip_bytes": 4571269548
+   },
+   "gguf": {
+    "architecture": "qwen3",
+    "bytes": 4774749792,
+    "chat_template": {
+     "chars": 4905,
+     "excerpt": [
+      "{%- if tools %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "5da44855ab7e0641774d5ed0ff0b4f89671d01df7d316e54d06557a962211cb4",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 40960,
+    "file": "Qwen3-8B/Qwen3-8B-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": false,
+    "kv_bytes_per_token_f16": 147456,
+    "n_tensors": 399,
+    "origin": "self-quantized",
+    "quantization_version": 2,
+    "sha256_matches_download_log": null,
+    "sha256_recorded": "a0b977b71f4cacf4e750fee52fbb3cd803dca7148da457941b4d4e44f520aced",
+    "size_label": "8B"
+   },
+   "tier": "A"
+  },
+  "qwen3.5-0.8b": {
+   "bundle": null,
+   "gguf": {
+    "architecture": "qwen35",
+    "bytes": 507154688,
+    "chat_template": {
+     "chars": 7816,
+     "excerpt": [
+      "{%- if tools and tools is iterable and tools is not mapping %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 262144,
+    "file": "Qwen3.5-0.8B/Qwen3.5-0.8B-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": true,
+    "kv_bytes_per_token_f16": 12288,
+    "n_tensors": 320,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "444406ddd926550c724ec18d5120a9d40ded44908a063b0e66e9a7e5464c652c",
+    "size_label": "0.8B"
+   },
+   "tier": "B"
+  },
+  "qwen3.5-2b": {
+   "bundle": null,
+   "gguf": {
+    "architecture": "qwen35",
+    "bytes": 1214873856,
+    "chat_template": {
+     "chars": 7816,
+     "excerpt": [
+      "{%- if tools and tools is iterable and tools is not mapping %}",
+      "{%- for tool in tools %}"
+     ],
+     "sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67",
+     "tools_reference": "request-level"
+    },
+    "context_length_trained": 262144,
+    "file": "Qwen3.5-2B/Qwen3.5-2B-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": true,
+    "kv_bytes_per_token_f16": 12288,
+    "n_tensors": 320,
+    "origin": "catalog",
+    "quantization_version": 2,
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "cd70221bebaee0503e0f6717e174250cd7825aa88438b3aabec9ad55731d9bb1",
+    "size_label": "2B"
+   },
+   "tier": "B"
+  },
+  "smollm2-1.7b": {
+   "bundle": {
+    "context_lengths": [
+     4096
+    ],
+    "context_size": 4096,
+    "file": "SmolLM2-1.7B-Instruct/smollm2_1_7b_it-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+    "jinja_template": {
+     "chars": 368,
+     "excerpt": [
+      "{% for message in messages %}{% if loop.first and messages[0]['role'] != 'system' %}{{ '<|im_start|>system",
+      "You are a helpful AI assistant named SmolLM, trained by Hugging Face<|im_end|>",
+      "' }}{% endif %}{{'<|im_start|>' + message['role'] + '"
+     ],
+     "sha256": "872be49dbb638044ad01b60388f48d469ff2980e5f0dccdc22ec907db54d0788",
+     "tools_reference": "none"
+    },
+    "largest_part": "part3_of_3.bin",
+    "largest_part_bytes": 530046976,
+    "model_id": "smollm2_1_7b_it",
+    "n_parts": 3,
+    "prefix_table_keys": [
+     "assistant_prefix",
+     "assistant_suffix",
+     "default_system_prompt",
+     "system_prefix",
+     "system_suffix",
+     "user_prefix",
+     "user_suffix"
+    ],
+    "prompt_construction": "Jinja chat template",
+    "qairt": "2.45.0.260326154327",
+    "sha256_matches_download_log": true,
+    "sha256_recorded": "a6f8e88979a937293ed48224b58131969b699e73ad6440b3d564137555c02599",
+    "tool_slot": false,
+    "tool_slot_evidence": "tokenizer_config.json chat_template, tools reference: none",
+    "vision_encoder": false,
+    "zip_bytes": 1009521753
+   },
+   "gguf": {
+    "architecture": "llama",
+    "bytes": 993874912,
+    "chat_template": {
+     "chars": 368,
+     "excerpt": [
+      "{% for message in messages %}{% if loop.first and messages[0]['role'] != 'system' %}{{ '<|im_start|>system",
+      "You are a helpful AI assistant named SmolLM, trained by Hugging Face<|im_end|>",
+      "' }}{% endif %}{{'<|im_start|>' + message['role'] + '"
+     ],
+     "sha256": "872be49dbb638044ad01b60388f48d469ff2980e5f0dccdc22ec907db54d0788",
+     "tools_reference": "none"
+    },
+    "context_length_trained": 8192,
+    "file": "SmolLM2-1.7B-Instruct/SmolLM2-1.7B-Instruct-Q4_0.gguf",
+    "file_type": "MOSTLY_Q4_0",
+    "gguf_version": 3,
+    "imatrix": true,
+    "kv_bytes_per_token_f16": 196608,
+    "n_tensors": 218,
+    "origin": "community",
+    "quantization_version": 2,
+    "sha256_matches_download_log": null,
+    "sha256_recorded": "99b866e77adee858930244229afa833dbe3372a7bf122905ea506119c6911ae8",
+    "size_label": "1.7B"
+   },
+   "tier": "A"
+  }
+ }
+}
