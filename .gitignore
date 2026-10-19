@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+results/*.json
+!results/.gitkeep
+*.log
+.env
+
+# Private to the maintainer, not part of the public benchmark
+CLAUDE.md
+drafts/
+
+# Personal Claude Code permissions for this checkout
+.claude/settings.local.json

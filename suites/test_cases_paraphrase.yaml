@@ -1,0 +1,1378 @@
+# Paraphrase-robustness test cases for the network-management tool-calling benchmark
+# Derived from test_cases.yaml: 65 source cases x 3 paraphrase styles = 195 cases
+# Each case preserves the exact expected_tool / expected_command / expected_params of its base_input
+#   style A = casual (contractions, everyday verbs)
+#   style B = verbose (polite, full sentences)
+#   style C = indirect / intent-first (states the situation, not the literal command)
+
+level1_queries:
+  - input: "@poesw1 hey, what's the status on all the ports?"
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+    base_input: "@poesw1 show all ports status"
+    style: "A"
+
+  - input: "Could you please show me the current status of every port on @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+    base_input: "@poesw1 show all ports status"
+    style: "B"
+
+  - input: "@poesw1, before I start the maintenance window I want a full sweep — how's every port looking right now?"
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+    base_input: "@poesw1 show all ports status"
+    style: "C"
+
+  - input: "@poesw1 what's going on with port 5?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/5"}
+    base_input: "@poesw1 show port 5 status"
+    style: "A"
+
+  - input: "Would you mind pulling up the current status for port 5, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/5"}
+    base_input: "@poesw1 show port 5 status"
+    style: "B"
+
+  - input: "@poesw1 port 5 hasn't shown up in the monitoring dashboard — can you check its status?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/5"}
+    base_input: "@poesw1 show port 5 status"
+    style: "C"
+
+  - input: "@poesw1 what's your system info look like?"
+    expected_tool: "query_device_info"
+    expected_command: "show_system_info"
+    expected_params: {}
+    base_input: "@poesw1 show system info"
+    style: "A"
+
+  - input: "Could you please provide me with the current system information, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_system_info"
+    expected_params: {}
+    base_input: "@poesw1 show system info"
+    style: "B"
+
+  - input: "@poesw1 I need to log this device's details for the inventory sheet — pull up the system info."
+    expected_tool: "query_device_info"
+    expected_command: "show_system_info"
+    expected_params: {}
+    base_input: "@poesw1 show system info"
+    style: "C"
+
+  - input: "@poesw1 is port 3 getting power?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/3"}
+    base_input: "@poesw1 show poe status port 3"
+    style: "A"
+
+  - input: "@poesw1 could you please show me the current PoE status for port 3?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/3"}
+    base_input: "@poesw1 show poe status port 3"
+    style: "B"
+
+  - input: "The camera on port 3 looks dead, @poesw1 — check whether it's getting power."
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/3"}
+    base_input: "@poesw1 show poe status port 3"
+    style: "C"
+
+  - input: "@poesw1 what vlans are set up right now?"
+    expected_tool: "query_device_info"
+    expected_command: "show_vlan_config"
+    expected_params: {}
+    base_input: "@poesw1 show vlan config"
+    style: "A"
+
+  - input: "Could you please show me the current VLAN configuration, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_vlan_config"
+    expected_params: {}
+    base_input: "@poesw1 show vlan config"
+    style: "B"
+
+  - input: "@poesw1 I'm troubleshooting a segmentation issue and need to see how the vlans are laid out on this switch."
+    expected_tool: "query_device_info"
+    expected_command: "show_vlan_config"
+    expected_params: {}
+    base_input: "@poesw1 show vlan config"
+    style: "C"
+
+  - input: "@poesw1 give me the details on port 2."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/2"}
+    base_input: "@poesw1 display port 2 details"
+    style: "A"
+
+  - input: "Would you please display the detailed status of port 2 for me, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/2"}
+    base_input: "@poesw1 display port 2 details"
+    style: "B"
+
+  - input: "@poesw1 someone asked what's plugged into port 2 — pull up its details."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/2"}
+    base_input: "@poesw1 display port 2 details"
+    style: "C"
+
+  - input: "@poesw1 what's interface 8 doing right now?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/8"}
+    base_input: "@poesw1 get interface 8 status"
+    style: "A"
+
+  - input: "@poesw1 could you please get me the current status of interface 8?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/8"}
+    base_input: "@poesw1 get interface 8 status"
+    style: "B"
+
+  - input: "I can't tell from here if interface 8 is even up, @poesw1 — check its status."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/8"}
+    base_input: "@poesw1 get interface 8 status"
+    style: "C"
+
+  - input: "@poesw1 how much poe power do we have left to work with?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_power_budget"
+    expected_params: {}
+    base_input: "@poesw1 show poe power budget"
+    style: "A"
+
+  - input: "Could you please show me the current PoE power budget for the switch, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_power_budget"
+    expected_params: {}
+    base_input: "@poesw1 show poe power budget"
+    style: "B"
+
+  - input: "@poesw1 we're planning to add a few more powered devices — check how much of the poe budget is still available."
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_power_budget"
+    expected_params: {}
+    base_input: "@poesw1 show poe power budget"
+    style: "C"
+
+  - input: "@poesw1 what's port 1 looking like?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/1"}
+    base_input: "@poesw1 show port 1 status"
+    style: "A"
+
+  - input: "Would you mind showing me the current status of port 1, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/1"}
+    base_input: "@poesw1 show port 1 status"
+    style: "B"
+
+  - input: "@poesw1 port 1 is the uplink — I want to confirm its status before we start work."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/1"}
+    base_input: "@poesw1 show port 1 status"
+    style: "C"
+
+  - input: "@poesw1 check port 10 for me real quick."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/10"}
+    base_input: "@poesw1 show port 10 status"
+    style: "A"
+
+  - input: "Could you please tell me the current status of port 10, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/10"}
+    base_input: "@poesw1 show port 10 status"
+    style: "B"
+
+  - input: "@poesw1 we just ran a new cable to port 10 — see if it's showing any status yet."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/10"}
+    base_input: "@poesw1 show port 10 status"
+    style: "C"
+
+  - input: "@poesw1 is port 7 pushing out any power?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/7"}
+    base_input: "@poesw1 show poe status port 7"
+    style: "A"
+
+  - input: "@poesw1 could you please show me the PoE status on port 7?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/7"}
+    base_input: "@poesw1 show poe status port 7"
+    style: "B"
+
+  - input: "The access point on port 7 won't boot, @poesw1 — check if it's actually receiving PoE."
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/7"}
+    base_input: "@poesw1 show poe status port 7"
+    style: "C"
+
+  - input: "@poesw1 what system info have you got?"
+    expected_tool: "query_device_info"
+    expected_command: "show_system_info"
+    expected_params: {}
+    base_input: "@poesw1 display system information"
+    style: "A"
+
+  - input: "Could you please display the current system information for me, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_system_info"
+    expected_params: {}
+    base_input: "@poesw1 display system information"
+    style: "B"
+
+  - input: "@poesw1 I'm filling out the asset log and need this switch's system information."
+    expected_tool: "query_device_info"
+    expected_command: "show_system_info"
+    expected_params: {}
+    base_input: "@poesw1 display system information"
+    style: "C"
+
+  - input: "@poesw1 let's see every port."
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+    base_input: "@poesw1 get all ports"
+    style: "A"
+
+  - input: "@poesw1 could you please pull up the status for all of the ports?"
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+    base_input: "@poesw1 get all ports"
+    style: "B"
+
+  - input: "@poesw1 I want a quick sanity check across the whole switch — show every port."
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+    base_input: "@poesw1 get all ports"
+    style: "C"
+
+  - input: "@poesw1 what's up with interface 6?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/6"}
+    base_input: "@poesw1 show interface 6 status"
+    style: "A"
+
+  - input: "Would you please show me the current status of interface 6, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/6"}
+    base_input: "@poesw1 show interface 6 status"
+    style: "B"
+
+  - input: "@poesw1 interface 6 hasn't logged any traffic today — check its status."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/6"}
+    base_input: "@poesw1 show interface 6 status"
+    style: "C"
+
+  - input: "@poesw1 how's the poe looking on port 4?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/4"}
+    base_input: "@poesw1 show port 4 poe"
+    style: "A"
+
+  - input: "@poesw1 could you please show me the PoE information for port 4?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/4"}
+    base_input: "@poesw1 show port 4 poe"
+    style: "B"
+
+  - input: "The phone on port 4 keeps rebooting, @poesw1 — check whether its poe power is stable."
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/4"}
+    base_input: "@poesw1 show port 4 poe"
+    style: "C"
+
+  - input: "@poesw1 what's the vlan setup look like?"
+    expected_tool: "query_device_info"
+    expected_command: "show_vlan_config"
+    expected_params: {}
+    base_input: "@poesw1 display vlan configuration"
+    style: "A"
+
+  - input: "Could you please display the current VLAN configuration for me, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_vlan_config"
+    expected_params: {}
+    base_input: "@poesw1 display vlan configuration"
+    style: "B"
+
+  - input: "@poesw1 I'm auditing the network layout — show me how the vlans are configured."
+    expected_tool: "query_device_info"
+    expected_command: "show_vlan_config"
+    expected_params: {}
+    base_input: "@poesw1 display vlan configuration"
+    style: "C"
+
+  - input: "@poesw1 give me the rundown on port 9."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/9"}
+    base_input: "@poesw1 show port 9 details"
+    style: "A"
+
+  - input: "@poesw1 could you please show me the detailed status of port 9?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/9"}
+    base_input: "@poesw1 show port 9 details"
+    style: "B"
+
+  - input: "@poesw1 we think port 9 might be misconfigured — pull up its details to confirm."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/9"}
+    base_input: "@poesw1 show port 9 details"
+    style: "C"
+
+  - input: "@poesw1 how much poe do we have to spare?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_power_budget"
+    expected_params: {}
+    base_input: "@poesw1 get poe budget"
+    style: "A"
+
+  - input: "@poesw1 could you please get me the current PoE power budget?"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_power_budget"
+    expected_params: {}
+    base_input: "@poesw1 get poe budget"
+    style: "B"
+
+  - input: "Before we power up a couple more cameras, @poesw1, check how much poe budget is left."
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_power_budget"
+    expected_params: {}
+    base_input: "@poesw1 get poe budget"
+    style: "C"
+
+  - input: "@poesw1 what's interface 12 up to?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/12"}
+    base_input: "@poesw1 show interface 12 status"
+    style: "A"
+
+  - input: "Would you mind telling me the current status of interface 12, @poesw1?"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/12"}
+    base_input: "@poesw1 show interface 12 status"
+    style: "B"
+
+  - input: "@poesw1 interface 12 was flapping earlier — check its status now."
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/12"}
+    base_input: "@poesw1 show interface 12 status"
+    style: "C"
+
+  - input: "@poesw1 show me every interface real quick."
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+    base_input: "@poesw1 show all interfaces"
+    style: "A"
+
+  - input: "@poesw1 could you please provide the current status of all the interfaces?"
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+    base_input: "@poesw1 show all interfaces"
+    style: "B"
+
+  - input: "@poesw1 I'm doing a full health check on the switch — pull up every interface's status."
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+    base_input: "@poesw1 show all interfaces"
+    style: "C"
+
+
+level2_enable_disable:
+  - input: "@poesw1 turn port 3 back on."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/3"}
+    base_input: "@poesw1 enable port 3"
+    style: "A"
+
+  - input: "Could you please enable port 3 so it's back up and passing traffic, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/3"}
+    base_input: "@poesw1 enable port 3"
+    style: "B"
+
+  - input: "@poesw1 someone left the interface on port 3 shut down after last night's work — bring it back up."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/3"}
+    base_input: "@poesw1 enable port 3"
+    style: "C"
+
+  - input: "@poesw1 take port 7 down."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/7"}
+    base_input: "@poesw1 disable port 7"
+    style: "A"
+
+  - input: "Could you please disable port 7 and shut the interface down, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/7"}
+    base_input: "@poesw1 disable port 7"
+    style: "B"
+
+  - input: "@poesw1 there's a rogue device flooding traffic on port 7 — kill that interface now."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/7"}
+    base_input: "@poesw1 disable port 7"
+    style: "C"
+
+  - input: "@poesw1 give port 4 power again."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/4", "mode": "enable"}
+    base_input: "@poesw1 enable poe on port 4"
+    style: "A"
+
+  - input: "@poesw1 could you please enable PoE power delivery on port 4?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/4", "mode": "enable"}
+    base_input: "@poesw1 enable poe on port 4"
+    style: "B"
+
+  - input: "We just plugged a new camera into port 4, @poesw1 — start feeding it power."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/4", "mode": "enable"}
+    base_input: "@poesw1 enable poe on port 4"
+    style: "C"
+
+  - input: "@poesw1 cut the power to port 2."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/2", "mode": "disable"}
+    base_input: "@poesw1 disable poe on port 2"
+    style: "A"
+
+  - input: "Could you please disable PoE power on port 2, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/2", "mode": "disable"}
+    base_input: "@poesw1 disable poe on port 2"
+    style: "B"
+
+  - input: "@poesw1 the device on port 2 is arcing and smoking — kill the power feed to it right now."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/2", "mode": "disable"}
+    base_input: "@poesw1 disable poe on port 2"
+    style: "C"
+
+  - input: "@poesw1 flip port 6 back on."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/6"}
+    base_input: "@poesw1 turn on port 6"
+    style: "A"
+
+  - input: "Would you please turn port 6's interface back on for me, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/6"}
+    base_input: "@poesw1 turn on port 6"
+    style: "B"
+
+  - input: "@poesw1 port 6 got shut down by mistake during cleanup — switch the interface back on."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/6"}
+    base_input: "@poesw1 turn on port 6"
+    style: "C"
+
+  - input: "@poesw1 shut port 9 down."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/9"}
+    base_input: "@poesw1 turn off port 9"
+    style: "A"
+
+  - input: "Would you please turn off the interface on port 9 for me, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/9"}
+    base_input: "@poesw1 turn off port 9"
+    style: "B"
+
+  - input: "@poesw1 we're decommissioning whatever's on port 9 — take that interface down."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/9"}
+    base_input: "@poesw1 turn off port 9"
+    style: "C"
+
+  - input: "@poesw1 get interface 1 back online."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/1"}
+    base_input: "@poesw1 activate interface 1"
+    style: "A"
+
+  - input: "@poesw1 could you please activate interface 1 so it's up and running again?"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/1"}
+    base_input: "@poesw1 activate interface 1"
+    style: "B"
+
+  - input: "@poesw1 interface 1 is still showing administratively down from the last change — bring it back up."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/1"}
+    base_input: "@poesw1 activate interface 1"
+    style: "C"
+
+  - input: "@poesw1 knock interface 5 offline."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/5"}
+    base_input: "@poesw1 deactivate interface 5"
+    style: "A"
+
+  - input: "@poesw1 could you please deactivate interface 5 and take the link down?"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/5"}
+    base_input: "@poesw1 deactivate interface 5"
+    style: "B"
+
+  - input: "We found an unauthorized device hanging off interface 5, @poesw1 — pull that link down immediately."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/5"}
+    base_input: "@poesw1 deactivate interface 5"
+    style: "C"
+
+  - input: "@poesw1 switch port 8 on."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/8"}
+    base_input: "@poesw1 enable port 8"
+    style: "A"
+
+  - input: "Could you please enable port 8 so the link comes back up, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/8"}
+    base_input: "@poesw1 enable port 8"
+    style: "B"
+
+  - input: "@poesw1 port 8 has been sitting disabled since the audit — turn its interface back on."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/8"}
+    base_input: "@poesw1 enable port 8"
+    style: "C"
+
+  - input: "@poesw1 kill the link on port 10."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/10"}
+    base_input: "@poesw1 disable port 10"
+    style: "A"
+
+  - input: "@poesw1 could you please disable port 10 and drop that interface?"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/10"}
+    base_input: "@poesw1 disable port 10"
+    style: "B"
+
+  - input: "@poesw1 that laptop on port 10 isn't supposed to be on our network — shut the interface down."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/10"}
+    base_input: "@poesw1 disable port 10"
+    style: "C"
+
+  - input: "@poesw1 get power back on port 12."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/12", "mode": "enable"}
+    base_input: "@poesw1 enable poe port 12"
+    style: "A"
+
+  - input: "Could you please turn PoE back on for port 12, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/12", "mode": "enable"}
+    base_input: "@poesw1 enable poe port 12"
+    style: "B"
+
+  - input: "@poesw1 we swapped in a new PoE phone on port 12 — start feeding it power again."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/12", "mode": "enable"}
+    base_input: "@poesw1 enable poe port 12"
+    style: "C"
+
+  - input: "@poesw1 cut power to port 11."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/11", "mode": "disable"}
+    base_input: "@poesw1 disable poe port 11"
+    style: "A"
+
+  - input: "@poesw1 could you please turn off PoE for port 11?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/11", "mode": "disable"}
+    base_input: "@poesw1 disable poe port 11"
+    style: "B"
+
+  - input: "The device on port 11 needs a hard power cycle, @poesw1 — stop powering it for now."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/11", "mode": "disable"}
+    base_input: "@poesw1 disable poe port 11"
+    style: "C"
+
+  - input: "@poesw1 bring interface 3 up."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/3"}
+    base_input: "@poesw1 turn on interface 3"
+    style: "A"
+
+  - input: "Would you mind turning interface 3 back on for me, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/3"}
+    base_input: "@poesw1 turn on interface 3"
+    style: "B"
+
+  - input: "@poesw1 interface 3 dropped out of the topology map — get it back up and running."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/3"}
+    base_input: "@poesw1 turn on interface 3"
+    style: "C"
+
+  - input: "@poesw1 drop interface 4."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/4"}
+    base_input: "@poesw1 turn off interface 4"
+    style: "A"
+
+  - input: "Would you mind turning interface 4 off for me, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/4"}
+    base_input: "@poesw1 turn off interface 4"
+    style: "B"
+
+  - input: "@poesw1 we need interface 4 out of service while we re-terminate the cable — take it down."
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/4"}
+    base_input: "@poesw1 turn off interface 4"
+    style: "C"
+
+  - input: "@poesw1 get port 2 turned back on."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/2"}
+    base_input: "@poesw1 activate port 2"
+    style: "A"
+
+  - input: "Could you please activate port 2 so it's live again, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/2"}
+    base_input: "@poesw1 activate port 2"
+    style: "B"
+
+  - input: "@poesw1 port 2 was left disabled from testing yesterday — switch its interface back on."
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/2"}
+    base_input: "@poesw1 activate port 2"
+    style: "C"
+
+
+level3_single_param:
+  - input: "@poesw1 bump port 2 up to 1000."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/2", "speed": "1000"}
+    base_input: "@poesw1 set port 2 speed to 1000"
+    style: "A"
+
+  - input: "Could you please set the speed on port 2 to 1000, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/2", "speed": "1000"}
+    base_input: "@poesw1 set port 2 speed to 1000"
+    style: "B"
+
+  - input: "@poesw1 the new switch uplink on port 2 needs to run at 1000 — get that port up to speed."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/2", "speed": "1000"}
+    base_input: "@poesw1 set port 2 speed to 1000"
+    style: "C"
+
+  - input: "@poesw1 put port 5 on auto."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/5", "speed": "auto"}
+    base_input: "@poesw1 set port 5 speed to auto"
+    style: "A"
+
+  - input: "Could you please set port 5's speed to auto, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/5", "speed": "auto"}
+    base_input: "@poesw1 set port 5 speed to auto"
+    style: "B"
+
+  - input: "@poesw1 we keep having to guess the right speed for whatever's plugged into port 5 — just let it auto-negotiate speed."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/5", "speed": "auto"}
+    base_input: "@poesw1 set port 5 speed to auto"
+    style: "C"
+
+  - input: "@poesw1 set port 3 to full duplex."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/3", "duplex": "full"}
+    base_input: "@poesw1 set port 3 duplex to full"
+    style: "A"
+
+  - input: "Could you please configure the duplex setting on port 3 to full, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/3", "duplex": "full"}
+    base_input: "@poesw1 set port 3 duplex to full"
+    style: "B"
+
+  - input: "@poesw1 port 3's connected to a device that only does full duplex — match its duplex setting to full."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/3", "duplex": "full"}
+    base_input: "@poesw1 set port 3 duplex to full"
+    style: "C"
+
+  - input: "@poesw1 drop port 7 down to 100."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/7", "speed": "100"}
+    base_input: "@poesw1 configure port 7 speed 100"
+    style: "A"
+
+  - input: "@poesw1 could you please configure port 7's speed as 100?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/7", "speed": "100"}
+    base_input: "@poesw1 configure port 7 speed 100"
+    style: "B"
+
+  - input: "The old switch on the other end of port 7 tops out at 100, @poesw1 — set the link speed to match."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/7", "speed": "100"}
+    base_input: "@poesw1 configure port 7 speed 100"
+    style: "C"
+
+  - input: "@poesw1 flip interface 4 to half duplex."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/4", "duplex": "half"}
+    base_input: "@poesw1 set interface 4 duplex half"
+    style: "A"
+
+  - input: "Could you please set the duplex mode on interface 4 to half, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/4", "duplex": "half"}
+    base_input: "@poesw1 set interface 4 duplex half"
+    style: "B"
+
+  - input: "@poesw1 there's an old hub hanging off interface 4 that only supports half duplex — configure it to match."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/4", "duplex": "half"}
+    base_input: "@poesw1 set interface 4 duplex half"
+    style: "C"
+
+  - input: "@poesw1 knock port 8 down to 10."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/8", "speed": "10"}
+    base_input: "@poesw1 change port 8 speed to 10"
+    style: "A"
+
+  - input: "Could you please change the speed on port 8 to 10, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/8", "speed": "10"}
+    base_input: "@poesw1 change port 8 speed to 10"
+    style: "B"
+
+  - input: "@poesw1 whatever's plugged into port 8 is ancient and only negotiates at 10 — set the speed down to match."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/8", "speed": "10"}
+    base_input: "@poesw1 change port 8 speed to 10"
+    style: "C"
+
+  - input: "@poesw1 crank port 1 up to 1000."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/1", "speed": "1000"}
+    base_input: "@poesw1 set port 1 speed 1000"
+    style: "A"
+
+  - input: "@poesw1 could you please set port 1's speed to 1000?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/1", "speed": "1000"}
+    base_input: "@poesw1 set port 1 speed 1000"
+    style: "B"
+
+  - input: "@poesw1 port 1 is our new gigabit uplink — get it running at 1000."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/1", "speed": "1000"}
+    base_input: "@poesw1 set port 1 speed 1000"
+    style: "C"
+
+  - input: "@poesw1 set port 6 to full duplex."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/6", "duplex": "full"}
+    base_input: "@poesw1 configure port 6 duplex full"
+    style: "A"
+
+  - input: "Could you please configure the duplex on port 6 as full, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/6", "duplex": "full"}
+    base_input: "@poesw1 configure port 6 duplex full"
+    style: "B"
+
+  - input: "@poesw1 port 6 needs to match the server's NIC, which is full duplex only — line it up to match."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/6", "duplex": "full"}
+    base_input: "@poesw1 configure port 6 duplex full"
+    style: "C"
+
+  - input: "@poesw1 put interface 9 on auto speed."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/9", "speed": "auto"}
+    base_input: "@poesw1 set interface 9 speed auto"
+    style: "A"
+
+  - input: "@poesw1 could you please set interface 9 to auto-negotiate its speed?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/9", "speed": "auto"}
+    base_input: "@poesw1 set interface 9 speed auto"
+    style: "B"
+
+  - input: "@poesw1 we don't know what'll be plugged into interface 9 next — just leave the speed on auto."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/9", "speed": "auto"}
+    base_input: "@poesw1 set interface 9 speed auto"
+    style: "C"
+
+  - input: "@poesw1 switch interface 10 to half duplex."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/10", "duplex": "half"}
+    base_input: "@poesw1 change interface 10 duplex half"
+    style: "A"
+
+  - input: "Could you please change the duplex setting on interface 10 to half, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/10", "duplex": "half"}
+    base_input: "@poesw1 change interface 10 duplex half"
+    style: "B"
+
+  - input: "@poesw1 the legacy hub on interface 10 can't do full duplex — drop it down to half."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/10", "duplex": "half"}
+    base_input: "@poesw1 change interface 10 duplex half"
+    style: "C"
+
+  - input: "@poesw1 dial port 11 back to 100."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/11", "speed": "100"}
+    base_input: "@poesw1 set port 11 speed to 100"
+    style: "A"
+
+  - input: "Could you please set the speed on port 11 to 100, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/11", "speed": "100"}
+    base_input: "@poesw1 set port 11 speed to 100"
+    style: "B"
+
+  - input: "@poesw1 port 11's new neighbor switch only handles 100 — bring the speed down to match."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/11", "speed": "100"}
+    base_input: "@poesw1 set port 11 speed to 100"
+    style: "C"
+
+  - input: "@poesw1 knock interface 12 down to 10."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/12", "speed": "10"}
+    base_input: "@poesw1 configure interface 12 speed 10"
+    style: "A"
+
+  - input: "@poesw1 could you please configure the speed on interface 12 as 10?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/12", "speed": "10"}
+    base_input: "@poesw1 configure interface 12 speed 10"
+    style: "B"
+
+  - input: "@poesw1 the sensor on interface 12 is an old 10-only device — set the interface to match its speed."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/12", "speed": "10"}
+    base_input: "@poesw1 configure interface 12 speed 10"
+    style: "C"
+
+  - input: "@poesw1 bump port 5 to full duplex."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/5", "duplex": "full"}
+    base_input: "@poesw1 set port 5 duplex full"
+    style: "A"
+
+  - input: "Could you please set port 5's duplex mode to full, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/5", "duplex": "full"}
+    base_input: "@poesw1 set port 5 duplex full"
+    style: "B"
+
+  - input: "@poesw1 port 5 keeps dropping packets under its current duplex setting — switch it over to full duplex."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/5", "duplex": "full"}
+    base_input: "@poesw1 set port 5 duplex full"
+    style: "C"
+
+  - input: "@poesw1 put port 7 back on auto."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/7", "speed": "auto"}
+    base_input: "@poesw1 change port 7 speed auto"
+    style: "A"
+
+  - input: "Could you please change port 7's speed to auto, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/7", "speed": "auto"}
+    base_input: "@poesw1 change port 7 speed auto"
+    style: "B"
+
+  - input: "@poesw1 we keep swapping gear in and out of port 7 — just let it auto-negotiate from now on."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/7", "speed": "auto"}
+    base_input: "@poesw1 change port 7 speed auto"
+    style: "C"
+
+  - input: "@poesw1 set interface 3 to half duplex."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/3", "duplex": "half"}
+    base_input: "@poesw1 set interface 3 duplex half"
+    style: "A"
+
+  - input: "@poesw1 could you please configure interface 3's duplex mode to half?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/3", "duplex": "half"}
+    base_input: "@poesw1 set interface 3 duplex half"
+    style: "B"
+
+  - input: "@poesw1 there's an old hub on interface 3 that only runs half duplex — line the interface up to match."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/3", "duplex": "half"}
+    base_input: "@poesw1 set interface 3 duplex half"
+    style: "C"
+
+
+level4_multi_param:
+  - input: "@poesw1 throttle port 5's poe to 25 watts."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/5", "power_limit": 25}
+    base_input: "@poesw1 set poe power limit to 25W on port 5"
+    style: "A"
+
+  - input: "Could you please set the PoE power limit on port 5 to 25 watts, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/5", "power_limit": 25}
+    base_input: "@poesw1 set poe power limit to 25W on port 5"
+    style: "B"
+
+  - input: "@poesw1 the camera on port 5 keeps tripping the power budget — cap its poe draw at 25 watts."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/5", "power_limit": 25}
+    base_input: "@poesw1 set poe power limit to 25W on port 5"
+    style: "C"
+
+  - input: "@poesw1 put port 2 on vlan 10."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/2", "vlan_id": 10}
+    base_input: "@poesw1 assign port 2 to vlan 10"
+    style: "A"
+
+  - input: "Could you please assign port 2 to VLAN 10, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/2", "vlan_id": 10}
+    base_input: "@poesw1 assign port 2 to vlan 10"
+    style: "B"
+
+  - input: "@poesw1 the printer on port 2 needs to be on the guest network, which is vlan 10 — move it over."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/2", "vlan_id": 10}
+    base_input: "@poesw1 assign port 2 to vlan 10"
+    style: "C"
+
+  - input: "@poesw1 label port 6 'Front Door Camera'."
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/6", "description": "Front Door Camera"}
+    base_input: "@poesw1 set port 6 description Front Door Camera"
+    style: "A"
+
+  - input: "Could you please set the description on port 6 to 'Front Door Camera', @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/6", "description": "Front Door Camera"}
+    base_input: "@poesw1 set port 6 description Front Door Camera"
+    style: "B"
+
+  - input: "@poesw1 so we remember what's plugged in later, tag port 6 as Front Door Camera."
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/6", "description": "Front Door Camera"}
+    base_input: "@poesw1 set port 6 description Front Door Camera"
+    style: "C"
+
+  - input: "@poesw1 drop port 3 into vlan 20."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/3", "vlan_id": 20}
+    base_input: "@poesw1 configure vlan 20 on port 3"
+    style: "A"
+
+  - input: "@poesw1 could you please configure port 3 to use VLAN 20?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/3", "vlan_id": 20}
+    base_input: "@poesw1 configure vlan 20 on port 3"
+    style: "B"
+
+  - input: "@poesw1 port 3 needs to be segmented with the finance team's traffic on vlan 20 — set that up."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/3", "vlan_id": 20}
+    base_input: "@poesw1 configure vlan 20 on port 3"
+    style: "C"
+
+  - input: "@poesw1 throttle port 7's poe to 30 watts."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/7", "power_limit": 30}
+    base_input: "@poesw1 set poe limit 30 watts port 7"
+    style: "A"
+
+  - input: "Could you please set the PoE limit on port 7 to 30 watts, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/7", "power_limit": 30}
+    base_input: "@poesw1 set poe limit 30 watts port 7"
+    style: "B"
+
+  - input: "@poesw1 we don't want port 7 pulling more than 30 watts of poe and blowing the budget — cap it there."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/7", "power_limit": 30}
+    base_input: "@poesw1 set poe limit 30 watts port 7"
+    style: "C"
+
+  - input: "@poesw1 name port 4 'Server Room Switch'."
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/4", "description": "Server Room Switch"}
+    base_input: "@poesw1 set port 4 description Server Room Switch"
+    style: "A"
+
+  - input: "Could you please set port 4's description to 'Server Room Switch', @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/4", "description": "Server Room Switch"}
+    base_input: "@poesw1 set port 4 description Server Room Switch"
+    style: "B"
+
+  - input: "@poesw1 for documentation purposes, tag port 4 as Server Room Switch."
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/4", "description": "Server Room Switch"}
+    base_input: "@poesw1 set port 4 description Server Room Switch"
+    style: "C"
+
+  - input: "@poesw1 move port 9 into vlan 100."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/9", "vlan_id": 100}
+    base_input: "@poesw1 put port 9 in vlan 100"
+    style: "A"
+
+  - input: "Could you please put port 9 in VLAN 100, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/9", "vlan_id": 100}
+    base_input: "@poesw1 put port 9 in vlan 100"
+    style: "B"
+
+  - input: "@poesw1 port 9 should be grouped with the rest of the security cameras on vlan 100 — get it switched over."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/9", "vlan_id": 100}
+    base_input: "@poesw1 put port 9 in vlan 100"
+    style: "C"
+
+  - input: "@poesw1 cap port 1's poe at 15 watts."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/1", "power_limit": 15}
+    base_input: "@poesw1 configure poe power 15W port 1"
+    style: "A"
+
+  - input: "Could you please configure the PoE power limit on port 1 to 15 watts, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/1", "power_limit": 15}
+    base_input: "@poesw1 configure poe power 15W port 1"
+    style: "B"
+
+  - input: "@poesw1 port 1 only needs a small amount of power for what's connected — keep its poe under 15 watts."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/1", "power_limit": 15}
+    base_input: "@poesw1 configure poe power 15W port 1"
+    style: "C"
+
+  - input: "@poesw1 put port 8 on vlan 50."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/8", "vlan_id": 50}
+    base_input: "@poesw1 assign port 8 vlan 50"
+    style: "A"
+
+  - input: "Could you please assign port 8 to VLAN 50, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/8", "vlan_id": 50}
+    base_input: "@poesw1 assign port 8 vlan 50"
+    style: "B"
+
+  - input: "@poesw1 port 8 needs to land on the same vlan as the rest of the voice devices, vlan 50 — move it over."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/8", "vlan_id": 50}
+    base_input: "@poesw1 assign port 8 vlan 50"
+    style: "C"
+
+  - input: "@poesw1 mark port 10 as 'Lobby Access Point'."
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/10", "description": "Lobby Access Point"}
+    base_input: "@poesw1 set port 10 description Lobby Access Point"
+    style: "A"
+
+  - input: "Could you please set the description on port 10 to 'Lobby Access Point', @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/10", "description": "Lobby Access Point"}
+    base_input: "@poesw1 set port 10 description Lobby Access Point"
+    style: "B"
+
+  - input: "@poesw1 to keep the port map current, note port 10 as Lobby Access Point."
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/10", "description": "Lobby Access Point"}
+    base_input: "@poesw1 set port 10 description Lobby Access Point"
+    style: "C"
+
+  - input: "@poesw1 cap port 11's poe at 20 watts."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/11", "power_limit": 20}
+    base_input: "@poesw1 set poe power limit 20 on port 11"
+    style: "A"
+
+  - input: "@poesw1 could you please set the PoE power limit for port 11 to 20 watts?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/11", "power_limit": 20}
+    base_input: "@poesw1 set poe power limit 20 on port 11"
+    style: "B"
+
+  - input: "@poesw1 port 11 is drawing more poe than we'd like — restrict it to 20 watts."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/11", "power_limit": 20}
+    base_input: "@poesw1 set poe power limit 20 on port 11"
+    style: "C"
+
+  - input: "@poesw1 drop port 12 into vlan 200."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/12", "vlan_id": 200}
+    base_input: "@poesw1 configure port 12 vlan 200"
+    style: "A"
+
+  - input: "@poesw1 could you please configure port 12 for VLAN 200?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/12", "vlan_id": 200}
+    base_input: "@poesw1 configure port 12 vlan 200"
+    style: "B"
+
+  - input: "@poesw1 port 12 belongs with the lab equipment on vlan 200 — get it set up there."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/12", "vlan_id": 200}
+    base_input: "@poesw1 configure port 12 vlan 200"
+    style: "C"
+
+  - input: "@poesw1 call port 5's description 'Conference Room TV'."
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/5", "description": "Conference Room TV"}
+    base_input: "@poesw1 set port 5 description Conference Room TV"
+    style: "A"
+
+  - input: "Could you please set port 5's description to 'Conference Room TV', @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/5", "description": "Conference Room TV"}
+    base_input: "@poesw1 set port 5 description Conference Room TV"
+    style: "B"
+
+  - input: "@poesw1 log port 5 as Conference Room TV so we know what's plugged in there."
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/5", "description": "Conference Room TV"}
+    base_input: "@poesw1 set port 5 description Conference Room TV"
+    style: "C"
+
+  - input: "@poesw1 put interface 2 on vlan 30."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/2", "vlan_id": 30}
+    base_input: "@poesw1 assign interface 2 to vlan 30"
+    style: "A"
+
+  - input: "Could you please assign interface 2 to VLAN 30, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/2", "vlan_id": 30}
+    base_input: "@poesw1 assign interface 2 to vlan 30"
+    style: "B"
+
+  - input: "@poesw1 interface 2 needs to join the vlan 30 segment with the rest of that team — get it moved over."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/2", "vlan_id": 30}
+    base_input: "@poesw1 assign interface 2 to vlan 30"
+    style: "C"
+
+  - input: "@poesw1 throttle port 6's poe down to 25 watts."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/6", "power_limit": 25}
+    base_input: "@poesw1 configure poe limit 25 watts on port 6"
+    style: "A"
+
+  - input: "Could you please configure the PoE limit on port 6 to 25 watts, @poesw1?"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/6", "power_limit": 25}
+    base_input: "@poesw1 configure poe limit 25 watts on port 6"
+    style: "B"
+
+  - input: "@poesw1 port 6 shouldn't be allowed to pull more than 25 watts of poe — dial it back to that limit."
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/6", "power_limit": 25}
+    base_input: "@poesw1 configure poe limit 25 watts on port 6"
+    style: "C"

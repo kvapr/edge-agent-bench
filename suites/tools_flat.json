@@ -1,0 +1,848 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_device_status",
+      "description": "Get the operational status and health information of a network device. Returns device uptime, CPU usage, memory usage, and overall health status.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to check (e.g., 'switch1', 'router1', 'poe1')"
+          }
+        },
+        "required": [
+          "device_name"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_device_interfaces",
+      "description": "List all network interfaces on a device. Note: For most queries, prefer query_device_info tool.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device"
+          },
+          "filter_status": {
+            "type": "string",
+            "enum": [
+              "all",
+              "up",
+              "down"
+            ],
+            "description": "Filter interfaces by their operational status. 'all' returns all interfaces, 'up' returns only active interfaces, 'down' returns only inactive interfaces. Default is 'all'."
+          }
+        },
+        "required": [
+          "device_name"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_interface_details",
+      "description": "Get interface details. Note: For most queries, prefer query_device_info tool.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device"
+          },
+          "interface_name": {
+            "type": "string",
+            "description": "Name of the specific interface (e.g., 'eth0', 'GigabitEthernet0/1', 'port1')"
+          }
+        },
+        "required": [
+          "device_name",
+          "interface_name"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_device_vlans",
+      "description": "Get VLAN configuration. Note: For most queries, prefer query_device_info tool.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device"
+          }
+        },
+        "required": [
+          "device_name"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "execute_device_command",
+      "description": "Execute a generic command or API call on a device. This is a flexible tool for operations not covered by specific tools. Use only when other tools don't provide the needed functionality.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device"
+          },
+          "command": {
+            "type": "string",
+            "description": "Command to execute or API endpoint to call (e.g., 'show version', '/api/system/info')"
+          },
+          "parameters": {
+            "type": "object",
+            "description": "Optional parameters for the command or API call as key-value pairs"
+          }
+        },
+        "required": [
+          "device_name",
+          "command"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_documentation",
+      "description": "Search device documentation, CLI references, and API guides to answer 'how-to' questions and provide command syntax help. Use this when users ask questions about device features, configuration procedures, or need to understand command syntax. IMPORTANT: You MUST cite sources for all information retrieved from documentation. Use the format [Source: filename, Page X] for every fact or command you provide. If no relevant documentation is found, explicitly state that the information is not available in the current documentation and suggest where the user might find it.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query describing what information is needed. Examples: 'How to configure PoE power limits', 'Cable diagnostics commands', 'VLAN configuration syntax', 'API endpoint for port status'"
+          },
+          "device_model": {
+            "type": "string",
+            "description": "Optional device model to filter results. Use the model name from device metadata (e.g., 'SM8TBT2SA', 'SmartSwitch'). Model aliases are handled automatically. If not specified, searches all available documentation."
+          },
+          "doc_type": {
+            "type": "string",
+            "enum": [
+              "cli_reference",
+              "api_guide",
+              "web_guide",
+              "all"
+            ],
+            "description": "Type of documentation to search. Use 'cli_reference' for CLI commands, 'api_guide' for REST API information, 'web_guide' for web UI help, or 'all' to search all documentation types. Default is 'all'."
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of documentation sections to return (1-10). Default is 5.",
+            "minimum": 1,
+            "maximum": 10
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "diagnose_port_issues",
+      "description": "Perform comprehensive diagnostics to troubleshoot why a port is down or having issues, AND to view syslog events and recent activity for a port. USE THIS TOOL when users ask about: recent events, syslog, event log, port history, port issues, connectivity problems, or port diagnostics. This tool analyzes multiple data sources including: current port status, interface error counters, PoE status (if applicable), cable diagnostics test results, and historical syslog events. It automatically detects patterns like link flapping, PoE power cycling, error storms, and configuration-related issues. Use this tool when users ask about port down problems, connectivity issues, or need help diagnosing why a device connected to a port isn't working. Example queries: 'What are recent events on port 4?', 'Show syslog for port 5', 'Why is port 5 down?', 'Diagnose connectivity issue on port 3', 'What's wrong with the camera on port 7?', 'Port 2 keeps flapping', 'Show event log for port 1'",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device (switch) to diagnose (e.g., 'poe1', 'switch1', 'issw')"
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier to diagnose. Can be in various formats: '5', '1/5', 'Gi1/5', 'GigabitEthernet1/5'"
+          },
+          "time_range": {
+            "type": "string",
+            "enum": [
+              "1h",
+              "6h",
+              "24h",
+              "7d"
+            ],
+            "description": "How far back to analyze syslog history. Options: '1h' (1 hour), '6h' (6 hours), '24h' (24 hours - default), '7d' (7 days). Longer ranges help detect intermittent issues.",
+            "default": "24h"
+          }
+        },
+        "required": [
+          "device_name",
+          "port"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_camera_detections",
+      "description": "Query what a camera is currently detecting, or look up detection history. Use mode='live' to sample the stream right now (e.g. 'what does the entrance camera see?'). Use mode='history' to query the SQLite log for past detections (e.g. 'has anyone been at the loading bay in the last 10 minutes?'). When the user mentions a specific camera by name or location, supply camera_id. camera1 (Entrance Camera) does object detection \u2014 available COCO labels: person, backpack, suitcase, handbag, car, truck, motorcycle, bicycle, bottle, laptop, cell-phone, knife, scissors, etc. camera2 (Loading Bay Camera) does gesture/pose detection \u2014 available labels: left-hand-raised, right-hand-raised. Use the appropriate labels based on which camera the user is asking about.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "live",
+              "history"
+            ],
+            "description": "Use 'live' to sample the camera now. Use 'history' to query stored detections.",
+            "default": "live"
+          },
+          "camera_id": {
+            "type": "string",
+            "description": "Optional camera ID to filter by (e.g. 'camera1', 'camera2'). Omit to query all cameras."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional list of object labels to filter by. Examples: ['person'], ['person', 'backpack'], ['car', 'truck']"
+          },
+          "duration": {
+            "type": "integer",
+            "description": "Live mode only: seconds to sample. Default 5, max 30.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 30
+          },
+          "seconds_ago": {
+            "type": "integer",
+            "description": "History mode only: how many seconds back to query. Examples: 60 (1 min), 600 (10 min), 3600 (1 hour), 86400 (1 day).",
+            "default": 600
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_network_events",
+      "description": "Query recent network events from the PoE switch syslog feed. Use this when users ask about network activity, switch events, PoE events, link state changes, authentication failures, or any switch log history. Examples: 'what happened on the network in the last 5 minutes?', 'any PoE events recently?', 'show link-down events', 'did anything happen on the switch today?'",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "seconds_ago": {
+            "type": "integer",
+            "description": "How many seconds back to query. Examples: 300 (5 min), 3600 (1 hour), 86400 (1 day).",
+            "default": 600
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional list of event group names to filter by. Available groups: LINK-UP, LINK-DOWN, POE-PD-ON, POE-PD-OFF, POE-FAULT, POE-OVERLOAD, AUTH-FAILED, COLD-START, WARM-START, CONFIG-CHANGE, STP, LOOP, PORT-SECURITY, OTHER."
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "Info",
+              "Warning",
+              "Error",
+              "Critical",
+              "Notice",
+              "Debug"
+            ],
+            "description": "Optional severity filter."
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calibrate_cable_baseline",
+      "description": "Calibrate and store a cable length baseline for a switch port. Run this when a cable is healthy and connected to establish a reference length. Later, diagnose_port_issues will compare measured lengths against the baseline to identify where a cable break or disconnect occurred (near-end, midpoint, or far-end). Only works when cable test result is OK/Normal.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Switch name (e.g., 'poesw1')"
+          },
+          "port": {
+            "type": "string",
+            "description": "Port to calibrate (e.g., '1/4', '4')"
+          }
+        },
+        "required": [
+          "device_name",
+          "port"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_port_status",
+      "description": "Show port link status, speed, duplex, and operational state for one port.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_all_ports_status",
+      "description": "Show link status, speed, duplex, and operational state for all ports.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_poe_status",
+      "description": "Show PoE power status and usage for one port.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_all_poe_status",
+      "description": "Show PoE status and power usage for all ports.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_poe_config",
+      "description": "Show PoE configuration (mode, priority, max power) for one port.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_all_poe_config",
+      "description": "Show PoE configuration (mode, priority, max power) for all ports.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_poe_power_budget",
+      "description": "Show PoE power budget (total/available/used power) for the switch.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_cable_diagnostics",
+      "description": "Run a cable diagnostics test (link status, test result, cable length) on one port.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_all_cable_diagnostics",
+      "description": "Run a cable diagnostics test on all ports.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_vlan_config",
+      "description": "Show detailed per-port VLAN configuration (PVID, Frame Type, Ingress Filter, Tx Tag).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_vlan_membership",
+      "description": "Show VLAN summary of member ports and untagged ports.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_system_info",
+      "description": "Show switch model, version, uptime, and system details.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "show_ip_interface",
+      "description": "Show IP address configuration for the management interface.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "enable_port",
+      "description": "Enable a disabled network port (interface link, no-shutdown).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "disable_port",
+      "description": "Disable a network port (interface link, shutdown) -- cuts all traffic.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "configure_poe_mode",
+      "description": "Enable or disable PoE power delivery on a port (data link is unaffected).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          },
+          "mode": {
+            "type": "string",
+            "description": "PoE mode: 'enable' or 'disable'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "configure_port_speed",
+      "description": "Set the speed of a network port.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          },
+          "speed": {
+            "type": "string",
+            "description": "Port speed: '10', '100', '1000', or 'auto'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "configure_port_duplex",
+      "description": "Set the duplex mode of a network port.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          },
+          "duplex": {
+            "type": "string",
+            "description": "Port duplex mode: 'auto', 'full', or 'half'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "configure_access_vlan",
+      "description": "Assign a VLAN to an access port.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          },
+          "vlan_id": {
+            "type": "integer",
+            "description": "VLAN ID, e.g. 'vlan 10' -> 10."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "configure_poe_power_limit",
+      "description": "Set the maximum PoE power limit for a port (1-30W).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          },
+          "power_limit": {
+            "type": "integer",
+            "description": "PoE power limit in watts, e.g. '25W' or '25 watts' -> 25."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "set_port_description",
+      "description": "Set a description label for a port.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          },
+          "description": {
+            "type": "string",
+            "description": "Port description text, kept verbatim from the user's input."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "configure_trunk_allowed_vlans",
+      "description": "Set a port to trunk mode and configure which VLANs are allowed on it.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "port": {
+            "type": "string",
+            "description": "Port identifier in '1/N' format, e.g. 'port 5' -> '1/5'."
+          },
+          "action": {
+            "type": "string",
+            "description": "Trunk VLAN action: 'add', 'remove', or 'all'."
+          },
+          "vlan_list": {
+            "type": "string",
+            "description": "VLAN IDs for the trunk action, e.g. '100' or '10,20,30-40'."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "create_vlan",
+      "description": "Create a new VLAN on the switch.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the device to target (e.g., 'poesw1')."
+          },
+          "vlan_id": {
+            "type": "integer",
+            "description": "VLAN ID, e.g. 'vlan 10' -> 10."
+          }
+        },
+        "required": [
+          "device_name"
+        ],
+        "additionalProperties": true
+      }
+    }
+  }
+]

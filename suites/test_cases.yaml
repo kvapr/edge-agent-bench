@@ -1,0 +1,346 @@
+# Test Cases for Llama 3.2 3B Tool Calling Accuracy
+# 85 progressive test cases across 6 complexity levels
+
+level1_queries:
+  - input: "@poesw1 show all ports status"
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+
+  - input: "@poesw1 show port 5 status"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/5"}
+
+  - input: "@poesw1 show system info"
+    expected_tool: "query_device_info"
+    expected_command: "show_system_info"
+    expected_params: {}
+
+  - input: "@poesw1 show poe status port 3"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/3"}
+
+  - input: "@poesw1 show vlan config"
+    expected_tool: "query_device_info"
+    expected_command: "show_vlan_config"
+    expected_params: {}
+
+  - input: "@poesw1 display port 2 details"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/2"}
+
+  - input: "@poesw1 get interface 8 status"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/8"}
+
+  - input: "@poesw1 show poe power budget"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_power_budget"
+    expected_params: {}
+
+  - input: "@poesw1 show port 1 status"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/1"}
+
+  - input: "@poesw1 show port 10 status"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/10"}
+
+  - input: "@poesw1 show poe status port 7"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/7"}
+
+  - input: "@poesw1 display system information"
+    expected_tool: "query_device_info"
+    expected_command: "show_system_info"
+    expected_params: {}
+
+  - input: "@poesw1 get all ports"
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+
+  - input: "@poesw1 show interface 6 status"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/6"}
+
+  - input: "@poesw1 show port 4 poe"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_status"
+    expected_params: {"port": "1/4"}
+
+  - input: "@poesw1 display vlan configuration"
+    expected_tool: "query_device_info"
+    expected_command: "show_vlan_config"
+    expected_params: {}
+
+  - input: "@poesw1 show port 9 details"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/9"}
+
+  - input: "@poesw1 get poe budget"
+    expected_tool: "query_device_info"
+    expected_command: "show_poe_power_budget"
+    expected_params: {}
+
+  - input: "@poesw1 show interface 12 status"
+    expected_tool: "query_device_info"
+    expected_command: "show_port_status"
+    expected_params: {"port": "1/12"}
+
+  - input: "@poesw1 show all interfaces"
+    expected_tool: "query_device_info"
+    expected_command: "show_all_ports_status"
+    expected_params: {}
+
+level2_enable_disable:
+  - input: "@poesw1 enable port 3"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/3"}
+
+  - input: "@poesw1 disable port 7"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/7"}
+
+  - input: "@poesw1 enable poe on port 4"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/4", "mode": "enable"}
+
+  - input: "@poesw1 disable poe on port 2"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/2", "mode": "disable"}
+
+  - input: "@poesw1 turn on port 6"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/6"}
+
+  - input: "@poesw1 turn off port 9"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/9"}
+
+  - input: "@poesw1 activate interface 1"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/1"}
+
+  - input: "@poesw1 deactivate interface 5"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/5"}
+
+  - input: "@poesw1 enable port 8"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/8"}
+
+  - input: "@poesw1 disable port 10"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/10"}
+
+  - input: "@poesw1 enable poe port 12"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/12", "mode": "enable"}
+
+  - input: "@poesw1 disable poe port 11"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_mode"
+    expected_params: {"port": "1/11", "mode": "disable"}
+
+  - input: "@poesw1 turn on interface 3"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/3"}
+
+  - input: "@poesw1 turn off interface 4"
+    expected_tool: "configure_device_setting"
+    expected_command: "disable_port"
+    expected_params: {"port": "1/4"}
+
+  - input: "@poesw1 activate port 2"
+    expected_tool: "configure_device_setting"
+    expected_command: "enable_port"
+    expected_params: {"port": "1/2"}
+
+level3_single_param:
+  - input: "@poesw1 set port 2 speed to 1000"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/2", "speed": "1000"}
+
+  - input: "@poesw1 set port 5 speed to auto"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/5", "speed": "auto"}
+
+  - input: "@poesw1 set port 3 duplex to full"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/3", "duplex": "full"}
+
+  - input: "@poesw1 configure port 7 speed 100"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/7", "speed": "100"}
+
+  - input: "@poesw1 set interface 4 duplex half"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/4", "duplex": "half"}
+
+  - input: "@poesw1 change port 8 speed to 10"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/8", "speed": "10"}
+
+  - input: "@poesw1 set port 1 speed 1000"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/1", "speed": "1000"}
+
+  - input: "@poesw1 configure port 6 duplex full"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/6", "duplex": "full"}
+
+  - input: "@poesw1 set interface 9 speed auto"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/9", "speed": "auto"}
+
+  - input: "@poesw1 change interface 10 duplex half"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/10", "duplex": "half"}
+
+  - input: "@poesw1 set port 11 speed to 100"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/11", "speed": "100"}
+
+  - input: "@poesw1 configure interface 12 speed 10"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/12", "speed": "10"}
+
+  - input: "@poesw1 set port 5 duplex full"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/5", "duplex": "full"}
+
+  - input: "@poesw1 change port 7 speed auto"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_speed"
+    expected_params: {"port": "1/7", "speed": "auto"}
+
+  - input: "@poesw1 set interface 3 duplex half"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_port_duplex"
+    expected_params: {"port": "1/3", "duplex": "half"}
+
+level4_multi_param:
+  - input: "@poesw1 set poe power limit to 25W on port 5"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/5", "power_limit": 25}
+
+  - input: "@poesw1 assign port 2 to vlan 10"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/2", "vlan_id": 10}
+
+  - input: "@poesw1 set port 6 description Front Door Camera"
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/6", "description": "Front Door Camera"}
+
+  - input: "@poesw1 configure vlan 20 on port 3"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/3", "vlan_id": 20}
+
+  - input: "@poesw1 set poe limit 30 watts port 7"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/7", "power_limit": 30}
+
+  - input: "@poesw1 set port 4 description Server Room Switch"
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/4", "description": "Server Room Switch"}
+
+  - input: "@poesw1 put port 9 in vlan 100"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/9", "vlan_id": 100}
+
+  - input: "@poesw1 configure poe power 15W port 1"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/1", "power_limit": 15}
+
+  - input: "@poesw1 assign port 8 vlan 50"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/8", "vlan_id": 50}
+
+  - input: "@poesw1 set port 10 description Lobby Access Point"
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/10", "description": "Lobby Access Point"}
+
+  - input: "@poesw1 set poe power limit 20 on port 11"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/11", "power_limit": 20}
+
+  - input: "@poesw1 configure port 12 vlan 200"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/12", "vlan_id": 200}
+
+  - input: "@poesw1 set port 5 description Conference Room TV"
+    expected_tool: "configure_device_setting"
+    expected_command: "set_port_description"
+    expected_params: {"port": "1/5", "description": "Conference Room TV"}
+
+  - input: "@poesw1 assign interface 2 to vlan 30"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_access_vlan"
+    expected_params: {"port": "1/2", "vlan_id": 30}
+
+  - input: "@poesw1 configure poe limit 25 watts on port 6"
+    expected_tool: "configure_device_setting"
+    expected_command: "configure_poe_power_limit"
+    expected_params: {"port": "1/6", "power_limit": 25}
+
+# Level 5 (diagnostics) and Level 6 (documentation) are commented out
+# to focus on simple commands first (Levels 1-4)
+#
+# Uncomment these sections later when ready to add advanced features:
+#
+# level5_diagnostics:
+#   - input: "@poesw1 why is port 5 down?"
+#     expected_tool: "diagnose_port_issues"
+#     ...
+#
+# level6_documentation:
+#   - input: "how do I configure VLANs?"
+#     expected_tool: "search_documentation"
+#     ...
