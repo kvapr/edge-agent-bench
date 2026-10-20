@@ -121,6 +121,10 @@ Every table and figure in the report is regenerated from results/v2 alone:
     python3 analysis/report.py results/v2 --json analysis/out/report.json --md analysis/out/report_tables.md
     python3 analysis/figures.py analysis/out/report.json docs/figures
 
+The report is also available as a single HTML page with its figures embedded,
+[docs/report.html](docs/report.html), which `python3 scripts/report_html.py`
+rebuilds from docs/REPORT.md (this step also needs the Python-Markdown package).
+
 [results/v2/README.md](results/v2/README.md) describes every result file, and
 [docs/METHODOLOGY.md](docs/METHODOLOGY.md) the protocol, the statistics and the
 provenance each file records. Section 17 of the report lists the hashes a rerun

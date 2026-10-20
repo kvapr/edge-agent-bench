@@ -1,0 +1,203 @@
+<title>edge-agent-bench v2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Layout: a datasheet; a sticky contents rail on the left, one reading column
+   held to about 70 characters, tables and figures free to use the full width. */
+:root {
+  --paper: #f5f7f8;
+  --ink: #131b22;
+  --muted: #56626e;
+  --rule: #d4dbe1;
+  --accent: #0b6a6e;
+  --accent-soft: #dfeeee;
+  --plate: #ffffff;
+  --code: #e8edf0;
+  --head: #eaf0f2;
+  --display: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --measure: 70ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1519; --ink: #e2e8ec; --muted: #94a1ac; --rule: #27323b;
+    --accent: #62c6c6; --accent-soft: #143236; --plate: #ffffff; --code: #182128; --head: #16202a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1519; --ink: #e2e8ec; --muted: #94a1ac; --rule: #27323b;
+  --accent: #62c6c6; --accent-soft: #143236; --plate: #ffffff; --code: #182128; --head: #16202a;
+  color-scheme: dark;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.62;
+  padding-block: 0 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 1320px; margin: 0 auto; }
+
+/* header */
+.masthead { padding-block: 2.5rem 1.5rem; border-bottom: 2px solid var(--ink); margin-bottom: 1.5rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.9rem; }
+.masthead h1 { font-family: var(--display); font-weight: 600; font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.12; margin: 0 0 0.9rem; max-width: 34ch; text-wrap: balance; }
+.scope { font-family: var(--ui); color: var(--muted); font-size: 0.95rem; margin: 0 0 0.35rem; max-width: var(--measure); }
+.byline { font-family: var(--ui); font-size: 0.95rem; margin: 0 0 1.4rem; }
+.spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); margin: 0; max-width: 1100px; }
+.spec div { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 0.55rem 0.75rem; min-width: 0; }
+.spec dt { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.spec dd { margin: 0.15rem 0 0; font-family: var(--ui); font-weight: 600; font-size: 0.98rem; font-variant-numeric: tabular-nums; }
+
+/* layout */
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+@media (min-width: 1180px) { .layout { grid-template-columns: 270px minmax(0, 1fr); } }
+.toc { font-family: var(--ui); font-size: 0.86rem; min-width: 0; }
+.toc summary { cursor: pointer; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); padding: 0.4rem 0; }
+.toc summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 0; }
+.toc a { display: block; color: var(--ink); text-decoration: none; padding: 0.22rem 0.5rem; border-left: 2px solid transparent; line-height: 1.35; }
+.toc li ol a { padding-left: 1.2rem; color: var(--muted); font-size: 0.82rem; }
+.toc a:hover { color: var(--accent); }
+.toc a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.toc a.active { border-left-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+@media (min-width: 1180px) {
+  .toc-inner { position: sticky; top: env(safe-area-inset-top, 0px); max-height: 100vh; overflow-y: auto; padding-block: 0.5rem 2rem; }
+}
+
+/* article */
+article { min-width: 0; }
+article > p, article > ul, article > ol, article li, .caption, figcaption { max-width: var(--measure); }
+article h2 { font-family: var(--display); font-weight: 600; font-size: 1.65rem; line-height: 1.2; margin: 3rem 0 0.8rem; padding-top: 1rem; border-top: 1px solid var(--rule); text-wrap: balance; scroll-margin-top: 1rem; }
+article h3 { font-family: var(--display); font-weight: 600; font-size: 1.22rem; margin: 2rem 0 0.5rem; text-wrap: balance; scroll-margin-top: 1rem; }
+article p { margin: 0 0 1rem; }
+article a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+article a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+a.cite { font-family: var(--mono); font-size: 0.82em; text-decoration: none; }
+em { font-style: italic; }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--code); padding: 0.08em 0.3em; border-radius: 3px; overflow-wrap: anywhere; }
+pre { background: var(--code); padding: 0.9rem 1rem; overflow-x: auto; border-radius: 4px; font-size: 0.86rem; line-height: 1.5; }
+pre code { background: none; padding: 0; overflow-wrap: normal; }
+
+/* captions, figures, diagram */
+.caption, figcaption { font-family: var(--ui); font-size: 0.88rem; color: var(--muted); line-height: 1.5; margin: 1.6rem 0 0.6rem; }
+figcaption { margin: 0.7rem 0 0; }
+.cap-label { font-weight: 600; color: var(--ink); }
+figure { margin: 1.8rem 0 2rem; scroll-margin-top: 1rem; }
+.plate { background: var(--plate); border: 1px solid var(--rule); border-radius: 6px; padding: 0.75rem; max-width: 1000px; }
+.plate img { display: block; width: 100%; height: auto; max-width: 100%; }
+.diagram { background: var(--plate); border: 1px solid var(--rule); border-radius: 6px; padding: 0.75rem; overflow-x: auto; max-width: 1000px; color: #131b22; }
+.diagram pre.mermaid { background: none; margin: 0; color: #131b22; }
+
+/* tables */
+.table-wrap { overflow-x: auto; margin: 0 0 1.6rem; border: 1px solid var(--rule); border-radius: 4px; max-width: 100%; }
+table { border-collapse: collapse; font-family: var(--ui); font-size: 0.82rem; line-height: 1.4; font-variant-numeric: tabular-nums; width: 100%; }
+th { background: var(--head); text-align: left; font-weight: 600; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--rule); vertical-align: bottom; }
+td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+td:first-child, th:first-child { white-space: nowrap; }
+.caption + .table-wrap { margin-top: 0; }
+
+/* references */
+#app-j ~ ol, #app-j ~ p { font-size: 0.9rem; }
+#app-j ~ ol li { margin-bottom: 0.4rem; overflow-wrap: anywhere; }
+.ref-sub { overflow-wrap: anywhere; }
+:target { background: var(--accent-soft); }
+
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 2px solid var(--ink); font-family: var(--ui); font-size: 0.85rem; color: var(--muted); max-width: var(--measure); }
+</style>
+
+<div class="page">
+  <header class="masthead">
+    <p class="eyebrow">edge-agent-bench &middot; version 2 report</p>
+    <h1>{{TITLE}}</h1>
+    <p class="scope">{{SCOPE}}</p>
+    <p class="byline">{{BYLINE}}</p>
+    <dl class="spec">
+      <div><dt>Board</dt><dd>QCS9075, IQ-9075 EVK</dd></div>
+      <div><dt>Server</dt><dd>GenieX v0.8.0</dd></div>
+      <div><dt>Serving paths</dt><dd>CPU, NPU llama.cpp, NPU compiled</dd></div>
+      <div><dt>Models</dt><dd>13 from AI Hub 0.64.0</dd></div>
+      <div><dt>Requests per configuration</dt><dd>390, about 2,700 tokens</dd></div>
+      <div><dt>Measured</dt><dd>2026-10-14 to 10-17</dd></div>
+    </dl>
+  </header>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Contents">
+      <details id="toc-details" open>
+        <summary>Contents</summary>
+        <div class="toc-inner">
+          <ol>
+{{TOC}}
+          </ol>
+        </div>
+      </details>
+    </nav>
+
+    <article id="report">
+{{BODY}}
+      <footer>
+        Generated by scripts/report_html.py from docs/REPORT.md (SHA-256 {{SOURCE_SHA}}).
+        Every number traces to analysis/out/report_tables.md, which analysis/report.py regenerates from results/v2.
+        Licensed under Apache-2.0; copyright 2026 Krish.
+      </footer>
+    </article>
+  </div>
+</div>
+
+<script>
+(function () {
+  var wide = window.matchMedia("(min-width: 1180px)");
+  var details = document.getElementById("toc-details");
+  function syncToc() { if (wide.matches) details.open = true; }
+  syncToc();
+  if (wide.addEventListener) wide.addEventListener("change", syncToc);
+  if (!wide.matches) details.open = false;
+
+  var links = Array.prototype.slice.call(document.querySelectorAll(".toc a"));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute("href").slice(1)] = a; });
+  if (!wide.matches) {
+    links.forEach(function (a) { a.addEventListener("click", function () { details.open = false; }); });
+  }
+  var heads = Array.prototype.slice.call(document.querySelectorAll("article h2[id], article h3[id]"))
+    .filter(function (h) { return byId[h.id]; });
+  if (!("IntersectionObserver" in window) || !heads.length) return;
+  var current = null;
+  function activate(id) {
+    if (current === id) return;
+    if (current && byId[current]) byId[current].classList.remove("active");
+    current = id;
+    var a = byId[id];
+    if (!a) return;
+    a.classList.add("active");
+    if (wide.matches) {
+      var box = a.closest(".toc-inner");
+      if (box) {
+        var r = a.getBoundingClientRect(), b = box.getBoundingClientRect();
+        if (r.top < b.top || r.bottom > b.bottom) box.scrollTop += r.top - b.top - b.height / 3;
+      }
+    }
+  }
+  var obs = new IntersectionObserver(function () {
+    var best = null;
+    for (var i = 0; i < heads.length; i++) {
+      if (heads[i].getBoundingClientRect().top <= 120) best = heads[i]; else break;
+    }
+    activate((best || heads[0]).id);
+  }, { rootMargin: "0px 0px -60% 0px", threshold: [0, 1] });
+  heads.forEach(function (h) { obs.observe(h); });
+})();
+</script>
