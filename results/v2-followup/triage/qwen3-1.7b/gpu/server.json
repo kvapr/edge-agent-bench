@@ -1,0 +1,19 @@
+{
+  "model": "qwen3-1.7b",
+  "path": "gpu",
+  "server_cmd": "nohup env <env> /root/geniex-v093/geniex-cli-linux-arm64-v0.9.3/geniex --data-dir /root/eab-data-v093 --skip-update --log info serve --host 0.0.0.0:18385 -c gpu --nctx 4096 --keepalive 3600 > /root/eab-serve.log 2>&1 &",
+  "server_options": "--nctx 4096 --keepalive 3600",
+  "power_mode": "server default (burst)",
+  "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+  "server_config": "6b19eefca839d466b400128c7117ea1dc850aac121fa3c6e2e936795aba8cd11  /root/eab-data-v093/aihub/platform.json",
+  "artifact": "Qwen3-1.7B/Qwen3-1.7B-Q4_0.gguf",
+  "artifact_sha256": "c876f159707a4e4f70e045106c69db15bfc935a4981706fd4f65c6e7ea1e81c5",
+  "gguf_source": "catalog",
+  "bundle": null,
+  "served_model_id": "qualcomm/qwen3-1.7b-q4_0:Q4_0",
+  "started": "2026-10-21T17:08:25Z",
+  "load_check": {
+    "http_status": 500,
+    "body": "{\"code\":-100201,\"error\":\"SDKError(Model loading failed)\"}"
+  }
+}

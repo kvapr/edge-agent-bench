@@ -1,0 +1,2058 @@
+{
+  "provenance": {
+    "label": "model=gemma-4-e4b;path=compiled;suite=sweep_length",
+    "diagnostic_mode": "length_sweep",
+    "diagnostic_wrapper_sha256": "1c444c5ac880ec7a649d0da3450c3ffdff3e05040dff32b3d25306ab75797d3f",
+    "harness_sha256": "48cc06c22c8cf7d6d14e8f23e1e0aadf32933c1776a9354402fee0b8bd90cce5",
+    "system_prompt_sha256": "d6ca8d60a4f442139658aa411e01a1f4d5e0163efa8c88c64e3f982011a80d92",
+    "cases_file": "suites/test_cases.yaml",
+    "cases_sha256": "414bd0afe130d501adfb3038963f55b2151390a336de257f7646a6561d4a7a52",
+    "tools_sha256": "026834d9cc4addeddd9b562d042d76c127f44823c8a5997e36150ee3ddf8a2fd",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "endpoint_models": {
+      "data": [
+        {
+          "id": "qualcomm/gemma-4-e4b-w4a16:w4a16",
+          "created": 0,
+          "object": "model",
+          "owned_by": "qualcomm",
+          "shutdown_date": "0001-01-01T00:00:00Z"
+        }
+      ],
+      "object": "list"
+    },
+    "timestamp_utc": "2026-10-21T19:24:18.901696+00:00",
+    "host": "client",
+    "request_config": {
+      "temperature": 0,
+      "max_tokens": 512,
+      "extra_body": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "enable_think": false
+      }
+    },
+    "readiness": [
+      {
+        "before": "sweep",
+        "snapshot": {
+          "os": {
+            "VERSION_ID": "1.6-ver.1.2.1",
+            "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+          },
+          "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+          "loadavg": "1.68 1.23 0.71 1/573 2076533",
+          "containers": [],
+          "gx_container_geniex_version": [],
+          "thermal_max_c": {
+            "cpu": 49.7,
+            "nsp": 48.7,
+            "all": 50.6
+          },
+          "cpu_busy": 0.004,
+          "thermal_zones": {
+            "aoss-2-thermal": 48.7,
+            "cpu-1-0-0-thermal": 49.7,
+            "nsp-1-2-0-thermal": 48.7,
+            "ddrss-0-thermal": 49.7,
+            "cpuss-1-0-thermal": 49.7,
+            "aoss-3-thermal": 48.7,
+            "cpu-1-0-1-thermal": 49.4,
+            "cpu-1-1-1-thermal": 49.4,
+            "cpu-1-2-1-thermal": 49.4,
+            "cpu-1-3-1-thermal": 49.0,
+            "nsp-0-0-1-thermal": 48.3,
+            "nsp-0-1-1-thermal": 48.3,
+            "cpu-1-1-0-thermal": 49.0,
+            "nsp-0-2-1-thermal": 48.3,
+            "nsp-1-0-1-thermal": 48.7,
+            "nsp-1-1-1-thermal": 48.7,
+            "nsp-1-2-1-thermal": 48.7,
+            "ddrss-1-thermal": 50.1,
+            "cpuss-1-1-thermal": 49.4,
+            "aoss-0-thermal": 47.9,
+            "cpu-0-0-0-thermal": 48.7,
+            "cpu-0-1-0-thermal": 48.3,
+            "cpu-0-2-0-thermal": 48.3,
+            "cpu-1-2-0-thermal": 49.4,
+            "cpu-0-3-0-thermal": 48.3,
+            "gpuss-0-thermal": 47.9,
+            "gpuss-1-thermal": 47.2,
+            "gpuss-2-thermal": 47.6,
+            "audio-thermal": 47.9,
+            "camss-0-thermal": 49.0,
+            "pcie-0-thermal": 49.0,
+            "cpuss-0-0-thermal": 48.7,
+            "aoss-1-thermal": 48.1,
+            "cpu-0-0-1-thermal": 48.1,
+            "cpu-1-3-0-thermal": 49.0,
+            "cpu-0-1-1-thermal": 48.5,
+            "cpu-0-2-1-thermal": 48.1,
+            "cpu-0-3-1-thermal": 49.2,
+            "gpuss-3-thermal": 48.1,
+            "gpuss-4-thermal": 47.7,
+            "gpuss-5-thermal": 48.1,
+            "video-thermal": 48.8,
+            "camss-1-thermal": 49.2,
+            "pcie-1-thermal": 48.5,
+            "cpuss-0-1-thermal": 48.8,
+            "nsp-0-0-0-thermal": 47.6,
+            "soc-therm": 49.8,
+            "ufs0-therm": 50.6,
+            "xo-therm": 48.9,
+            "sdram-therm": 49.1,
+            "pm8775-0-thermal": 44.2,
+            "pm8775-1-thermal": 46.7,
+            "pm8775-2-thermal": 45.2,
+            "pm8775-3-thermal": 45.6,
+            "pmm8654au_0_mbg_tz": 44.4,
+            "pmm8654au_1_mbg_tz": 46.6,
+            "nsp-0-1-0-thermal": 47.9,
+            "pmm8654au_2_mbg_tz": 44.9,
+            "pmm8654au_3_mbg_tz": 45.5,
+            "nsp-0-2-0-thermal": 48.3,
+            "nsp-1-0-0-thermal": 47.6,
+            "nsp-1-1-0-thermal": 48.3
+          }
+        }
+      }
+    ]
+  },
+  "summary": {
+    "cases": 4,
+    "by_series_and_target": {
+      "compact unpadded": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          131,
+          125,
+          132,
+          135
+        ]
+      },
+      "compact 500": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          494,
+          508,
+          495,
+          498
+        ]
+      },
+      "compact 700": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          694,
+          708,
+          695,
+          698
+        ]
+      },
+      "compact 900": {
+        "structured": 3,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          894,
+          908,
+          895,
+          898
+        ]
+      },
+      "compact 1000": {
+        "structured": 3,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          994,
+          1008,
+          995,
+          998
+        ]
+      },
+      "compact 1100": {
+        "structured": 3,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1094,
+          1108,
+          1095,
+          1098
+        ]
+      },
+      "compact 1200": {
+        "structured": 3,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1194,
+          1208,
+          1195,
+          1198
+        ]
+      },
+      "compact 1300": {
+        "structured": 3,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1294,
+          1308,
+          1295,
+          1298
+        ]
+      },
+      "compact 1400": {
+        "structured": 3,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1394,
+          1408,
+          1395,
+          1398
+        ]
+      },
+      "compact 1600": {
+        "structured": 0,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1594,
+          1588,
+          1595,
+          1598
+        ]
+      },
+      "compact 2000": {
+        "structured": 0,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1994,
+          1988,
+          1995,
+          1998
+        ]
+      },
+      "compact 2400": {
+        "structured": 0,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          2408,
+          2402,
+          2409,
+          2412
+        ]
+      },
+      "compact 2800": {
+        "structured": 1,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          2828,
+          2822,
+          2829,
+          2832
+        ]
+      },
+      "benchmark unpadded": {
+        "structured": 1,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1201,
+          1418,
+          1425,
+          1428
+        ]
+      },
+      "benchmark 1300": {
+        "structured": 0,
+        "passed": 0,
+        "n": 1,
+        "prompt_tokens": [
+          1308
+        ]
+      },
+      "benchmark 1400": {
+        "structured": 0,
+        "passed": 0,
+        "n": 1,
+        "prompt_tokens": [
+          1404
+        ]
+      },
+      "benchmark 1600": {
+        "structured": 0,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1604,
+          1601,
+          1608,
+          1611
+        ]
+      },
+      "benchmark 2000": {
+        "structured": 0,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          2004,
+          2001,
+          2008,
+          1991
+        ]
+      },
+      "benchmark 2400": {
+        "structured": 0,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          2404,
+          2401,
+          2408,
+          2391
+        ]
+      },
+      "benchmark 2800": {
+        "structured": 0,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          2804,
+          2801,
+          2788,
+          2791
+        ]
+      }
+    },
+    "reference_passed": 0
+  },
+  "results": [
+    {
+      "series": "compact",
+      "case": "@poesw1 show all ports status",
+      "level": "level1_queries",
+      "expected_tool": "query_device_info",
+      "tokens_per_padding_line": 20.07,
+      "sweep": [
+        {
+          "target": 131,
+          "padding_lines": 0,
+          "prompt_tokens": 131,
+          "completion_tokens": 33,
+          "latency_s": 3.63,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show all ports status",
+            "device_name": "poesw1"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 500,
+          "padding_lines": 18,
+          "prompt_tokens": 494,
+          "completion_tokens": 34,
+          "latency_s": 4.162,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show_ports_status",
+            "device_name": "poesw1"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 700,
+          "padding_lines": 28,
+          "prompt_tokens": 694,
+          "completion_tokens": 33,
+          "latency_s": 4.452,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show all ports status",
+            "device_name": "poesw1"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 900,
+          "padding_lines": 38,
+          "prompt_tokens": 894,
+          "completion_tokens": 91,
+          "latency_s": 10.417,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need the specific command for \"show all ports status\" for the device named **@poesw1**.\n\nCould you provide the command, or if you are using a different system, let me know what is it?\n\nIf you are using a system where the `query_device` tool is designed to handle this with a different structure, please specify the available commands for the device, and I will do my best to use it!",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1000,
+          "padding_lines": 43,
+          "prompt_tokens": 994,
+          "completion_tokens": 106,
+          "latency_s": 12.124,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need the specific command for \"show all ports status\" for the device named **@poesw1** and with the available information.\n\nCould you please provide the correct command for that, or let me know what you are looking for in the port status information?\n\nFor example, some commands might look like:\n*   `show port status`\n*   `get interface status`\n\nIf you can provide the correct command, I will execute it for you using the `query_device` function.",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1100,
+          "padding_lines": 48,
+          "prompt_tokens": 1094,
+          "completion_tokens": 105,
+          "latency_s": 12.249,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need more information to fulfill your request. Could you please specify:\n\n1.  **What kind of device** is `@poesw1`? (e.g., a switch, a router, a specific piece of hardware)\n2.  **What are the specific commands or parameters** for viewing all port status on that device type, if `show all ports status` is not the correct one?\n\nIf you are using a specific terminal or system interface, knowing that might also help!",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1200,
+          "padding_lines": 53,
+          "prompt_tokens": 1194,
+          "completion_tokens": 110,
+          "latency_s": 12.606,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need more information to fulfill your request. Could you please specify:\n\n1.  **What** are the ports for the device named **@poesw1**? (e.g., Are you referring to a specific switch, which might be a POE switch?)\n2.  **What** is the command or parameter for viewing the \"all ports status\" on that specific type of device using this system?\n\nIf you can provide more context, I will be happy to help you with the correct command or information!",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1300,
+          "padding_lines": 58,
+          "prompt_tokens": 1294,
+          "completion_tokens": 92,
+          "latency_s": 11.196,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need a bit more information to do that. Could you please specify:\n\n1.  **Which device** is named in place of the current one (`@poesw1`)?\n2.  **Which device** is the one you want to query, as you provided both as the target?\n\nOnce you provide the correct device name(s), I can try to find the appropriate command or function to \"show all ports status.\"",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1400,
+          "padding_lines": 63,
+          "prompt_tokens": 1394,
+          "completion_tokens": 56,
+          "latency_s": 7.792,
+          "got_tool": null,
+          "got_args": null,
+          "content": "What is the make and model of the device you are referring to as **@poesw1**?\n\nI need more information to show you the port status. For example, is it a network switch, a router, a specific piece of test equipment, etc.?",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1600,
+          "padding_lines": 73,
+          "prompt_tokens": 1594,
+          "completion_tokens": 319,
+          "latency_s": 34.354,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I'm sorry, I lack the capability to directly interact with network devices or systems like one labeled as \"@poesw1\" to show you the port status. I am a large language model and do not have access to such interfaces.\n\n**To get the port status for your device, please use one of the following methods:**\n\n1.  **Use a System Administration Tool:** If you are using a specific operating system (like a main server or management station), there will be a dedicated GUI tool for network management.\n2.  **Use the Device's Management Interface:** Most network devices (switches, routers, etc.) have a built-",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2000,
+          "padding_lines": 93,
+          "prompt_tokens": 1994,
+          "completion_tokens": 178,
+          "latency_s": 20.322,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I'm sorry, I cannot fulfill that request. I do not have access to the specific system or device information associated with the shortcode **@poesw1**, nor do I have a function to \"show all ports status\" in a general sense.\n\nCould you please provide me with more context, such as:\n\n1.  **What is @poesw1?** (e.g., a piece of software, a network device, a specific API, a system you are using?)\n2.  **What is the context of the ports?** (e.g., Are you looking at a network interface? A piece of hardware like a sound card? A programming language interface?)\n\nIf you are using a specific tool or platfor",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2400,
+          "padding_lines": 113,
+          "prompt_tokens": 2408,
+          "completion_tokens": 129,
+          "latency_s": 16.786,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need more information to fulfill your request. Could you please specify:\n\n1.  **What is the device name?** You provided `@poesw1` in the initial prompt, is this the correct device name?\n2.  **What are the exact commands or parameters** for showing \"all ports status\" on this specific device using the system you are interacting with? (e.g., a specific switch, router, network device, and the corresponding command-line interface or API).\n\nOnce you provide the necessary details, I will do my best to execute the request or provide you with the correct information!",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2800,
+          "padding_lines": 133,
+          "prompt_tokens": 2828,
+          "completion_tokens": 170,
+          "latency_s": 21.636,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I'm sorry, I cannot fulfill that request. I do not have the capability to interact with specific accounts or internal systems like one that might be associated with the handle **@poesw1**, nor do I have access to real-time network or device status information.\n\nTo check the port status, you will likely need to use:\n\n1.  **A specific application or piece of software** related to the device or service you are referring to.\n2.  **A command-line interface (CLI)** if you are working on a computer (e.g., `lsh` on some systems, or specific networking tools).\n3.  **A web dashboard or portal** if the s",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        }
+      ]
+    },
+    {
+      "series": "compact",
+      "case": "@poesw1 enable port 3",
+      "level": "level2_enable_disable",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.07,
+      "sweep": [
+        {
+          "target": 125,
+          "padding_lines": 0,
+          "prompt_tokens": 125,
+          "completion_tokens": 33,
+          "latency_s": 3.417,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable port 3"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 500,
+          "padding_lines": 19,
+          "prompt_tokens": 508,
+          "completion_tokens": 33,
+          "latency_s": 4.07,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable port 3"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 700,
+          "padding_lines": 29,
+          "prompt_tokens": 708,
+          "completion_tokens": 33,
+          "latency_s": 4.382,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable port 3"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 900,
+          "padding_lines": 39,
+          "prompt_tokens": 908,
+          "completion_tokens": 33,
+          "latency_s": 4.912,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable port 3"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1000,
+          "padding_lines": 44,
+          "prompt_tokens": 1008,
+          "completion_tokens": 33,
+          "latency_s": 4.921,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable port 3"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1100,
+          "padding_lines": 49,
+          "prompt_tokens": 1108,
+          "completion_tokens": 33,
+          "latency_s": 5.135,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable port 3"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1200,
+          "padding_lines": 54,
+          "prompt_tokens": 1208,
+          "completion_tokens": 34,
+          "latency_s": 5.427,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "@poesw1",
+            "command_name": "enable port 3"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1300,
+          "padding_lines": 59,
+          "prompt_tokens": 1308,
+          "completion_tokens": 33,
+          "latency_s": 5.545,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable port 3"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 64,
+          "prompt_tokens": 1408,
+          "completion_tokens": 34,
+          "latency_s": 5.666,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "@poesw1",
+            "command_name": "enable port 3"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 73,
+          "prompt_tokens": 1588,
+          "completion_tokens": 140,
+          "latency_s": 16.598,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need a little more information to complete this request. Could you please specify what kind of port 3 is for on the device named `poesw1`?\n\nFor example, is it an:\n*   **802.3 port?**\n*   **A specific service port (e.g., for a switch/router)?**\n*   **Something else?**\n\nAlso, what does **\"enable\"** mean in this context? Should I be:\n*   **Change its status to active?**\n*   **Configure it with an setting?**\n\nOnce I have these details, I can generate the correct command for you.",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2000,
+          "padding_lines": 93,
+          "prompt_tokens": 1988,
+          "completion_tokens": 40,
+          "latency_s": 7.231,
+          "got_tool": null,
+          "got_args": null,
+          "content": "What is the state of port 3 that you would like to change? For example, do you want to **enable** it, **disable** it, or get more information about it?",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2400,
+          "padding_lines": 113,
+          "prompt_tokens": 2402,
+          "completion_tokens": 84,
+          "latency_s": 12.298,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need more information to complete this request. Could you please specify what kind of port 3 you are referring to on the `@poesw1` device? For example, is it a serial port, an Ethernet port, or something else?\n\nAlso, what would you like to **enable** with this port?\n\nOnce I have these details, I can try to generate the correct command for you!",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2800,
+          "padding_lines": 133,
+          "prompt_tokens": 2822,
+          "completion_tokens": 10,
+          "latency_s": 5.844,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 enable port 3",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        }
+      ]
+    },
+    {
+      "series": "compact",
+      "case": "@poesw1 set port 2 speed to 1000",
+      "level": "level3_single_param",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.07,
+      "sweep": [
+        {
+          "target": 132,
+          "padding_lines": 0,
+          "prompt_tokens": 132,
+          "completion_tokens": 43,
+          "latency_s": 4.634,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set port 2 speed",
+            "parameters": {
+              "speed": 1000
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 500,
+          "padding_lines": 18,
+          "prompt_tokens": 495,
+          "completion_tokens": 43,
+          "latency_s": 5.005,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set port 2 speed",
+            "parameters": {
+              "speed": 1000
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 700,
+          "padding_lines": 28,
+          "prompt_tokens": 695,
+          "completion_tokens": 43,
+          "latency_s": 5.488,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set port 2 speed",
+            "parameters": {
+              "speed": 1000
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 900,
+          "padding_lines": 38,
+          "prompt_tokens": 895,
+          "completion_tokens": 43,
+          "latency_s": 5.647,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set port 2 speed",
+            "parameters": {
+              "speed": 1000
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1000,
+          "padding_lines": 43,
+          "prompt_tokens": 995,
+          "completion_tokens": 43,
+          "latency_s": 5.894,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set port 2 speed",
+            "parameters": {
+              "speed": 1000
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1100,
+          "padding_lines": 48,
+          "prompt_tokens": 1095,
+          "completion_tokens": 43,
+          "latency_s": 6.132,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set port 2 speed",
+            "parameters": {
+              "speed": 1000
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1200,
+          "padding_lines": 53,
+          "prompt_tokens": 1195,
+          "completion_tokens": 41,
+          "latency_s": 6.157,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "@poesw1",
+            "command_name": "set port 2 speed to 1000"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1300,
+          "padding_lines": 58,
+          "prompt_tokens": 1295,
+          "completion_tokens": 41,
+          "latency_s": 6.301,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "@poesw1",
+            "command_name": "set port 2 speed to 1000"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 63,
+          "prompt_tokens": 1395,
+          "completion_tokens": 41,
+          "latency_s": 6.358,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "@poesw1",
+            "command_name": "set port 2 speed to 1000"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 73,
+          "prompt_tokens": 1595,
+          "completion_tokens": 17,
+          "latency_s": 4.439,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set port 2 speed to 1000",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2000,
+          "padding_lines": 93,
+          "prompt_tokens": 1995,
+          "completion_tokens": 18,
+          "latency_s": 5.143,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 setting port 2 speed to 1000.",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2400,
+          "padding_lines": 113,
+          "prompt_tokens": 2409,
+          "completion_tokens": 17,
+          "latency_s": 5.728,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set port 2 speed to 1000",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2800,
+          "padding_lines": 133,
+          "prompt_tokens": 2829,
+          "completion_tokens": 55,
+          "latency_s": 10.346,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "parameters": {
+              "port": 2,
+              "speed": 1000,
+              "type": "port"
+            },
+            "setting_name": "port",
+            "type": "setting"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        }
+      ]
+    },
+    {
+      "series": "compact",
+      "case": "@poesw1 set poe power limit to 25W on port 5",
+      "level": "level4_multi_param",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.07,
+      "sweep": [
+        {
+          "target": 135,
+          "padding_lines": 0,
+          "prompt_tokens": 135,
+          "completion_tokens": 48,
+          "latency_s": 5.055,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set_poe_power_limit",
+            "parameters": {
+              "port": 5,
+              "value": 25
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 500,
+          "padding_lines": 18,
+          "prompt_tokens": 498,
+          "completion_tokens": 48,
+          "latency_s": 5.537,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set poe power limit",
+            "parameters": {
+              "port": 5,
+              "value": "25W"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 700,
+          "padding_lines": 28,
+          "prompt_tokens": 698,
+          "completion_tokens": 47,
+          "latency_s": 5.86,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set poe power limit",
+            "parameters": {
+              "port": 5,
+              "power_limit": 25
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 900,
+          "padding_lines": 38,
+          "prompt_tokens": 898,
+          "completion_tokens": 51,
+          "latency_s": 6.585,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set poe power limit",
+            "parameters": {
+              "port": 5,
+              "power": 25,
+              "unit": "W"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1000,
+          "padding_lines": 43,
+          "prompt_tokens": 998,
+          "completion_tokens": 53,
+          "latency_s": 6.846,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set poe power limit",
+            "parameters": {
+              "port": 5,
+              "power_limit": 25,
+              "unit": "W"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1100,
+          "padding_lines": 48,
+          "prompt_tokens": 1098,
+          "completion_tokens": 47,
+          "latency_s": 6.497,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set poe power limit",
+            "parameters": {
+              "port": 5,
+              "power_limit": 25
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1200,
+          "padding_lines": 53,
+          "prompt_tokens": 1198,
+          "completion_tokens": 54,
+          "latency_s": 7.433,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "@poesw1",
+            "parameters": {
+              "port": 5,
+              "type": "poe_power_limit",
+              "value": 25
+            },
+            "setting_name": "poe"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1300,
+          "padding_lines": 58,
+          "prompt_tokens": 1298,
+          "completion_tokens": 54,
+          "latency_s": 7.621,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "@poesw1",
+            "command_name": "set poe power limit",
+            "parameters": {
+              "port": 5,
+              "power_limit": 25,
+              "unit": "W"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 63,
+          "prompt_tokens": 1398,
+          "completion_tokens": 54,
+          "latency_s": 7.586,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "@poesw1",
+            "command_name": "set poe power limit",
+            "parameters": {
+              "port": 5,
+              "power_limit": 25,
+              "unit": "W"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 73,
+          "prompt_tokens": 1598,
+          "completion_tokens": 104,
+          "latency_s": 12.982,
+          "got_tool": null,
+          "got_args": null,
+          "content": "<|tool_call>call:set_config_on_device_parameters_on_a_parameters_on_a{a_parameters_on_a_parameters_on_a:a_parameters_on_a_parameters_on_a,device_name:<|\"|>@poesw1<|\"|>,parameter_name:<|\"|>poe_power_limit<|\"|>,parameters_on_a_parameters_on_a:a_parameters_on_a_parameters_on_a}<tool_call|>",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2000,
+          "padding_lines": 93,
+          "prompt_tokens": 1998,
+          "completion_tokens": 18,
+          "latency_s": 5.163,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set power limit on port 5 to 25W",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2400,
+          "padding_lines": 113,
+          "prompt_tokens": 2412,
+          "completion_tokens": 42,
+          "latency_s": 8.146,
+          "got_tool": null,
+          "got_args": null,
+          "content": "<|tool_call>call:set_config_on_device_config{config_name:power_limit,device_name:poesw1,parameters:{port:5,value:25}}",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2800,
+          "padding_lines": 133,
+          "prompt_tokens": 2832,
+          "completion_tokens": 18,
+          "latency_s": 6.664,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set power limit on port 5 to 25W",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        }
+      ]
+    },
+    {
+      "series": "benchmark",
+      "case": "@poesw1 show all ports status",
+      "level": "level1_queries",
+      "expected_tool": "query_device_info",
+      "tokens_per_padding_line": 20.07,
+      "sweep": [
+        {
+          "target": 1201,
+          "padding_lines": 0,
+          "prompt_tokens": 1201,
+          "completion_tokens": 30,
+          "latency_s": 5.054,
+          "got_tool": "poesw1,",
+          "got_args": {
+            "\"command_name\"": "show_all_ports_status"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1300,
+          "padding_lines": 5,
+          "prompt_tokens": 1308,
+          "completion_tokens": 13,
+          "latency_s": 3.578,
+          "got_tool": null,
+          "got_args": null,
+          "content": "<|tool_call>call:poesw1 show all ports status\n",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1400,
+          "padding_lines": 10,
+          "prompt_tokens": 1404,
+          "completion_tokens": 26,
+          "latency_s": 4.875,
+          "got_tool": null,
+          "got_args": null,
+          "content": "<|tool_call>call:provide_device_info{device_name:poesw1,info_type:all}<tool_call|>",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1600,
+          "padding_lines": 20,
+          "prompt_tokens": 1604,
+          "completion_tokens": 32,
+          "latency_s": 5.897,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need to use the `show_all_ports_status` method to fulfill your request. Could you please confirm if this is the correct action?",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2000,
+          "padding_lines": 40,
+          "prompt_tokens": 2004,
+          "completion_tokens": 81,
+          "latency_s": 11.386,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need the specific command for the `show all ports status` on the device named `@poesw1`.\n\nThe available commands for showing device information are related to network device automation, and the exact syntax for `show all ports status` can vary.\n\nCould you provide the correct command, or if this is a specific type of device, let me know the device make and model?",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2400,
+          "padding_lines": 60,
+          "prompt_tokens": 2404,
+          "completion_tokens": 109,
+          "latency_s": 14.646,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need the specific command for the `poesw1` device to \"show all ports status.\"\n\nCould you please provide the full and correct command, or is there an available command structure you would like me to refer to?\n\nFor example, on different network devices, the command might be:\n*   `show interfaces status`\n*   `show ports status`\n*   `show interfaces brief`\n\nOnce you provide the correct command, I'd be happy to execute it (in simulation, of course!).",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2800,
+          "padding_lines": 80,
+          "prompt_tokens": 2804,
+          "completion_tokens": 85,
+          "latency_s": 13.053,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I need a specific command for the \"show all ports status\" on the device `poesw1`.\n\nCould you please provide the exact command you are looking for? For example, some network devices use commands like:\n\n*   `show interfaces status`\n*   `show ports status`\n*   `show interface status all`\n\nOnce you provide the correct command, I can help you further!",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        }
+      ],
+      "reference": {
+        "target": "full four-tool request",
+        "padding_lines": 0,
+        "prompt_tokens": 2827,
+        "completion_tokens": 231,
+        "latency_s": 27.647,
+        "got_tool": null,
+        "got_args": null,
+        "content": "I do not have the capability to execute commands on specific network devices like \"poesw1\". I am a large language model and do not have access to network access or the necessary remote management tools.\n\n**To check the port status of your switch, you will need to use one of the following methods:**\n\n1.  **Console Cable:** Connect a console cable to the switch and a computer to the same port, then use a terminal program (like PuTTY or Secure Monitor) to log in.\n2.  **SSH/Tel Client:** If the switch is configured to allow remote access, use an SSH or Tel client.\n3.  **Web Interface:** Access the",
+        "grade": {
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false
+        },
+        "passed": false,
+        "structured_call": false
+      }
+    },
+    {
+      "series": "benchmark",
+      "case": "@poesw1 enable port 3",
+      "level": "level2_enable_disable",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.07,
+      "sweep": [
+        {
+          "target": 1418,
+          "padding_lines": 0,
+          "prompt_tokens": 1418,
+          "completion_tokens": 58,
+          "latency_s": 8.161,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I'm sorry, I cannot understand the command. Could you please provide more context or rephrase your request? For example, are you trying to configure a switch or a similar network device? If so, what is the full command, and what is the context of this action?",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1600,
+          "padding_lines": 9,
+          "prompt_tokens": 1601,
+          "completion_tokens": 37,
+          "latency_s": 6.374,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I'm sorry, I cannot perform that action. I am a language model and do not have the capability to directly control physical or virtual network switches like the one you mentioned.",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2000,
+          "padding_lines": 29,
+          "prompt_tokens": 2001,
+          "completion_tokens": 12,
+          "latency_s": 4.577,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set port 3 to enabled",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2400,
+          "padding_lines": 49,
+          "prompt_tokens": 2401,
+          "completion_tokens": 323,
+          "latency_s": 34.977,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I'm sorry, I lack the specific context or command structure for the system you are using (e.g., specific switch, router, or network device model and its associated API/CLI).\n\nThe input:\n*   `@poesw1`: This might be the name of the switch, like `poesw1`.\n*   `enable port 3`: This is a common command fragment for enabling a port.\n\n**If you are using a standard `cisco` switch, the command is often:**\n```\nenable\ninterface FastEthernet0/3  // The interface type (e.g., FastEthernet, GigabitEthernet) and number will vary\ninterface GigabitEthernet0/3\nexit\ninterface [interface_type]\n no shutdown  // Th",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2800,
+          "padding_lines": 69,
+          "prompt_tokens": 2801,
+          "completion_tokens": 118,
+          "latency_s": 16.304,
+          "got_tool": null,
+          "got_args": null,
+          "content": "Please provide more details about what you would like to do with **port 3** on the device **@poesw1**?\n\nFor example, are you trying to:\n*   **Enable** the port (if it is administratively disabled)?\n*   **Configure** a specific feature on the port (e.g., change speed, set VLAN tagging)?\n*   Something else?\n\nIf you are trying to **enable** it, knowing the device type of **@poesw1** might also help, as the command structure is specific!",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        }
+      ],
+      "reference": {
+        "target": "full four-tool request",
+        "padding_lines": 0,
+        "prompt_tokens": 2827,
+        "completion_tokens": 124,
+        "latency_s": 17.1,
+        "got_tool": null,
+        "got_args": null,
+        "content": "I'm sorry, I cannot fulfill that request. I do not have the functionality to directly configure or enable specific ports on network devices like the one you mentioned.\n\nTo enable port 3 on **@poesw1**, you will need to use the appropriate commands in the device's management interface or use a command-line interface (CLI) tool that is connected to it.\n\nIf you provide me with the **type of switch** (e.g., Cisco, HP, Netgear, etc.), I would be happy to give you the **correct set of commands** you can use!",
+        "grade": {
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false
+        },
+        "passed": false,
+        "structured_call": false
+      }
+    },
+    {
+      "series": "benchmark",
+      "case": "@poesw1 set port 2 speed to 1000",
+      "level": "level3_single_param",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.07,
+      "sweep": [
+        {
+          "target": 1425,
+          "padding_lines": 0,
+          "prompt_tokens": 1425,
+          "completion_tokens": 40,
+          "latency_s": 6.463,
+          "got_tool": null,
+          "got_args": null,
+          "content": "{\"device_name\": \"poesw1\", \"config_command\": \"set port 2 speed to 1000\", \"config_type\": \"switch_config\"}",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1600,
+          "padding_lines": 9,
+          "prompt_tokens": 1608,
+          "completion_tokens": 17,
+          "latency_s": 4.384,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set port 2 speed to 1000",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2000,
+          "padding_lines": 29,
+          "prompt_tokens": 2008,
+          "completion_tokens": 17,
+          "latency_s": 5.077,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set port 2 speed to 1000",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2400,
+          "padding_lines": 49,
+          "prompt_tokens": 2408,
+          "completion_tokens": 59,
+          "latency_s": 9.641,
+          "got_tool": null,
+          "got_args": null,
+          "content": "The available tools do not support setting the port speed for a switch. I can help you with network switch operations related to port configuration, such as enabling/disabling ports, setting spanning modes, or managing other features supported by the `switch` command, if you have a different request.",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2800,
+          "padding_lines": 68,
+          "prompt_tokens": 2788,
+          "completion_tokens": 26,
+          "latency_s": 7.252,
+          "got_tool": null,
+          "got_args": null,
+          "content": "I can't fulfill that request. I am a language model and do not have the capability to control network device settings.",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        }
+      ],
+      "reference": {
+        "target": "full four-tool request",
+        "padding_lines": 0,
+        "prompt_tokens": 2834,
+        "completion_tokens": 28,
+        "latency_s": 7.669,
+        "got_tool": null,
+        "got_args": null,
+        "content": "I'm sorry, I cannot fulfill that request. I am a language model and do not have the capability to configure network devices.",
+        "grade": {
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false
+        },
+        "passed": false,
+        "structured_call": false
+      }
+    },
+    {
+      "series": "benchmark",
+      "case": "@poesw1 set poe power limit to 25W on port 5",
+      "level": "level4_multi_param",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.07,
+      "sweep": [
+        {
+          "target": 1428,
+          "padding_lines": 0,
+          "prompt_tokens": 1428,
+          "completion_tokens": 63,
+          "latency_s": 8.686,
+          "got_tool": null,
+          "got_args": null,
+          "content": "```json\n{\n  \"device_name\": \"poesw1\",\n  \"command\": \"set poe power limit\",\n  \"parameters\": {\n    \"port\": 5,\n    \"power_limit\": \"25W\"\n  }\n}\n```",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1600,
+          "padding_lines": 9,
+          "prompt_tokens": 1611,
+          "completion_tokens": 20,
+          "latency_s": 4.704,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set poe power limit to 25W on port 5",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2000,
+          "padding_lines": 28,
+          "prompt_tokens": 1991,
+          "completion_tokens": 20,
+          "latency_s": 5.338,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set poe power limit to 25W on port 5",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2400,
+          "padding_lines": 48,
+          "prompt_tokens": 2391,
+          "completion_tokens": 20,
+          "latency_s": 5.988,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set poe power limit to 25W on port 5",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2800,
+          "padding_lines": 68,
+          "prompt_tokens": 2791,
+          "completion_tokens": 20,
+          "latency_s": 6.68,
+          "got_tool": null,
+          "got_args": null,
+          "content": "@poesw1 set poe power limit to 25W on port 5",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        }
+      ],
+      "reference": {
+        "target": "full four-tool request",
+        "padding_lines": 0,
+        "prompt_tokens": 2837,
+        "completion_tokens": 20,
+        "latency_s": 6.851,
+        "got_tool": null,
+        "got_args": null,
+        "content": "@poesw1 set poe power limit to 25W on port 5",
+        "grade": {
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false
+        },
+        "passed": false,
+        "structured_call": false
+      }
+    }
+  ]
+}

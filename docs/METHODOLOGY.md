@@ -323,6 +323,39 @@ their native 90.8% (83.6 and 76.9%), but the wrapper's parser rejects a reply
 with one surplus closing brace, and with a tolerant JSON decoder that accepts
 it, Qwen3-4B-Instruct-2507 on NPU (compiled) scores 100.0%.
 
+The readable rule cannot catch a configuration whose prompts carry the tools
+and whose model then answers without calling one: its as-served score would be
+read as capability. Under GenieX v0.9.3 the compiled Gemma-4-E4B-it is such a
+case. The check for it is the length sweep below, or more simply the share of
+structured calls on short against long prompts of the same requests.
+
+## Follow-up on a later server release
+
+The follow-up on GenieX v0.9.3 (report Section 18; `campaign/v2_followup.json`)
+is not a rerun of the protocol. Its triage sends the first six canonical cases
+once to each step, with the harness, suites, schema and model files of the
+campaign, and judges the step with the readable rule; six requests show
+whether a configuration works, not how accurate it is. Steps that become
+readable are candidates for the full protocol.
+
+The length sweep (`harness/sweep_prompt_length.py`) measures tool calling
+against prompt length on one served model. For the first canonical case of
+each level it offers only the tool the case expects, in two series: the
+benchmark's system prompt with the full tool definition, and a one-sentence
+system prompt with the tool stripped of its descriptions (tool and parameter
+names unchanged), which starts at a few hundred tokens. Each prompt is padded
+with neutral numbered notes, calibrated per case from two one-token requests,
+until the server-reported prompt reaches each target length up to about 2,800
+tokens; the full four-tool benchmark request is sent as a reference. In the
+compact series the descriptions that name the commands are gone, so a
+structured call, not a pass, is the measure there. A model that calls tools on
+long prompts elsewhere serves as a control for the padding.
+
+GenieX v0.9.3 identifies the board's chip from Qualcomm AI Hub's platform list
+and tries to download it when its data folder holds no copy, which hangs on a
+board without internet access. The runner places the list of AI Hub release
+0.64.0, checked by SHA-256, in the data folder of v0.9.3 before its first use.
+
 ## Provenance
 
 Every result file records the harness version, the hashes of the harness, the

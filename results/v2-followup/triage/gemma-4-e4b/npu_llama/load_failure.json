@@ -1,0 +1,21 @@
+{
+  "load_failure": true,
+  "model": "gemma-4-e4b",
+  "path": "npu_llama",
+  "server_cmd": "nohup env <env> /root/geniex-v093/geniex-cli-linux-arm64-v0.9.3/geniex --data-dir /root/eab-data-v093 --skip-update --log info serve --host 0.0.0.0:18384 -c npu --nctx 4096 --keepalive 3600 > /root/eab-serve.log 2>&1 &",
+  "server_options": "--nctx 4096 --keepalive 3600",
+  "power_mode": "server default (burst)",
+  "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+  "server_config": "6b19eefca839d466b400128c7117ea1dc850aac121fa3c6e2e936795aba8cd11  /root/eab-data-v093/aihub/platform.json",
+  "artifact": "Gemma-4-E4B-it/gemma-4-E4B_q4_0-it.gguf",
+  "artifact_sha256": "676c35070db6dbe52f93e9c864ee0fba4eddea94b9c875d9cb10daff453fbaee",
+  "gguf_source": "catalog",
+  "bundle": null,
+  "served_model_id": "qualcomm/gemma-4-e4b-q4_0:Q4_0",
+  "started": "2026-10-21T17:15:45Z",
+  "load_check": {
+    "http_status": 500,
+    "body": "{\"code\":-100201,\"error\":\"SDKError(Model loading failed)\"}"
+  },
+  "server_log_tail": "\u001b[2mOct 21 17:12:41.829\u001b[0m \u001b[93mWRN\u001b[0m \u001b[2mgo/ml.go:246\u001b[0m [ML] [plugins/llama_cpp/src/plugin.cpp:52:ggml_to_geniex_log] ggml-hex: HTP0 buffer mapping failed : domain_id 3 size 587206656 fd 25 error 0x00000001\n\u001b[2mOct 21 17:12:41.830\u001b[0m \u001b[91mERR\u001b[0m \u001b[2mgo/ml.go:248\u001b[0m [ML] [src/llm.cpp:39:geniex_llm_create] creating llm error: ggml-hex: fastrpc_mmap failed (see log for details)\n"
+}

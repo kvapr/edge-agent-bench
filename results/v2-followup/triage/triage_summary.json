@@ -1,0 +1,145 @@
+[
+  {
+    "step": "qwen3-1.7b/cpu",
+    "readable": true,
+    "reason": "readable",
+    "median_prompt_tokens": 2717,
+    "structured_calls": 6,
+    "text_calls": 0,
+    "replies": 6
+  },
+  {
+    "step": "qwen3-1.7b/gpu",
+    "readable": false,
+    "reason": "load failure"
+  },
+  {
+    "step": "qwen3-1.7b/npu_llama",
+    "readable": true,
+    "reason": "readable",
+    "median_prompt_tokens": 2717,
+    "structured_calls": 6,
+    "text_calls": 0,
+    "replies": 6
+  },
+  {
+    "step": "qwen3-4b-2507/gpu",
+    "readable": false,
+    "reason": "load failure"
+  },
+  {
+    "step": "qwen3-4b-2507/npu_llama",
+    "readable": false,
+    "reason": "load failure"
+  },
+  {
+    "step": "qwen3-4b-2507/compiled",
+    "readable": true,
+    "reason": "readable",
+    "median_prompt_tokens": 2714,
+    "structured_calls": 6,
+    "text_calls": 0,
+    "replies": 6
+  },
+  {
+    "step": "qwen3-4b/npu_llama",
+    "readable": false,
+    "reason": "load failure"
+  },
+  {
+    "step": "qwen3-8b/npu_llama",
+    "readable": false,
+    "reason": "load failure"
+  },
+  {
+    "step": "gemma-4-e4b/npu_llama",
+    "readable": false,
+    "reason": "load failure"
+  },
+  {
+    "step": "gemma-4-e4b/compiled",
+    "readable": true,
+    "reason": "readable",
+    "median_prompt_tokens": 2828,
+    "structured_calls": 0,
+    "text_calls": 0,
+    "replies": 6
+  },
+  {
+    "step": "smollm2-1.7b/cpu",
+    "readable": false,
+    "reason": "tools not delivered",
+    "median_prompt_tokens": 619,
+    "structured_calls": 0,
+    "text_calls": 0,
+    "replies": 6
+  },
+  {
+    "step": "smollm2-1.7b/npu_llama",
+    "readable": false,
+    "reason": "tools not delivered",
+    "median_prompt_tokens": 619,
+    "structured_calls": 0,
+    "text_calls": 0,
+    "replies": 6
+  },
+  {
+    "step": "phi-4-mini/cpu",
+    "readable": false,
+    "reason": "tools not delivered",
+    "median_prompt_tokens": 485,
+    "structured_calls": 0,
+    "text_calls": 0,
+    "replies": 6
+  },
+  {
+    "step": "phi-4-mini/npu_llama",
+    "readable": false,
+    "reason": "load failure"
+  },
+  {
+    "step": "granite-4.0-micro/npu_llama",
+    "readable": true,
+    "reason": "readable",
+    "median_prompt_tokens": 2709,
+    "structured_calls": 6,
+    "text_calls": 0,
+    "replies": 6
+  },
+  {
+    "step": "ministral-3-3b/cpu",
+    "readable": false,
+    "reason": "calls returned as text",
+    "median_prompt_tokens": 2743,
+    "structured_calls": 0,
+    "text_calls": 6,
+    "replies": 6
+  },
+  {
+    "step": "ministral-3-3b/npu_llama",
+    "readable": false,
+    "reason": "calls returned as text",
+    "median_prompt_tokens": 2743,
+    "structured_calls": 0,
+    "text_calls": 6,
+    "replies": 6
+  },
+  {
+    "step": "gemma-4-e2b/npu_llama",
+    "readable": true,
+    "reason": "readable",
+    "median_prompt_tokens": 2820,
+    "structured_calls": 6,
+    "text_calls": 0,
+    "replies": 6
+  },
+  {
+    "step": "qwen3.5-2b/npu_llama",
+    "readable": true,
+    "reason": "readable",
+    "median_prompt_tokens": 2863,
+    "structured_calls": 6,
+    "text_calls": 0,
+    "replies": 6
+  }
+]

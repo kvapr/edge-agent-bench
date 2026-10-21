@@ -1,0 +1,1034 @@
+{
+  "summary": {
+    "model": "qualcomm/gemma-4-e4b-w4a16",
+    "url": "http://<board>:18384",
+    "shuffle_seed": null,
+    "n_cases": 6,
+    "by_level": {
+      "level1_queries": {
+        "n": 6,
+        "tool": 0.0,
+        "cmd": 0.0,
+        "params_l": 0.0,
+        "params_s": 0.0,
+        "e2e": 0.0
+      }
+    },
+    "overall_e2e_pct": 0.0,
+    "overall_lenient_pct": 0.0,
+    "overall_strict_pct": 0.0,
+    "tool_sel_pct": 0.0,
+    "median_latency_s": 26.95,
+    "mean_latency_s": 21.29,
+    "repeats": 1,
+    "warmup": 1,
+    "e2e_pct_by_rep": [
+      0.0
+    ],
+    "tool_sel_pct_by_rep": [
+      0.0
+    ],
+    "overall_e2e_std": null,
+    "tool_sel_std": null,
+    "unstable_cases": [],
+    "latency_p95_s": 29.88,
+    "latency_p5_s": 8.49,
+    "latency_p50_s": 23.195,
+    "prompt_tokens_median": 2827.5,
+    "text_tool_call_reps": 0,
+    "label": "model=gemma-4-e4b;path=compiled;suite=triage",
+    "thermal": {
+      "n_samples": 8,
+      "interval_s": 20.0,
+      "max_all_c": 58.1,
+      "mean_all_c": 56.3,
+      "max_cpu_c": 58.1,
+      "max_nsp_c": 58.1
+    }
+  },
+  "results": [
+    {
+      "idx": 0,
+      "level": "level1_queries",
+      "input": "@poesw1 show all ports status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_all_ports_status",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": null,
+          "got_args": null,
+          "latency_s": 27.536,
+          "prompt_tokens": 2827,
+          "completion_tokens": 231,
+          "usage": {
+            "completion_tokens": 231,
+            "prompt_tokens": 2827,
+            "total_tokens": 3058,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "I do not have the capability to execute commands on specific network devices like \"poesw1\". I am a large language model and do not have access to network access or the necessary remote management tools.\n\n**To check the port status of your switch, you will need to use one of the following methods:**\n\n1.  **Console Cable:** Connect a console cable to the switch and a computer to the same port, then use a terminal program (like PuTTY or Secure Monitor) to log in.\n2.  **SSH/Tel Client:** If the switch is configured to allow remote access, use an SSH or Tel client.\n3.  **Web Interface:** Access the switch's management page via a connected device on the same network.\n\n**Once you are connected, the exact command you need to run will depend entirely on the brand and model of your switch (e.g., Cisco, HP, Ubiquiti, etc.).**\n\n**Could you please provide the brand and model of your switch, or the command you were trying to run? I would be happy to give you the correct command!**",
+          "text_tool_call": false,
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2827,
+              "prompt_ms": 4951.417,
+              "prompt_per_second": 570.9476701316007,
+              "predicted_n": 231,
+              "predicted_ms": 22556.743,
+              "predicted_per_second": 10.240840178034567
+            }
+          }
+        }
+      ],
+      "got_tool": null,
+      "got_args": null,
+      "content": "I do not have the capability to execute commands on specific network devices like \"poesw1\". I am a large language model and do not have access to network access or the necessary remote management tools.\n\n**To check the port status of your switch, you will need to use one of the following methods:**\n\n1.  **Console Cable:** Connect a console cable to the switch and a computer to the same port, then use a terminal program (like PuTTY or Secure Monitor) to log in.\n2.  **SSH/Tel Client:** If the switch is configured to allow remote access, use an SSH or Tel client.\n3.  **Web Interface:** Access the switch's management page via a connected device on the same network.\n\n**Once you are connected, the exact command you need to run will depend entirely on the brand and model of your switch (e.g., Cisco, HP, Ubiquiti, etc.).**\n\n**Could you please provide the brand and model of your switch, or the command you were trying to run? I would be happy to give you the correct command!**",
+      "completion_tokens": 231,
+      "prompt_tokens": 2827,
+      "text_tool_call_reps": 0,
+      "ok_tool": false,
+      "ok_command": false,
+      "ok_params_strict": false,
+      "ok_params_lenient": false,
+      "ok_device": false,
+      "latencies_s": [
+        27.536
+      ],
+      "latency_s": 27.54,
+      "latency_mean_s": 27.536,
+      "latency_std_s": null,
+      "pass_count": 0,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 1,
+      "level": "level1_queries",
+      "input": "@poesw1 show port 5 status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/5"
+      },
+      "reps": [
+        {
+          "got_tool": null,
+          "got_args": null,
+          "latency_s": 29.879,
+          "prompt_tokens": 2828,
+          "completion_tokens": 255,
+          "usage": {
+            "completion_tokens": 255,
+            "prompt_tokens": 2828,
+            "total_tokens": 3083,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "I can help you with managing or viewing the status of a network device, but I do not have access to the specific set of commands for a device named **@poesw1** or the function **show port 5 status**.\n\nThis looks like a command for a specific type of network switch or hub (like a Cisco, HP, D-Link, etc., switch).\n\n**To get the information you need, could you please tell me:**\n\n1.  **What is the brand and model of the switch?** (e.g., Cisco Catalyst 2960, TP-Link Easy Switch, etc.)\n2.  **What interface are you referring to?** (e.g., Is it port 5, or is it a Fast Ethernet port, etc.?)\n3.  **What is the command you are trying to run on the device itself?** (This is the most helpful piece of information, as I can then tell you if the syntax is correct or if I can provide an alternative using my knowledge base tools.)\n\nIf you are using a specific **SITL** (System on a Large/Small Island - or similar) interface, please provide more context about that as well!",
+          "text_tool_call": false,
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2828,
+              "prompt_ms": 4950.984,
+              "prompt_per_second": 571.1995837595113,
+              "predicted_n": 255,
+              "predicted_ms": 24903.744,
+              "predicted_per_second": 10.239424240788855
+            }
+          }
+        }
+      ],
+      "got_tool": null,
+      "got_args": null,
+      "content": "I can help you with managing or viewing the status of a network device, but I do not have access to the specific set of commands for a device named **@poesw1** or the function **show port 5 status**.\n\nThis looks like a command for a specific type of network switch or hub (like a Cisco, HP, D-Link, etc., switch).\n\n**To get the information you need, could you please tell me:**\n\n1.  **What is the brand and model of the switch?** (e.g., Cisco Catalyst 2960, TP-Link Easy Switch, etc.)\n2.  **What interface are you referring to?** (e.g., Is it port 5, or is it a Fast Ethernet port, etc.?)\n3.  **What is the command you are trying to run on the device itself?** (This is the most helpful piece of information, as I can then tell you if the syntax is correct or if I can provide an alternative using my knowledge base tools.)\n\nIf you are using a specific **SITL** (System on a Large/Small Island - or similar) interface, please provide more context about that as well!",
+      "completion_tokens": 255,
+      "prompt_tokens": 2828,
+      "text_tool_call_reps": 0,
+      "ok_tool": false,
+      "ok_command": false,
+      "ok_params_strict": false,
+      "ok_params_lenient": false,
+      "ok_device": false,
+      "latencies_s": [
+        29.879
+      ],
+      "latency_s": 29.88,
+      "latency_mean_s": 29.879,
+      "latency_std_s": null,
+      "pass_count": 0,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 2,
+      "level": "level1_queries",
+      "input": "@poesw1 show system info",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_system_info",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": null,
+          "got_args": null,
+          "latency_s": 8.486,
+          "prompt_tokens": 2826,
+          "completion_tokens": 37,
+          "usage": {
+            "completion_tokens": 37,
+            "prompt_tokens": 2826,
+            "total_tokens": 2863,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "I'm sorry, I cannot fulfill that request. I am a virtual assistant and I do not have access to specific network devices or systems like the one you are referring to.",
+          "text_tool_call": false,
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2826,
+              "prompt_ms": 4928.352,
+              "prompt_per_second": 573.4168338625162,
+              "predicted_n": 37,
+              "predicted_ms": 3532.143,
+              "predicted_per_second": 10.475227078858358
+            }
+          }
+        }
+      ],
+      "got_tool": null,
+      "got_args": null,
+      "content": "I'm sorry, I cannot fulfill that request. I am a virtual assistant and I do not have access to specific network devices or systems like the one you are referring to.",
+      "completion_tokens": 37,
+      "prompt_tokens": 2826,
+      "text_tool_call_reps": 0,
+      "ok_tool": false,
+      "ok_command": false,
+      "ok_params_strict": false,
+      "ok_params_lenient": false,
+      "ok_device": false,
+      "latencies_s": [
+        8.486
+      ],
+      "latency_s": 8.49,
+      "latency_mean_s": 8.486,
+      "latency_std_s": null,
+      "pass_count": 0,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 3,
+      "level": "level1_queries",
+      "input": "@poesw1 show poe status port 3",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_poe_status",
+      "expected_params": {
+        "port": "1/3"
+      },
+      "reps": [
+        {
+          "got_tool": null,
+          "got_args": null,
+          "latency_s": 26.952,
+          "prompt_tokens": 2830,
+          "completion_tokens": 225,
+          "usage": {
+            "completion_tokens": 225,
+            "prompt_tokens": 2830,
+            "total_tokens": 3055,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "I'm sorry, I lack the capability to execute specific commands on network devices like showing the PoE status on a switch named `poesw1`.\n\nI am a large language model, and my functions are limited to providing information, answering questions, and completing tasks based on the data I have been trained on or the tools I have access to.\n\n**To check the PoE status on your switch, please use one of the following methods:**\n\n1.  **Use the Switch's Web Interface:** Log in to the management page of `poesw1`.\n2.  **Use the Command Line Interface (CLI):** Connect to the switch via SSH or Telnet and enter the appropriate command (the specific command will depend on the switch brand, e.g., Cisco, Juniper, HP).\n3.  **Use a Network Management System (NMS):** If you have an NMS solution, you can check the status there.\n\nIf you tell me **what brand and model** your switch is, I might be able to provide you with the exact command to use!",
+          "text_tool_call": false,
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2830,
+              "prompt_ms": 4960.317,
+              "prompt_per_second": 570.5280529450033,
+              "predicted_n": 225,
+              "predicted_ms": 21967.656,
+              "predicted_per_second": 10.24233081581394
+            }
+          }
+        }
+      ],
+      "got_tool": null,
+      "got_args": null,
+      "content": "I'm sorry, I lack the capability to execute specific commands on network devices like showing the PoE status on a switch named `poesw1`.\n\nI am a large language model, and my functions are limited to providing information, answering questions, and completing tasks based on the data I have been trained on or the tools I have access to.\n\n**To check the PoE status on your switch, please use one of the following methods:**\n\n1.  **Use the Switch's Web Interface:** Log in to the management page of `poesw1`.\n2.  **Use the Command Line Interface (CLI):** Connect to the switch via SSH or Telnet and enter the appropriate command (the specific command will depend on the switch brand, e.g., Cisco, Juniper, HP).\n3.  **Use a Network Management System (NMS):** If you have an NMS solution, you can check the status there.\n\nIf you tell me **what brand and model** your switch is, I might be able to provide you with the exact command to use!",
+      "completion_tokens": 225,
+      "prompt_tokens": 2830,
+      "text_tool_call_reps": 0,
+      "ok_tool": false,
+      "ok_command": false,
+      "ok_params_strict": false,
+      "ok_params_lenient": false,
+      "ok_device": false,
+      "latencies_s": [
+        26.952
+      ],
+      "latency_s": 26.95,
+      "latency_mean_s": 26.952,
+      "latency_std_s": null,
+      "pass_count": 0,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 4,
+      "level": "level1_queries",
+      "input": "@poesw1 show vlan config",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_vlan_config",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": null,
+          "got_args": null,
+          "latency_s": 15.442,
+          "prompt_tokens": 2827,
+          "completion_tokens": 108,
+          "usage": {
+            "completion_tokens": 108,
+            "prompt_tokens": 2827,
+            "total_tokens": 2935,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "I'm sorry, I cannot fulfill that request. I am a language model and do not have the capability to execute commands on specific network devices like one named \"poesw1\".\n\nIf you can provide the configuration details or the specific information you are looking for regarding VLAN configuration, I would be happy to assist you with:\n\n* **Explaining what the configuration means.**\n* **Providing the correct commands to achieve a certain goal.**\n* **Troubleshooting a specific issue.**\n\nCould you please provide more context?",
+          "text_tool_call": false,
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2827,
+              "prompt_ms": 4957.612,
+              "prompt_per_second": 570.2342176031525,
+              "predicted_n": 108,
+              "predicted_ms": 10460.698,
+              "predicted_per_second": 10.324358852535461
+            }
+          }
+        }
+      ],
+      "got_tool": null,
+      "got_args": null,
+      "content": "I'm sorry, I cannot fulfill that request. I am a language model and do not have the capability to execute commands on specific network devices like one named \"poesw1\".\n\nIf you can provide the configuration details or the specific information you are looking for regarding VLAN configuration, I would be happy to assist you with:\n\n* **Explaining what the configuration means.**\n* **Providing the correct commands to achieve a certain goal.**\n* **Troubleshooting a specific issue.**\n\nCould you please provide more context?",
+      "completion_tokens": 108,
+      "prompt_tokens": 2827,
+      "text_tool_call_reps": 0,
+      "ok_tool": false,
+      "ok_command": false,
+      "ok_params_strict": false,
+      "ok_params_lenient": false,
+      "ok_device": false,
+      "latencies_s": [
+        15.442
+      ],
+      "latency_s": 15.44,
+      "latency_mean_s": 15.442,
+      "latency_std_s": null,
+      "pass_count": 0,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 5,
+      "level": "level1_queries",
+      "input": "@poesw1 display port 2 details",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/2"
+      },
+      "reps": [
+        {
+          "got_tool": null,
+          "got_args": null,
+          "latency_s": 19.44,
+          "prompt_tokens": 2828,
+          "completion_tokens": 149,
+          "usage": {
+            "completion_tokens": 149,
+            "prompt_tokens": 2828,
+            "total_tokens": 2977,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "I need more information to display the port 2 details for the device `poesw1`.\n\nCould you please specify:\n\n1.  **What kind of information** you would like to see? (e.g., status, speed, duplex, connected device, configuration, etc.)\n2.  **What is the context** of this command/request? (e.g., Are you using a specific network management system, or are you expecting me to simulate a command for a known device type?)\n\nIf you are using a specific command-line interface (like Cisco IOS, Juniper Junos, etc.), providing the full context or the actual command you intended to run might help me provide a more accurate response!",
+          "text_tool_call": false,
+          "ok_tool": false,
+          "ok_command": false,
+          "ok_params_strict": false,
+          "ok_params_lenient": false,
+          "ok_device": false,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2828,
+              "prompt_ms": 4997.198,
+              "prompt_per_second": 565.9171399652365,
+              "predicted_n": 149,
+              "predicted_ms": 14425.779,
+              "predicted_per_second": 10.32873164076616
+            }
+          }
+        }
+      ],
+      "got_tool": null,
+      "got_args": null,
+      "content": "I need more information to display the port 2 details for the device `poesw1`.\n\nCould you please specify:\n\n1.  **What kind of information** you would like to see? (e.g., status, speed, duplex, connected device, configuration, etc.)\n2.  **What is the context** of this command/request? (e.g., Are you using a specific network management system, or are you expecting me to simulate a command for a known device type?)\n\nIf you are using a specific command-line interface (like Cisco IOS, Juniper Junos, etc.), providing the full context or the actual command you intended to run might help me provide a more accurate response!",
+      "completion_tokens": 149,
+      "prompt_tokens": 2828,
+      "text_tool_call_reps": 0,
+      "ok_tool": false,
+      "ok_command": false,
+      "ok_params_strict": false,
+      "ok_params_lenient": false,
+      "ok_device": false,
+      "latencies_s": [
+        19.44
+      ],
+      "latency_s": 19.44,
+      "latency_mean_s": 19.44,
+      "latency_std_s": null,
+      "pass_count": 0,
+      "n_reps": 1,
+      "stable": true
+    }
+  ],
+  "provenance": {
+    "schema_version": 3,
+    "harness_version": "2.0",
+    "label": "model=gemma-4-e4b;path=compiled;suite=triage",
+    "system_prompt": "You are a network device management assistant for managed PoE switches.\n\nConventions:\n- Messages may start with @<device_name> (e.g. @poesw1). That is the target device: pass its name\n  without the @ as device_name: '@poesw1' -> {\"device_name\": \"poesw1\"}.\n- Read-only status/monitoring queries -> query_device_info.\n- Configuration changes (enable/disable/set/assign/configure) -> configure_device_setting.\n- Port troubleshooting, syslog, events -> diagnose_port_issues.\n- How-to / documentation questions -> search_documentation.\n\nCRITICAL parameter rules:\n- Port numbers use the '1/N' string format: 'port 5' -> {\"port\": \"1/5\"}, 'interface 12' -> {\"port\": \"1/12\"}.\n- VLAN IDs are integers: 'vlan 10' -> {\"vlan_id\": 10}.\n- PoE power limits are integers (watts): '25W' or '25 watts' -> {\"power_limit\": 25}.\n- Speeds and duplex are strings: '1000', '100', '10', 'auto', 'full', 'half'.\n- Port descriptions keep the user's text verbatim.\n\nCommon command_name values for configure_device_setting:\nenable_port (port), disable_port (port), configure_poe_mode (port, mode: enable|disable),\nconfigure_port_speed (port, speed), configure_port_duplex (port, duplex),\nconfigure_access_vlan (port, vlan_id), configure_poe_power_limit (port, power_limit),\nset_port_description (port, description), configure_trunk_allowed_vlans (port, action, vlan_list), create_vlan (vlan_id).\n\nCommon command_name values for query_device_info:\nshow_port_status (port), show_all_ports_status, show_poe_status (port), show_all_poe_status,\nshow_poe_config (port), show_all_poe_config, show_poe_power_budget, show_cable_diagnostics (port),\nshow_all_cable_diagnostics, show_vlan_config, show_vlan_membership, show_system_info, show_ip_interface.\n\nAlways respond with exactly one tool call for actionable requests. Do not ask for\nconfirmation; the system handles confirmation of configuration changes itself.\n",
+    "system_prompt_sha256": "d6ca8d60a4f442139658aa411e01a1f4d5e0163efa8c88c64e3f982011a80d92",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "timestamp_utc": "2026-10-21T17:18:53.022048+00:00",
+    "host": "client",
+    "python": "3.12.3",
+    "harness_sha256": "48cc06c22c8cf7d6d14e8f23e1e0aadf32933c1776a9354402fee0b8bd90cce5",
+    "cases_file": "suites/test_cases.yaml",
+    "cases_sha256": "414bd0afe130d501adfb3038963f55b2151390a336de257f7646a6561d4a7a52",
+    "tools_source": "suites/tools_nested.json",
+    "tools_sha256": "026834d9cc4addeddd9b562d042d76c127f44823c8a5997e36150ee3ddf8a2fd",
+    "tool_names": [
+      "query_device_info",
+      "search_documentation",
+      "diagnose_port_issues",
+      "configure_device_setting"
+    ],
+    "request_config": {
+      "temperature": 0,
+      "max_tokens": 512,
+      "extra_body": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "enable_think": false
+      },
+      "omit_params": []
+    },
+    "endpoint_models": {
+      "data": [
+        {
+          "id": "qualcomm/gemma-4-e4b-w4a16:w4a16",
+          "created": 0,
+          "object": "model",
+          "owned_by": "qualcomm",
+          "shutdown_date": "0001-01-01T00:00:00Z"
+        }
+      ],
+      "object": "list"
+    },
+    "board": {
+      "os": {
+        "VERSION_ID": "1.6-ver.1.2.1",
+        "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+      },
+      "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+      "loadavg": "2.01 2.13 1.56 1/577 2046907",
+      "containers": [],
+      "gx_container_geniex_version": [],
+      "thermal_max_c": {
+        "cpu": 50.8,
+        "nsp": 48.7,
+        "all": 50.8
+      },
+      "cpu_busy": 0.009,
+      "thermal_zones": {
+        "aoss-2-thermal": 48.3,
+        "cpu-1-0-0-thermal": 49.7,
+        "nsp-1-2-0-thermal": 48.7,
+        "ddrss-0-thermal": 49.4,
+        "cpuss-1-0-thermal": 49.7,
+        "aoss-3-thermal": 48.3,
+        "cpu-1-0-1-thermal": 50.8,
+        "cpu-1-1-1-thermal": 49.7,
+        "cpu-1-2-1-thermal": 50.1,
+        "cpu-1-3-1-thermal": 49.4,
+        "nsp-0-0-1-thermal": 47.9,
+        "nsp-0-1-1-thermal": 47.6,
+        "cpu-1-1-0-thermal": 49.0,
+        "nsp-0-2-1-thermal": 47.6,
+        "nsp-1-0-1-thermal": 48.3,
+        "nsp-1-1-1-thermal": 48.3,
+        "nsp-1-2-1-thermal": 48.7,
+        "ddrss-1-thermal": 49.4,
+        "cpuss-1-1-thermal": 49.4,
+        "aoss-0-thermal": 47.9,
+        "cpu-0-0-0-thermal": 49.0,
+        "cpu-0-1-0-thermal": 48.7,
+        "cpu-0-2-0-thermal": 48.7,
+        "cpu-1-2-0-thermal": 49.4,
+        "cpu-0-3-0-thermal": 49.0,
+        "gpuss-0-thermal": 47.6,
+        "gpuss-1-thermal": 47.6,
+        "gpuss-2-thermal": 47.6,
+        "audio-thermal": 47.9,
+        "camss-0-thermal": 49.0,
+        "pcie-0-thermal": 48.7,
+        "cpuss-0-0-thermal": 48.7,
+        "aoss-1-thermal": 47.7,
+        "cpu-0-0-1-thermal": 48.8,
+        "cpu-1-3-0-thermal": 49.0,
+        "cpu-0-1-1-thermal": 49.6,
+        "cpu-0-2-1-thermal": 48.5,
+        "cpu-0-3-1-thermal": 49.2,
+        "gpuss-3-thermal": 47.7,
+        "gpuss-4-thermal": 47.7,
+        "gpuss-5-thermal": 47.4,
+        "video-thermal": 48.5,
+        "camss-1-thermal": 49.2,
+        "pcie-1-thermal": 48.1,
+        "cpuss-0-1-thermal": 49.2,
+        "nsp-0-0-0-thermal": 47.2,
+        "soc-therm": 49.3,
+        "ufs0-therm": 49.8,
+        "xo-therm": 48.5,
+        "sdram-therm": 48.7,
+        "pm8775-0-thermal": 44.6,
+        "pm8775-1-thermal": 46.1,
+        "pm8775-2-thermal": 44.5,
+        "pm8775-3-thermal": 45.4,
+        "pmm8654au_0_mbg_tz": 44.2,
+        "pmm8654au_1_mbg_tz": 46.3,
+        "nsp-0-1-0-thermal": 47.6,
+        "pmm8654au_2_mbg_tz": 44.7,
+        "pmm8654au_3_mbg_tz": 45.2,
+        "nsp-0-2-0-thermal": 47.9,
+        "nsp-1-0-0-thermal": 47.6,
+        "nsp-1-1-0-thermal": 47.9
+      }
+    },
+    "board_after": {
+      "os": {
+        "VERSION_ID": "1.6-ver.1.2.1",
+        "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+      },
+      "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+      "loadavg": "0.97 1.62 1.45 1/576 2049379",
+      "containers": [],
+      "gx_container_geniex_version": [],
+      "thermal_max_c": {
+        "cpu": 52.7,
+        "nsp": 51.6,
+        "all": 52.7
+      },
+      "cpu_busy": 0.005,
+      "thermal_zones": {
+        "aoss-2-thermal": 51.9,
+        "cpu-1-0-0-thermal": 52.3,
+        "nsp-1-2-0-thermal": 51.6,
+        "ddrss-0-thermal": 52.7,
+        "cpuss-1-0-thermal": 52.7,
+        "aoss-3-thermal": 51.6,
+        "cpu-1-0-1-thermal": 52.3,
+        "cpu-1-1-1-thermal": 52.7,
+        "cpu-1-2-1-thermal": 52.3,
+        "cpu-1-3-1-thermal": 52.7,
+        "nsp-0-0-1-thermal": 50.8,
+        "nsp-0-1-1-thermal": 50.8,
+        "cpu-1-1-0-thermal": 51.6,
+        "nsp-0-2-1-thermal": 51.2,
+        "nsp-1-0-1-thermal": 51.2,
+        "nsp-1-1-1-thermal": 51.2,
+        "nsp-1-2-1-thermal": 51.6,
+        "ddrss-1-thermal": 52.3,
+        "cpuss-1-1-thermal": 52.3,
+        "aoss-0-thermal": 51.2,
+        "cpu-0-0-0-thermal": 52.0,
+        "cpu-0-1-0-thermal": 51.2,
+        "cpu-0-2-0-thermal": 51.2,
+        "cpu-1-2-0-thermal": 52.3,
+        "cpu-0-3-0-thermal": 51.2,
+        "gpuss-0-thermal": 50.5,
+        "gpuss-1-thermal": 50.1,
+        "gpuss-2-thermal": 50.5,
+        "audio-thermal": 51.2,
+        "camss-0-thermal": 52.3,
+        "pcie-0-thermal": 52.0,
+        "cpuss-0-0-thermal": 51.6,
+        "aoss-1-thermal": 50.6,
+        "cpu-0-0-1-thermal": 51.7,
+        "cpu-1-3-0-thermal": 51.9,
+        "cpu-0-1-1-thermal": 51.7,
+        "cpu-0-2-1-thermal": 51.4,
+        "cpu-0-3-1-thermal": 51.7,
+        "gpuss-3-thermal": 50.6,
+        "gpuss-4-thermal": 50.6,
+        "gpuss-5-thermal": 51.0,
+        "video-thermal": 51.7,
+        "camss-1-thermal": 52.1,
+        "pcie-1-thermal": 51.4,
+        "cpuss-0-1-thermal": 51.7,
+        "nsp-0-0-0-thermal": 50.5,
+        "soc-therm": 51.8,
+        "ufs0-therm": 51.4,
+        "xo-therm": 50.5,
+        "sdram-therm": 51.7,
+        "pm8775-0-thermal": 46.3,
+        "pm8775-1-thermal": 48.8,
+        "pm8775-2-thermal": 47.4,
+        "pm8775-3-thermal": 47.6,
+        "pmm8654au_0_mbg_tz": 46.2,
+        "pmm8654au_1_mbg_tz": 48.8,
+        "nsp-0-1-0-thermal": 50.8,
+        "pmm8654au_2_mbg_tz": 47.3,
+        "pmm8654au_3_mbg_tz": 47.4,
+        "nsp-0-2-0-thermal": 50.8,
+        "nsp-1-0-0-thermal": 50.5,
+        "nsp-1-1-0-thermal": 50.8
+      }
+    }
+  },
+  "thermal_trace": [
+    {
+      "t_s": 0.5,
+      "all": 50.5,
+      "cpu": 50.5,
+      "nsp": 48.7,
+      "load1": 2.01
+    },
+    {
+      "t_s": 21.0,
+      "all": 56.7,
+      "cpu": 56.7,
+      "nsp": 52.3,
+      "load1": 1.66
+    },
+    {
+      "t_s": 41.6,
+      "all": 57.0,
+      "cpu": 57.0,
+      "nsp": 53.0,
+      "load1": 1.34
+    },
+    {
+      "t_s": 62.1,
+      "all": 55.9,
+      "cpu": 55.9,
+      "nsp": 52.7,
+      "load1": 1.16
+    },
+    {
+      "t_s": 82.6,
+      "all": 58.1,
+      "cpu": 52.3,
+      "nsp": 58.1,
+      "load1": 1.16
+    },
+    {
+      "t_s": 103.2,
+      "all": 58.1,
+      "cpu": 58.1,
+      "nsp": 53.7,
+      "load1": 1.12
+    },
+    {
+      "t_s": 123.7,
+      "all": 57.0,
+      "cpu": 57.0,
+      "nsp": 53.7,
+      "load1": 1.08
+    },
+    {
+      "t_s": 144.3,
+      "all": 56.9,
+      "cpu": 56.9,
+      "nsp": 54.5,
+      "load1": 1.06
+    }
+  ],
+  "readiness": [
+    {
+      "before": "warmup",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "2.01 2.13 1.56 1/577 2046907",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 50.8,
+          "nsp": 48.7,
+          "all": 50.8
+        },
+        "cpu_busy": 0.009,
+        "thermal_zones": {
+          "aoss-2-thermal": 48.3,
+          "cpu-1-0-0-thermal": 49.7,
+          "nsp-1-2-0-thermal": 48.7,
+          "ddrss-0-thermal": 49.4,
+          "cpuss-1-0-thermal": 49.7,
+          "aoss-3-thermal": 48.3,
+          "cpu-1-0-1-thermal": 50.8,
+          "cpu-1-1-1-thermal": 49.7,
+          "cpu-1-2-1-thermal": 50.1,
+          "cpu-1-3-1-thermal": 49.4,
+          "nsp-0-0-1-thermal": 47.9,
+          "nsp-0-1-1-thermal": 47.6,
+          "cpu-1-1-0-thermal": 49.0,
+          "nsp-0-2-1-thermal": 47.6,
+          "nsp-1-0-1-thermal": 48.3,
+          "nsp-1-1-1-thermal": 48.3,
+          "nsp-1-2-1-thermal": 48.7,
+          "ddrss-1-thermal": 49.4,
+          "cpuss-1-1-thermal": 49.4,
+          "aoss-0-thermal": 47.9,
+          "cpu-0-0-0-thermal": 49.0,
+          "cpu-0-1-0-thermal": 48.7,
+          "cpu-0-2-0-thermal": 48.7,
+          "cpu-1-2-0-thermal": 49.4,
+          "cpu-0-3-0-thermal": 49.0,
+          "gpuss-0-thermal": 47.6,
+          "gpuss-1-thermal": 47.6,
+          "gpuss-2-thermal": 47.6,
+          "audio-thermal": 47.9,
+          "camss-0-thermal": 49.0,
+          "pcie-0-thermal": 48.7,
+          "cpuss-0-0-thermal": 48.7,
+          "aoss-1-thermal": 47.7,
+          "cpu-0-0-1-thermal": 48.8,
+          "cpu-1-3-0-thermal": 49.0,
+          "cpu-0-1-1-thermal": 49.6,
+          "cpu-0-2-1-thermal": 48.5,
+          "cpu-0-3-1-thermal": 49.2,
+          "gpuss-3-thermal": 47.7,
+          "gpuss-4-thermal": 47.7,
+          "gpuss-5-thermal": 47.4,
+          "video-thermal": 48.5,
+          "camss-1-thermal": 49.2,
+          "pcie-1-thermal": 48.1,
+          "cpuss-0-1-thermal": 49.2,
+          "nsp-0-0-0-thermal": 47.2,
+          "soc-therm": 49.3,
+          "ufs0-therm": 49.8,
+          "xo-therm": 48.5,
+          "sdram-therm": 48.7,
+          "pm8775-0-thermal": 44.6,
+          "pm8775-1-thermal": 46.1,
+          "pm8775-2-thermal": 44.5,
+          "pm8775-3-thermal": 45.4,
+          "pmm8654au_0_mbg_tz": 44.2,
+          "pmm8654au_1_mbg_tz": 46.3,
+          "nsp-0-1-0-thermal": 47.6,
+          "pmm8654au_2_mbg_tz": 44.7,
+          "pmm8654au_3_mbg_tz": 45.2,
+          "nsp-0-2-0-thermal": 47.9,
+          "nsp-1-0-0-thermal": 47.6,
+          "nsp-1-1-0-thermal": 47.9
+        }
+      }
+    },
+    {
+      "before": "rep1",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "1.53 2.01 1.54 1/578 2047456",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 51.2,
+          "nsp": 50.1,
+          "all": 51.2
+        },
+        "cpu_busy": 0.004,
+        "thermal_zones": {
+          "aoss-2-thermal": 49.7,
+          "cpu-1-0-0-thermal": 50.5,
+          "nsp-1-2-0-thermal": 49.7,
+          "ddrss-0-thermal": 50.5,
+          "cpuss-1-0-thermal": 51.2,
+          "aoss-3-thermal": 49.7,
+          "cpu-1-0-1-thermal": 50.5,
+          "cpu-1-1-1-thermal": 50.5,
+          "cpu-1-2-1-thermal": 50.1,
+          "cpu-1-3-1-thermal": 50.1,
+          "nsp-0-0-1-thermal": 49.4,
+          "nsp-0-1-1-thermal": 49.0,
+          "cpu-1-1-0-thermal": 49.7,
+          "nsp-0-2-1-thermal": 49.0,
+          "nsp-1-0-1-thermal": 49.7,
+          "nsp-1-1-1-thermal": 49.7,
+          "nsp-1-2-1-thermal": 50.1,
+          "ddrss-1-thermal": 50.8,
+          "cpuss-1-1-thermal": 50.8,
+          "aoss-0-thermal": 49.4,
+          "cpu-0-0-0-thermal": 49.8,
+          "cpu-0-1-0-thermal": 49.0,
+          "cpu-0-2-0-thermal": 49.0,
+          "cpu-1-2-0-thermal": 50.1,
+          "cpu-0-3-0-thermal": 49.8,
+          "gpuss-0-thermal": 48.7,
+          "gpuss-1-thermal": 48.7,
+          "gpuss-2-thermal": 48.7,
+          "audio-thermal": 49.4,
+          "camss-0-thermal": 50.5,
+          "pcie-0-thermal": 50.5,
+          "cpuss-0-0-thermal": 49.4,
+          "aoss-1-thermal": 49.2,
+          "cpu-0-0-1-thermal": 49.6,
+          "cpu-1-3-0-thermal": 50.1,
+          "cpu-0-1-1-thermal": 49.9,
+          "cpu-0-2-1-thermal": 50.3,
+          "cpu-0-3-1-thermal": 50.3,
+          "gpuss-3-thermal": 48.8,
+          "gpuss-4-thermal": 49.2,
+          "gpuss-5-thermal": 49.2,
+          "video-thermal": 49.9,
+          "camss-1-thermal": 50.3,
+          "pcie-1-thermal": 49.6,
+          "cpuss-0-1-thermal": 49.9,
+          "nsp-0-0-0-thermal": 48.7,
+          "soc-therm": 49.9,
+          "ufs0-therm": 49.9,
+          "xo-therm": 48.9,
+          "sdram-therm": 49.6,
+          "pm8775-0-thermal": 45.0,
+          "pm8775-1-thermal": 46.6,
+          "pm8775-2-thermal": 45.6,
+          "pm8775-3-thermal": 45.9,
+          "pmm8654au_0_mbg_tz": 44.7,
+          "pmm8654au_1_mbg_tz": 46.6,
+          "nsp-0-1-0-thermal": 48.7,
+          "pmm8654au_2_mbg_tz": 45.5,
+          "pmm8654au_3_mbg_tz": 45.7,
+          "nsp-0-2-0-thermal": 49.4,
+          "nsp-1-0-0-thermal": 49.0,
+          "nsp-1-1-0-thermal": 48.7
+        }
+      }
+    }
+  ]
+}

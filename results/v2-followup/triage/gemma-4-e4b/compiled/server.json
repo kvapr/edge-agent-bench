@@ -1,0 +1,24 @@
+{
+  "model": "gemma-4-e4b",
+  "path": "compiled",
+  "server_cmd": "nohup env <env> /root/geniex-v093/geniex-cli-linux-arm64-v0.9.3/geniex --data-dir /root/eab-data-v093 --skip-update --log info serve --host 0.0.0.0:18384 -c npu --nctx 4096 --keepalive 3600 > /root/eab-serve.log 2>&1 &",
+  "server_options": "--nctx 4096 --keepalive 3600",
+  "power_mode": "server default (burst)",
+  "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+  "server_config": "6b19eefca839d466b400128c7117ea1dc850aac121fa3c6e2e936795aba8cd11  /root/eab-data-v093/aihub/platform.json",
+  "artifact": "Gemma-4-E4B-it/gemma_4_e4b_it-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+  "artifact_sha256": "7f6fbfe20371077b735c1c291b03208c1df4f814e0fc8ccf895f1340c737128e",
+  "gguf_source": null,
+  "bundle": {
+    "context": 4096,
+    "parts": 4,
+    "largest_part_gb": 1.507
+  },
+  "served_model_id": "qualcomm/gemma-4-e4b-w4a16",
+  "started": "2026-10-21T17:18:46Z",
+  "load_check": {
+    "load_and_first_reply_s": 6.43,
+    "reply": "{\"id\": \"\", \"choices\": [{\"finish_reason\": \"stop\", \"index\": 0, \"logprobs\": {\"content\": null, \"refusal\": null}, \"message\": {\"content\": \"ok\", \"refusal\": \"\", \"role\": \"assistant\", \"annotations\": null, \"audio\": {\"id\": \"\", \"data\": \"\", \"expires_at\": 0, \"transcript\": \"\"}, \"function_call\": {\"arguments\": \"\", \"n"
+  },
+  "server_log_runtime_lines": "HTP arch v73 detected.\nHTP arch: v73\n"
+}

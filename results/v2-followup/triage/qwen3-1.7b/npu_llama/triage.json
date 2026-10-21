@@ -1,0 +1,1046 @@
+{
+  "summary": {
+    "model": "qualcomm/qwen3-1.7b-q4_0:Q4_0",
+    "url": "http://<board>:18384",
+    "shuffle_seed": null,
+    "n_cases": 6,
+    "by_level": {
+      "level1_queries": {
+        "n": 6,
+        "tool": 6.0,
+        "cmd": 6.0,
+        "params_l": 6.0,
+        "params_s": 6.0,
+        "e2e": 6.0
+      }
+    },
+    "overall_e2e_pct": 100.0,
+    "overall_lenient_pct": 100.0,
+    "overall_strict_pct": 100.0,
+    "tool_sel_pct": 100.0,
+    "median_latency_s": 5.6,
+    "mean_latency_s": 5.34,
+    "repeats": 1,
+    "warmup": 1,
+    "e2e_pct_by_rep": [
+      100.0
+    ],
+    "tool_sel_pct_by_rep": [
+      100.0
+    ],
+    "overall_e2e_std": null,
+    "tool_sel_std": null,
+    "unstable_cases": [],
+    "latency_p95_s": 5.68,
+    "latency_p5_s": 5.02,
+    "latency_p50_s": 5.365,
+    "prompt_tokens_median": 2716.5,
+    "text_tool_call_reps": 0,
+    "label": "model=qwen3-1.7b;path=npu_llama;suite=triage",
+    "thermal": {
+      "n_samples": 2,
+      "interval_s": 20.0,
+      "max_all_c": 61.0,
+      "mean_all_c": 55.4,
+      "max_cpu_c": 57.9,
+      "max_nsp_c": 61.0
+    }
+  },
+  "results": [
+    {
+      "idx": 0,
+      "level": "level1_queries",
+      "input": "@poesw1 show all ports status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_all_ports_status",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status"
+          },
+          "latency_s": 5.128,
+          "prompt_tokens": 2716,
+          "completion_tokens": 34,
+          "usage": {
+            "completion_tokens": 34,
+            "prompt_tokens": 2716,
+            "total_tokens": 2750,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "",
+          "text_tool_call": false,
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2716,
+              "prompt_ms": 3398.808,
+              "prompt_per_second": 799.1036857627734,
+              "predicted_n": 34,
+              "predicted_ms": 1661.885,
+              "predicted_per_second": 20.458695998820616
+            }
+          }
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_all_ports_status"
+      },
+      "content": "",
+      "completion_tokens": 34,
+      "prompt_tokens": 2716,
+      "text_tool_call_reps": 0,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        5.128
+      ],
+      "latency_s": 5.13,
+      "latency_mean_s": 5.128,
+      "latency_std_s": null,
+      "pass_count": 1,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 1,
+      "level": "level1_queries",
+      "input": "@poesw1 show port 5 status",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/5"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/5"
+            }
+          },
+          "latency_s": 5.607,
+          "prompt_tokens": 2717,
+          "completion_tokens": 45,
+          "usage": {
+            "completion_tokens": 45,
+            "prompt_tokens": 2717,
+            "total_tokens": 2762,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "",
+          "text_tool_call": false,
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2717,
+              "prompt_ms": 3395.992,
+              "prompt_per_second": 800.0607775283333,
+              "predicted_n": 45,
+              "predicted_ms": 2149.403,
+              "predicted_per_second": 20.936045962530063
+            }
+          }
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/5"
+        }
+      },
+      "content": "",
+      "completion_tokens": 45,
+      "prompt_tokens": 2717,
+      "text_tool_call_reps": 0,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        5.607
+      ],
+      "latency_s": 5.61,
+      "latency_mean_s": 5.607,
+      "latency_std_s": null,
+      "pass_count": 1,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 2,
+      "level": "level1_queries",
+      "input": "@poesw1 show system info",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_system_info",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_system_info"
+          },
+          "latency_s": 5.02,
+          "prompt_tokens": 2715,
+          "completion_tokens": 33,
+          "usage": {
+            "completion_tokens": 33,
+            "prompt_tokens": 2715,
+            "total_tokens": 2748,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "",
+          "text_tool_call": false,
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2715,
+              "prompt_ms": 3392.437,
+              "prompt_per_second": 800.3096299209093,
+              "predicted_n": 33,
+              "predicted_ms": 1589.955,
+              "predicted_per_second": 20.755304395407418
+            }
+          }
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_system_info"
+      },
+      "content": "",
+      "completion_tokens": 33,
+      "prompt_tokens": 2715,
+      "text_tool_call_reps": 0,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        5.02
+      ],
+      "latency_s": 5.02,
+      "latency_mean_s": 5.02,
+      "latency_std_s": null,
+      "pass_count": 1,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 3,
+      "level": "level1_queries",
+      "input": "@poesw1 show poe status port 3",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_poe_status",
+      "expected_params": {
+        "port": "1/3"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_poe_status",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "latency_s": 5.683,
+          "prompt_tokens": 2719,
+          "completion_tokens": 46,
+          "usage": {
+            "completion_tokens": 46,
+            "prompt_tokens": 2719,
+            "total_tokens": 2765,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "",
+          "text_tool_call": false,
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2719,
+              "prompt_ms": 3399.723,
+              "prompt_per_second": 799.7710401700374,
+              "predicted_n": 46,
+              "predicted_ms": 2243.46,
+              "predicted_per_second": 20.504042862364386
+            }
+          }
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_poe_status",
+        "parameters": {
+          "port": "1/3"
+        }
+      },
+      "content": "",
+      "completion_tokens": 46,
+      "prompt_tokens": 2719,
+      "text_tool_call_reps": 0,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        5.683
+      ],
+      "latency_s": 5.68,
+      "latency_mean_s": 5.683,
+      "latency_std_s": null,
+      "pass_count": 1,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 4,
+      "level": "level1_queries",
+      "input": "@poesw1 show vlan config",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_vlan_config",
+      "expected_params": {},
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_vlan_config"
+          },
+          "latency_s": 5.031,
+          "prompt_tokens": 2715,
+          "completion_tokens": 33,
+          "usage": {
+            "completion_tokens": 33,
+            "prompt_tokens": 2715,
+            "total_tokens": 2748,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "",
+          "text_tool_call": false,
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2715,
+              "prompt_ms": 3400.114,
+              "prompt_per_second": 798.5026384409464,
+              "predicted_n": 33,
+              "predicted_ms": 1592.306,
+              "predicted_per_second": 20.724659707367806
+            }
+          }
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_vlan_config"
+      },
+      "content": "",
+      "completion_tokens": 33,
+      "prompt_tokens": 2715,
+      "text_tool_call_reps": 0,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        5.031
+      ],
+      "latency_s": 5.03,
+      "latency_mean_s": 5.031,
+      "latency_std_s": null,
+      "pass_count": 1,
+      "n_reps": 1,
+      "stable": true
+    },
+    {
+      "idx": 5,
+      "level": "level1_queries",
+      "input": "@poesw1 display port 2 details",
+      "expected_tool": "query_device_info",
+      "expected_command": "show_port_status",
+      "expected_params": {
+        "port": "1/2"
+      },
+      "reps": [
+        {
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_port_status",
+            "parameters": {
+              "port": "1/2"
+            }
+          },
+          "latency_s": 5.601,
+          "prompt_tokens": 2717,
+          "completion_tokens": 45,
+          "usage": {
+            "completion_tokens": 45,
+            "prompt_tokens": 2717,
+            "total_tokens": 2762,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0,
+              "text_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "image_tokens": 0,
+              "text_tokens": 0
+            }
+          },
+          "content": "",
+          "text_tool_call": false,
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true,
+          "server_extra": {
+            "metadata": null,
+            "moderation": {
+              "input": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              },
+              "output": {
+                "model": "",
+                "results": null,
+                "type": "",
+                "code": "",
+                "message": ""
+              }
+            },
+            "service_tier": "",
+            "timings": {
+              "prompt_n": 2717,
+              "prompt_ms": 3391.322,
+              "prompt_per_second": 801.1624965131591,
+              "predicted_n": 45,
+              "predicted_ms": 2170.138,
+              "predicted_per_second": 20.73600849346908
+            }
+          }
+        }
+      ],
+      "got_tool": "query_device_info",
+      "got_args": {
+        "device_name": "poesw1",
+        "command_name": "show_port_status",
+        "parameters": {
+          "port": "1/2"
+        }
+      },
+      "content": "",
+      "completion_tokens": 45,
+      "prompt_tokens": 2717,
+      "text_tool_call_reps": 0,
+      "ok_tool": true,
+      "ok_command": true,
+      "ok_params_strict": true,
+      "ok_params_lenient": true,
+      "ok_device": true,
+      "latencies_s": [
+        5.601
+      ],
+      "latency_s": 5.6,
+      "latency_mean_s": 5.601,
+      "latency_std_s": null,
+      "pass_count": 1,
+      "n_reps": 1,
+      "stable": true
+    }
+  ],
+  "provenance": {
+    "schema_version": 3,
+    "harness_version": "2.0",
+    "label": "model=qwen3-1.7b;path=npu_llama;suite=triage",
+    "system_prompt": "You are a network device management assistant for managed PoE switches.\n\nConventions:\n- Messages may start with @<device_name> (e.g. @poesw1). That is the target device: pass its name\n  without the @ as device_name: '@poesw1' -> {\"device_name\": \"poesw1\"}.\n- Read-only status/monitoring queries -> query_device_info.\n- Configuration changes (enable/disable/set/assign/configure) -> configure_device_setting.\n- Port troubleshooting, syslog, events -> diagnose_port_issues.\n- How-to / documentation questions -> search_documentation.\n\nCRITICAL parameter rules:\n- Port numbers use the '1/N' string format: 'port 5' -> {\"port\": \"1/5\"}, 'interface 12' -> {\"port\": \"1/12\"}.\n- VLAN IDs are integers: 'vlan 10' -> {\"vlan_id\": 10}.\n- PoE power limits are integers (watts): '25W' or '25 watts' -> {\"power_limit\": 25}.\n- Speeds and duplex are strings: '1000', '100', '10', 'auto', 'full', 'half'.\n- Port descriptions keep the user's text verbatim.\n\nCommon command_name values for configure_device_setting:\nenable_port (port), disable_port (port), configure_poe_mode (port, mode: enable|disable),\nconfigure_port_speed (port, speed), configure_port_duplex (port, duplex),\nconfigure_access_vlan (port, vlan_id), configure_poe_power_limit (port, power_limit),\nset_port_description (port, description), configure_trunk_allowed_vlans (port, action, vlan_list), create_vlan (vlan_id).\n\nCommon command_name values for query_device_info:\nshow_port_status (port), show_all_ports_status, show_poe_status (port), show_all_poe_status,\nshow_poe_config (port), show_all_poe_config, show_poe_power_budget, show_cable_diagnostics (port),\nshow_all_cable_diagnostics, show_vlan_config, show_vlan_membership, show_system_info, show_ip_interface.\n\nAlways respond with exactly one tool call for actionable requests. Do not ask for\nconfirmation; the system handles confirmation of configuration changes itself.\n",
+    "system_prompt_sha256": "d6ca8d60a4f442139658aa411e01a1f4d5e0163efa8c88c64e3f982011a80d92",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "timestamp_utc": "2026-10-21T17:09:03.397720+00:00",
+    "host": "client",
+    "python": "3.12.3",
+    "harness_sha256": "48cc06c22c8cf7d6d14e8f23e1e0aadf32933c1776a9354402fee0b8bd90cce5",
+    "cases_file": "suites/test_cases.yaml",
+    "cases_sha256": "414bd0afe130d501adfb3038963f55b2151390a336de257f7646a6561d4a7a52",
+    "tools_source": "suites/tools_nested.json",
+    "tools_sha256": "026834d9cc4addeddd9b562d042d76c127f44823c8a5997e36150ee3ddf8a2fd",
+    "tool_names": [
+      "query_device_info",
+      "search_documentation",
+      "diagnose_port_issues",
+      "configure_device_setting"
+    ],
+    "request_config": {
+      "temperature": 0,
+      "max_tokens": 512,
+      "extra_body": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "enable_think": false
+      },
+      "omit_params": []
+    },
+    "endpoint_models": {
+      "data": [
+        {
+          "id": "qualcomm/qwen3-1.7b-q4_0:Q4_0",
+          "created": 0,
+          "object": "model",
+          "owned_by": "qualcomm",
+          "shutdown_date": "0001-01-01T00:00:00Z"
+        }
+      ],
+      "object": "list"
+    },
+    "board": {
+      "os": {
+        "VERSION_ID": "1.6-ver.1.2.1",
+        "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+      },
+      "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+      "loadavg": "3.31 2.83 1.21 1/586 2042386",
+      "containers": [],
+      "gx_container_geniex_version": [],
+      "thermal_max_c": {
+        "cpu": 49.7,
+        "nsp": 48.7,
+        "all": 49.7
+      },
+      "cpu_busy": 0.011,
+      "thermal_zones": {
+        "aoss-2-thermal": 48.3,
+        "cpu-1-0-0-thermal": 48.7,
+        "nsp-1-2-0-thermal": 48.3,
+        "ddrss-0-thermal": 49.0,
+        "cpuss-1-0-thermal": 49.4,
+        "aoss-3-thermal": 47.9,
+        "cpu-1-0-1-thermal": 49.7,
+        "cpu-1-1-1-thermal": 49.4,
+        "cpu-1-2-1-thermal": 49.0,
+        "cpu-1-3-1-thermal": 49.4,
+        "nsp-0-0-1-thermal": 48.3,
+        "nsp-0-1-1-thermal": 47.9,
+        "cpu-1-1-0-thermal": 49.0,
+        "nsp-0-2-1-thermal": 47.9,
+        "nsp-1-0-1-thermal": 47.9,
+        "nsp-1-1-1-thermal": 48.3,
+        "nsp-1-2-1-thermal": 48.3,
+        "ddrss-1-thermal": 49.4,
+        "cpuss-1-1-thermal": 49.4,
+        "aoss-0-thermal": 47.9,
+        "cpu-0-0-0-thermal": 48.7,
+        "cpu-0-1-0-thermal": 48.7,
+        "cpu-0-2-0-thermal": 48.3,
+        "cpu-1-2-0-thermal": 49.0,
+        "cpu-0-3-0-thermal": 49.0,
+        "gpuss-0-thermal": 47.2,
+        "gpuss-1-thermal": 47.2,
+        "gpuss-2-thermal": 47.2,
+        "audio-thermal": 48.3,
+        "camss-0-thermal": 49.0,
+        "pcie-0-thermal": 48.7,
+        "cpuss-0-0-thermal": 49.0,
+        "aoss-1-thermal": 48.1,
+        "cpu-0-0-1-thermal": 48.8,
+        "cpu-1-3-0-thermal": 49.4,
+        "cpu-0-1-1-thermal": 48.8,
+        "cpu-0-2-1-thermal": 49.6,
+        "cpu-0-3-1-thermal": 49.2,
+        "gpuss-3-thermal": 47.7,
+        "gpuss-4-thermal": 47.4,
+        "gpuss-5-thermal": 47.7,
+        "video-thermal": 48.8,
+        "camss-1-thermal": 48.5,
+        "pcie-1-thermal": 48.1,
+        "cpuss-0-1-thermal": 49.6,
+        "nsp-0-0-0-thermal": 47.2,
+        "soc-therm": 49.0,
+        "ufs0-therm": 48.6,
+        "xo-therm": 48.0,
+        "sdram-therm": 48.4,
+        "pm8775-0-thermal": 43.9,
+        "pm8775-1-thermal": 45.8,
+        "pm8775-2-thermal": 44.3,
+        "pm8775-3-thermal": 45.4,
+        "pmm8654au_0_mbg_tz": 44.0,
+        "pmm8654au_1_mbg_tz": 45.9,
+        "nsp-0-1-0-thermal": 47.9,
+        "pmm8654au_2_mbg_tz": 44.1,
+        "pmm8654au_3_mbg_tz": 45.3,
+        "nsp-0-2-0-thermal": 48.7,
+        "nsp-1-0-0-thermal": 47.6,
+        "nsp-1-1-0-thermal": 47.9
+      }
+    },
+    "board_after": {
+      "os": {
+        "VERSION_ID": "1.6-ver.1.2.1",
+        "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+      },
+      "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+      "loadavg": "3.97 3.05 1.35 1/586 2043228",
+      "containers": [],
+      "gx_container_geniex_version": [],
+      "thermal_max_c": {
+        "cpu": 53.0,
+        "nsp": 51.6,
+        "all": 53.4
+      },
+      "cpu_busy": 0.005,
+      "thermal_zones": {
+        "aoss-2-thermal": 52.3,
+        "cpu-1-0-0-thermal": 53.0,
+        "nsp-1-2-0-thermal": 51.6,
+        "ddrss-0-thermal": 53.4,
+        "cpuss-1-0-thermal": 53.0,
+        "aoss-3-thermal": 51.9,
+        "cpu-1-0-1-thermal": 53.0,
+        "cpu-1-1-1-thermal": 52.7,
+        "cpu-1-2-1-thermal": 52.7,
+        "cpu-1-3-1-thermal": 52.7,
+        "nsp-0-0-1-thermal": 51.6,
+        "nsp-0-1-1-thermal": 51.6,
+        "cpu-1-1-0-thermal": 52.3,
+        "nsp-0-2-1-thermal": 51.6,
+        "nsp-1-0-1-thermal": 51.2,
+        "nsp-1-1-1-thermal": 51.6,
+        "nsp-1-2-1-thermal": 51.6,
+        "ddrss-1-thermal": 53.4,
+        "cpuss-1-1-thermal": 52.7,
+        "aoss-0-thermal": 51.6,
+        "cpu-0-0-0-thermal": 52.3,
+        "cpu-0-1-0-thermal": 52.0,
+        "cpu-0-2-0-thermal": 51.6,
+        "cpu-1-2-0-thermal": 52.3,
+        "cpu-0-3-0-thermal": 52.0,
+        "gpuss-0-thermal": 50.5,
+        "gpuss-1-thermal": 50.5,
+        "gpuss-2-thermal": 50.5,
+        "audio-thermal": 51.6,
+        "camss-0-thermal": 52.0,
+        "pcie-0-thermal": 52.0,
+        "cpuss-0-0-thermal": 52.0,
+        "aoss-1-thermal": 51.4,
+        "cpu-0-0-1-thermal": 51.7,
+        "cpu-1-3-0-thermal": 51.9,
+        "cpu-0-1-1-thermal": 52.8,
+        "cpu-0-2-1-thermal": 51.4,
+        "cpu-0-3-1-thermal": 51.7,
+        "gpuss-3-thermal": 50.6,
+        "gpuss-4-thermal": 50.3,
+        "gpuss-5-thermal": 51.0,
+        "video-thermal": 51.7,
+        "camss-1-thermal": 52.1,
+        "pcie-1-thermal": 51.0,
+        "cpuss-0-1-thermal": 52.1,
+        "nsp-0-0-0-thermal": 50.8,
+        "soc-therm": 50.7,
+        "ufs0-therm": 50.0,
+        "xo-therm": 49.1,
+        "sdram-therm": 50.4,
+        "pm8775-0-thermal": 45.1,
+        "pm8775-1-thermal": 47.9,
+        "pm8775-2-thermal": 46.2,
+        "pm8775-3-thermal": 46.7,
+        "pmm8654au_0_mbg_tz": 45.1,
+        "pmm8654au_1_mbg_tz": 47.7,
+        "nsp-0-1-0-thermal": 50.8,
+        "pmm8654au_2_mbg_tz": 46.1,
+        "pmm8654au_3_mbg_tz": 46.7,
+        "nsp-0-2-0-thermal": 51.6,
+        "nsp-1-0-0-thermal": 50.5,
+        "nsp-1-1-0-thermal": 50.8
+      }
+    }
+  },
+  "thermal_trace": [
+    {
+      "t_s": 0.5,
+      "all": 49.7,
+      "cpu": 49.7,
+      "nsp": 48.7,
+      "load1": 3.6
+    },
+    {
+      "t_s": 20.9,
+      "all": 61.0,
+      "cpu": 57.9,
+      "nsp": 61.0,
+      "load1": 3.27
+    }
+  ],
+  "readiness": [
+    {
+      "before": "warmup",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "3.31 2.83 1.21 1/586 2042386",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 49.7,
+          "nsp": 48.7,
+          "all": 49.7
+        },
+        "cpu_busy": 0.011,
+        "thermal_zones": {
+          "aoss-2-thermal": 48.3,
+          "cpu-1-0-0-thermal": 48.7,
+          "nsp-1-2-0-thermal": 48.3,
+          "ddrss-0-thermal": 49.0,
+          "cpuss-1-0-thermal": 49.4,
+          "aoss-3-thermal": 47.9,
+          "cpu-1-0-1-thermal": 49.7,
+          "cpu-1-1-1-thermal": 49.4,
+          "cpu-1-2-1-thermal": 49.0,
+          "cpu-1-3-1-thermal": 49.4,
+          "nsp-0-0-1-thermal": 48.3,
+          "nsp-0-1-1-thermal": 47.9,
+          "cpu-1-1-0-thermal": 49.0,
+          "nsp-0-2-1-thermal": 47.9,
+          "nsp-1-0-1-thermal": 47.9,
+          "nsp-1-1-1-thermal": 48.3,
+          "nsp-1-2-1-thermal": 48.3,
+          "ddrss-1-thermal": 49.4,
+          "cpuss-1-1-thermal": 49.4,
+          "aoss-0-thermal": 47.9,
+          "cpu-0-0-0-thermal": 48.7,
+          "cpu-0-1-0-thermal": 48.7,
+          "cpu-0-2-0-thermal": 48.3,
+          "cpu-1-2-0-thermal": 49.0,
+          "cpu-0-3-0-thermal": 49.0,
+          "gpuss-0-thermal": 47.2,
+          "gpuss-1-thermal": 47.2,
+          "gpuss-2-thermal": 47.2,
+          "audio-thermal": 48.3,
+          "camss-0-thermal": 49.0,
+          "pcie-0-thermal": 48.7,
+          "cpuss-0-0-thermal": 49.0,
+          "aoss-1-thermal": 48.1,
+          "cpu-0-0-1-thermal": 48.8,
+          "cpu-1-3-0-thermal": 49.4,
+          "cpu-0-1-1-thermal": 48.8,
+          "cpu-0-2-1-thermal": 49.6,
+          "cpu-0-3-1-thermal": 49.2,
+          "gpuss-3-thermal": 47.7,
+          "gpuss-4-thermal": 47.4,
+          "gpuss-5-thermal": 47.7,
+          "video-thermal": 48.8,
+          "camss-1-thermal": 48.5,
+          "pcie-1-thermal": 48.1,
+          "cpuss-0-1-thermal": 49.6,
+          "nsp-0-0-0-thermal": 47.2,
+          "soc-therm": 49.0,
+          "ufs0-therm": 48.6,
+          "xo-therm": 48.0,
+          "sdram-therm": 48.4,
+          "pm8775-0-thermal": 43.9,
+          "pm8775-1-thermal": 45.8,
+          "pm8775-2-thermal": 44.3,
+          "pm8775-3-thermal": 45.4,
+          "pmm8654au_0_mbg_tz": 44.0,
+          "pmm8654au_1_mbg_tz": 45.9,
+          "nsp-0-1-0-thermal": 47.9,
+          "pmm8654au_2_mbg_tz": 44.1,
+          "pmm8654au_3_mbg_tz": 45.3,
+          "nsp-0-2-0-thermal": 48.7,
+          "nsp-1-0-0-thermal": 47.6,
+          "nsp-1-1-0-thermal": 47.9
+        }
+      }
+    },
+    {
+      "before": "rep1",
+      "snapshot": {
+        "os": {
+          "VERSION_ID": "1.6-ver.1.2.1",
+          "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+        },
+        "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+        "loadavg": "3.12 2.80 1.21 1/585 2042665",
+        "containers": [],
+        "gx_container_geniex_version": [],
+        "thermal_max_c": {
+          "cpu": 51.9,
+          "nsp": 50.5,
+          "all": 51.9
+        },
+        "cpu_busy": 0.002,
+        "thermal_zones": {
+          "aoss-2-thermal": 50.8,
+          "cpu-1-0-0-thermal": 51.6,
+          "nsp-1-2-0-thermal": 50.1,
+          "ddrss-0-thermal": 51.9,
+          "cpuss-1-0-thermal": 51.9,
+          "aoss-3-thermal": 50.8,
+          "cpu-1-0-1-thermal": 51.6,
+          "cpu-1-1-1-thermal": 51.6,
+          "cpu-1-2-1-thermal": 51.2,
+          "cpu-1-3-1-thermal": 51.6,
+          "nsp-0-0-1-thermal": 50.1,
+          "nsp-0-1-1-thermal": 50.1,
+          "cpu-1-1-0-thermal": 50.8,
+          "nsp-0-2-1-thermal": 50.5,
+          "nsp-1-0-1-thermal": 49.7,
+          "nsp-1-1-1-thermal": 50.1,
+          "nsp-1-2-1-thermal": 50.5,
+          "ddrss-1-thermal": 51.6,
+          "cpuss-1-1-thermal": 51.6,
+          "aoss-0-thermal": 50.1,
+          "cpu-0-0-0-thermal": 50.9,
+          "cpu-0-1-0-thermal": 50.5,
+          "cpu-0-2-0-thermal": 50.1,
+          "cpu-1-2-0-thermal": 50.5,
+          "cpu-0-3-0-thermal": 50.5,
+          "gpuss-0-thermal": 49.0,
+          "gpuss-1-thermal": 48.7,
+          "gpuss-2-thermal": 49.0,
+          "audio-thermal": 50.1,
+          "camss-0-thermal": 50.9,
+          "pcie-0-thermal": 50.5,
+          "cpuss-0-0-thermal": 50.5,
+          "aoss-1-thermal": 50.3,
+          "cpu-0-0-1-thermal": 50.3,
+          "cpu-1-3-0-thermal": 50.8,
+          "cpu-0-1-1-thermal": 51.0,
+          "cpu-0-2-1-thermal": 50.6,
+          "cpu-0-3-1-thermal": 51.0,
+          "gpuss-3-thermal": 49.2,
+          "gpuss-4-thermal": 48.8,
+          "gpuss-5-thermal": 49.2,
+          "video-thermal": 50.3,
+          "camss-1-thermal": 50.6,
+          "pcie-1-thermal": 49.9,
+          "cpuss-0-1-thermal": 50.6,
+          "nsp-0-0-0-thermal": 49.4,
+          "soc-therm": 49.5,
+          "ufs0-therm": 48.8,
+          "xo-therm": 48.0,
+          "sdram-therm": 48.9,
+          "pm8775-0-thermal": 44.1,
+          "pm8775-1-thermal": 46.6,
+          "pm8775-2-thermal": 44.9,
+          "pm8775-3-thermal": 45.5,
+          "pmm8654au_0_mbg_tz": 44.1,
+          "pmm8654au_1_mbg_tz": 46.6,
+          "nsp-0-1-0-thermal": 49.4,
+          "pmm8654au_2_mbg_tz": 44.9,
+          "pmm8654au_3_mbg_tz": 45.7,
+          "nsp-0-2-0-thermal": 50.1,
+          "nsp-1-0-0-thermal": 49.0,
+          "nsp-1-1-0-thermal": 49.0
+        }
+      }
+    }
+  ]
+}

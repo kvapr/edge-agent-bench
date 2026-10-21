@@ -1,0 +1,2464 @@
+{
+  "provenance": {
+    "label": "model=qwen3-4b-2507;path=compiled;suite=sweep_length",
+    "diagnostic_mode": "length_sweep",
+    "diagnostic_wrapper_sha256": "1c444c5ac880ec7a649d0da3450c3ffdff3e05040dff32b3d25306ab75797d3f",
+    "harness_sha256": "48cc06c22c8cf7d6d14e8f23e1e0aadf32933c1776a9354402fee0b8bd90cce5",
+    "system_prompt_sha256": "d6ca8d60a4f442139658aa411e01a1f4d5e0163efa8c88c64e3f982011a80d92",
+    "cases_file": "suites/test_cases.yaml",
+    "cases_sha256": "414bd0afe130d501adfb3038963f55b2151390a336de257f7646a6561d4a7a52",
+    "tools_sha256": "026834d9cc4addeddd9b562d042d76c127f44823c8a5997e36150ee3ddf8a2fd",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "endpoint_models": {
+      "data": [
+        {
+          "id": "qualcomm/qwen3-4b-2507-w4a16:w4a16",
+          "created": 0,
+          "object": "model",
+          "owned_by": "qualcomm",
+          "shutdown_date": "0001-01-01T00:00:00Z"
+        }
+      ],
+      "object": "list"
+    },
+    "timestamp_utc": "2026-10-21T19:08:08.276277+00:00",
+    "host": "client",
+    "request_config": {
+      "temperature": 0,
+      "max_tokens": 512,
+      "extra_body": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "enable_think": false
+      }
+    },
+    "readiness": [
+      {
+        "before": "sweep",
+        "snapshot": {
+          "os": {
+            "VERSION_ID": "1.6-ver.1.2.1",
+            "PRETTY_NAME": "Qualcomm Linux 1.6-ver.1.2.1"
+          },
+          "kernel": "6.6.97-qli-1.6-ver.1.2.1-05029-g53c11c30e98d-dirty",
+          "loadavg": "1.23 0.43 0.17 1/577 2075379",
+          "containers": [],
+          "gx_container_geniex_version": [],
+          "thermal_max_c": {
+            "cpu": 44.3,
+            "nsp": 43.6,
+            "all": 45.1
+          },
+          "cpu_busy": 0.007,
+          "thermal_zones": {
+            "aoss-2-thermal": 43.2,
+            "cpu-1-0-0-thermal": 43.9,
+            "nsp-1-2-0-thermal": 43.2,
+            "ddrss-0-thermal": 43.6,
+            "cpuss-1-0-thermal": 44.3,
+            "aoss-3-thermal": 42.8,
+            "cpu-1-0-1-thermal": 44.3,
+            "cpu-1-1-1-thermal": 43.9,
+            "cpu-1-2-1-thermal": 43.6,
+            "cpu-1-3-1-thermal": 43.9,
+            "nsp-0-0-1-thermal": 42.8,
+            "nsp-0-1-1-thermal": 42.8,
+            "cpu-1-1-0-thermal": 43.2,
+            "nsp-0-2-1-thermal": 42.8,
+            "nsp-1-0-1-thermal": 42.8,
+            "nsp-1-1-1-thermal": 43.2,
+            "nsp-1-2-1-thermal": 43.6,
+            "ddrss-1-thermal": 44.3,
+            "cpuss-1-1-thermal": 43.9,
+            "aoss-0-thermal": 42.8,
+            "cpu-0-0-0-thermal": 43.2,
+            "cpu-0-1-0-thermal": 42.4,
+            "cpu-0-2-0-thermal": 42.4,
+            "cpu-1-2-0-thermal": 43.6,
+            "cpu-0-3-0-thermal": 43.2,
+            "gpuss-0-thermal": 42.4,
+            "gpuss-1-thermal": 42.4,
+            "gpuss-2-thermal": 42.1,
+            "audio-thermal": 42.8,
+            "camss-0-thermal": 43.5,
+            "pcie-0-thermal": 43.5,
+            "cpuss-0-0-thermal": 43.2,
+            "aoss-1-thermal": 42.6,
+            "cpu-0-0-1-thermal": 43.4,
+            "cpu-1-3-0-thermal": 43.9,
+            "cpu-0-1-1-thermal": 43.0,
+            "cpu-0-2-1-thermal": 43.0,
+            "cpu-0-3-1-thermal": 44.1,
+            "gpuss-3-thermal": 42.6,
+            "gpuss-4-thermal": 42.3,
+            "gpuss-5-thermal": 43.0,
+            "video-thermal": 43.4,
+            "camss-1-thermal": 44.1,
+            "pcie-1-thermal": 43.0,
+            "cpuss-0-1-thermal": 43.4,
+            "nsp-0-0-0-thermal": 42.1,
+            "soc-therm": 44.3,
+            "ufs0-therm": 45.1,
+            "xo-therm": 43.6,
+            "sdram-therm": 43.5,
+            "pm8775-0-thermal": 39.3,
+            "pm8775-1-thermal": 41.2,
+            "pm8775-2-thermal": 39.6,
+            "pm8775-3-thermal": 40.6,
+            "pmm8654au_0_mbg_tz": 39.5,
+            "pmm8654au_1_mbg_tz": 41.3,
+            "nsp-0-1-0-thermal": 42.5,
+            "pmm8654au_2_mbg_tz": 39.7,
+            "pmm8654au_3_mbg_tz": 40.5,
+            "nsp-0-2-0-thermal": 42.8,
+            "nsp-1-0-0-thermal": 42.8,
+            "nsp-1-1-0-thermal": 42.5
+          }
+        }
+      }
+    ]
+  },
+  "summary": {
+    "cases": 4,
+    "by_series_and_target": {
+      "compact unpadded": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          217,
+          209,
+          216,
+          219
+        ]
+      },
+      "compact 500": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          499,
+          511,
+          498,
+          501
+        ]
+      },
+      "compact 700": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          699,
+          691,
+          698,
+          701
+        ]
+      },
+      "compact 900": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          899,
+          891,
+          898,
+          901
+        ]
+      },
+      "compact 1000": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          999,
+          991,
+          998,
+          1001
+        ]
+      },
+      "compact 1100": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1099,
+          1091,
+          1098,
+          1101
+        ]
+      },
+      "compact 1200": {
+        "structured": 3,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1199,
+          1191,
+          1198,
+          1201
+        ]
+      },
+      "compact 1300": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1299,
+          1291,
+          1298,
+          1301
+        ]
+      },
+      "compact 1400": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1399,
+          1391,
+          1398,
+          1401
+        ]
+      },
+      "compact 1600": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1599,
+          1591,
+          1598,
+          1601
+        ]
+      },
+      "compact 2000": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          1999,
+          1991,
+          1998,
+          2001
+        ]
+      },
+      "compact 2400": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          2409,
+          2401,
+          2408,
+          2411
+        ]
+      },
+      "compact 2800": {
+        "structured": 4,
+        "passed": 0,
+        "n": 4,
+        "prompt_tokens": [
+          2829,
+          2821,
+          2828,
+          2831
+        ]
+      },
+      "benchmark unpadded": {
+        "structured": 3,
+        "passed": 3,
+        "n": 4,
+        "prompt_tokens": [
+          1129,
+          1340,
+          1347,
+          1350
+        ]
+      },
+      "benchmark 1200": {
+        "structured": 1,
+        "passed": 1,
+        "n": 1,
+        "prompt_tokens": [
+          1216
+        ]
+      },
+      "benchmark 1300": {
+        "structured": 1,
+        "passed": 1,
+        "n": 1,
+        "prompt_tokens": [
+          1311
+        ]
+      },
+      "benchmark 1400": {
+        "structured": 4,
+        "passed": 4,
+        "n": 4,
+        "prompt_tokens": [
+          1411,
+          1408,
+          1415,
+          1399
+        ]
+      },
+      "benchmark 1600": {
+        "structured": 4,
+        "passed": 4,
+        "n": 4,
+        "prompt_tokens": [
+          1591,
+          1602,
+          1609,
+          1592
+        ]
+      },
+      "benchmark 2000": {
+        "structured": 3,
+        "passed": 3,
+        "n": 4,
+        "prompt_tokens": [
+          1991,
+          2002,
+          2009,
+          1992
+        ]
+      },
+      "benchmark 2400": {
+        "structured": 4,
+        "passed": 4,
+        "n": 4,
+        "prompt_tokens": [
+          2391,
+          2402,
+          2409,
+          2392
+        ]
+      },
+      "benchmark 2800": {
+        "structured": 4,
+        "passed": 4,
+        "n": 4,
+        "prompt_tokens": [
+          2791,
+          2802,
+          2789,
+          2792
+        ]
+      }
+    },
+    "reference_passed": 4
+  },
+  "results": [
+    {
+      "series": "compact",
+      "case": "@poesw1 show all ports status",
+      "level": "level1_queries",
+      "expected_tool": "query_device_info",
+      "tokens_per_padding_line": 20.05,
+      "sweep": [
+        {
+          "target": 217,
+          "padding_lines": 0,
+          "prompt_tokens": 217,
+          "completion_tokens": 39,
+          "latency_s": 2.477,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show ports",
+            "device_name": "poesw1"
+          },
+          "content": "ФРАГИ\n\nФРАГИ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 500,
+          "padding_lines": 14,
+          "prompt_tokens": 499,
+          "completion_tokens": 35,
+          "latency_s": 2.539,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show all ports status"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 700,
+          "padding_lines": 24,
+          "prompt_tokens": 699,
+          "completion_tokens": 49,
+          "latency_s": 3.646,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show",
+            "device_name": "poesw1",
+            "parameters": {
+              "show_type": "ports",
+              "status": "all"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 900,
+          "padding_lines": 34,
+          "prompt_tokens": 899,
+          "completion_tokens": 45,
+          "latency_s": 3.972,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show all ports status"
+          },
+          "content": "ФРАГИДО\n\nФРАГИДО",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1000,
+          "padding_lines": 39,
+          "prompt_tokens": 999,
+          "completion_tokens": 46,
+          "latency_s": 4.05,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show all ports status"
+          },
+          "content": "ФРАГМЕНТ  \n  \nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1100,
+          "padding_lines": 44,
+          "prompt_tokens": 1099,
+          "completion_tokens": 46,
+          "latency_s": 4.18,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show",
+            "device_name": "poesw1",
+            "parameters": {
+              "detail": "all"
+            }
+          },
+          "content": "ФРАГИДО\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1200,
+          "padding_lines": 49,
+          "prompt_tokens": 1199,
+          "completion_tokens": 33,
+          "latency_s": 3.426,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show ports",
+            "device_name": "poesw1"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1300,
+          "padding_lines": 54,
+          "prompt_tokens": 1299,
+          "completion_tokens": 67,
+          "latency_s": 5.867,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show",
+            "device_name": "poesw1",
+            "parameters": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "content": "ФОРИФИГАТЕ\n\nФОРИФИГАТЕ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 59,
+          "prompt_tokens": 1399,
+          "completion_tokens": 52,
+          "latency_s": 4.86,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show",
+            "device_name": "poesw1",
+            "parameters": {
+              "show_ports": true
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 69,
+          "prompt_tokens": 1599,
+          "completion_tokens": 54,
+          "latency_s": 5.175,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show",
+            "parameters": {
+              "action": "all_ports",
+              "status": "status"
+            }
+          },
+          "content": "ФОРОТИГИ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2000,
+          "padding_lines": 89,
+          "prompt_tokens": 1999,
+          "completion_tokens": 53,
+          "latency_s": 5.986,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show",
+            "device_name": "poesw1",
+            "parameters": {
+              "show_type": "ports",
+              "status": "all"
+            }
+          },
+          "content": "ФРАГИЦИ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2400,
+          "padding_lines": 109,
+          "prompt_tokens": 2409,
+          "completion_tokens": 43,
+          "latency_s": 5.708,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show",
+            "device_name": "poesw1",
+            "parameters": {
+              "status": "all ports"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2800,
+          "padding_lines": 129,
+          "prompt_tokens": 2829,
+          "completion_tokens": 53,
+          "latency_s": 7.061,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show",
+            "device_name": "poesw1",
+            "parameters": {
+              "show_all_ports": true
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        }
+      ]
+    },
+    {
+      "series": "compact",
+      "case": "@poesw1 enable port 3",
+      "level": "level2_enable_disable",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.05,
+      "sweep": [
+        {
+          "target": 209,
+          "padding_lines": 0,
+          "prompt_tokens": 209,
+          "completion_tokens": 47,
+          "latency_s": 2.926,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "ФРАГИВИД\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 500,
+          "padding_lines": 15,
+          "prompt_tokens": 511,
+          "completion_tokens": 41,
+          "latency_s": 2.896,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 700,
+          "padding_lines": 24,
+          "prompt_tokens": 691,
+          "completion_tokens": 52,
+          "latency_s": 3.661,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "@poesw1 enable port 3\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 900,
+          "padding_lines": 34,
+          "prompt_tokens": 891,
+          "completion_tokens": 53,
+          "latency_s": 3.958,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "ФРАГИЗО  \n  \nФРАГИЗО",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1000,
+          "padding_lines": 39,
+          "prompt_tokens": 991,
+          "completion_tokens": 52,
+          "latency_s": 4.468,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1100,
+          "padding_lines": 44,
+          "prompt_tokens": 1091,
+          "completion_tokens": 94,
+          "latency_s": 7.388,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "ФРАГИЗОВА\n\nФРАГИЗОВ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1200,
+          "padding_lines": 49,
+          "prompt_tokens": 1191,
+          "completion_tokens": 47,
+          "latency_s": 4.351,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "ФРАГИСОВ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1300,
+          "padding_lines": 54,
+          "prompt_tokens": 1291,
+          "completion_tokens": 44,
+          "latency_s": 4.264,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "ФРАГИ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 59,
+          "prompt_tokens": 1391,
+          "completion_tokens": 52,
+          "latency_s": 4.793,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 69,
+          "prompt_tokens": 1591,
+          "completion_tokens": 41,
+          "latency_s": 4.33,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2000,
+          "padding_lines": 89,
+          "prompt_tokens": 1991,
+          "completion_tokens": 41,
+          "latency_s": 5.082,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2400,
+          "padding_lines": 109,
+          "prompt_tokens": 2401,
+          "completion_tokens": 41,
+          "latency_s": 5.532,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2800,
+          "padding_lines": 129,
+          "prompt_tokens": 2821,
+          "completion_tokens": 52,
+          "latency_s": 6.938,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "3"
+            }
+          },
+          "content": "ФРАГМЕНТ\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        }
+      ]
+    },
+    {
+      "series": "compact",
+      "case": "@poesw1 set port 2 speed to 1000",
+      "level": "level3_single_param",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.05,
+      "sweep": [
+        {
+          "target": 216,
+          "padding_lines": 0,
+          "prompt_tokens": 216,
+          "completion_tokens": 63,
+          "latency_s": 3.842,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set_port_speed",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 500,
+          "padding_lines": 14,
+          "prompt_tokens": 498,
+          "completion_tokens": 63,
+          "latency_s": 4.241,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set port speed",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 700,
+          "padding_lines": 24,
+          "prompt_tokens": 698,
+          "completion_tokens": 63,
+          "latency_s": 4.515,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set port speed",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 900,
+          "padding_lines": 34,
+          "prompt_tokens": 898,
+          "completion_tokens": 105,
+          "latency_s": 7.887,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set port 2 speed",
+            "device_name": "poesw1",
+            "parameters": {
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГИЗО\n\nФРАГИЗО\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1000,
+          "padding_lines": 39,
+          "prompt_tokens": 998,
+          "completion_tokens": 59,
+          "latency_s": 4.858,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set port 2 speed",
+            "parameters": {
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1100,
+          "padding_lines": 44,
+          "prompt_tokens": 1098,
+          "completion_tokens": 109,
+          "latency_s": 8.363,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГИЗО\n\nФРАГИЗО\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1200,
+          "padding_lines": 49,
+          "prompt_tokens": 1198,
+          "completion_tokens": 132,
+          "latency_s": 10.054,
+          "got_tool": null,
+          "got_args": null,
+          "content": "Однако, для выполнения запроса \"установить скорость порта 2 на 1000\" необходимо указать имя устройства. Например, \"poesw1\". Пожалуйста, уточните, какое устройство вы хотите настроить.  \n\nЕсли вы хотите, чтобы я выполнил это, пожалуйста, уточните, какое устройство вы имеаете в виду.  \n\nЕсли вы хотите, чтобы я выполнил это, пожалуйста, уточните, какое устройство вы имеете.",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1300,
+          "padding_lines": 54,
+          "prompt_tokens": 1298,
+          "completion_tokens": 57,
+          "latency_s": 5.123,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set_port_speed",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГИДИ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 59,
+          "prompt_tokens": 1398,
+          "completion_tokens": 63,
+          "latency_s": 5.552,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set port speed",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 69,
+          "prompt_tokens": 1598,
+          "completion_tokens": 63,
+          "latency_s": 5.799,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set_port_speed",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2000,
+          "padding_lines": 89,
+          "prompt_tokens": 1998,
+          "completion_tokens": 53,
+          "latency_s": 5.954,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "set port speed",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2400,
+          "padding_lines": 109,
+          "prompt_tokens": 2408,
+          "completion_tokens": 52,
+          "latency_s": 6.334,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set port speed",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2800,
+          "padding_lines": 129,
+          "prompt_tokens": 2828,
+          "completion_tokens": 63,
+          "latency_s": 7.782,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set_port_speed",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        }
+      ]
+    },
+    {
+      "series": "compact",
+      "case": "@poesw1 set poe power limit to 25W on port 5",
+      "level": "level4_multi_param",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.05,
+      "sweep": [
+        {
+          "target": 219,
+          "padding_lines": 0,
+          "prompt_tokens": 219,
+          "completion_tokens": 51,
+          "latency_s": 3.163,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poe",
+            "command_name": "set_power_limit",
+            "parameters": {
+              "port": "5",
+              "power": "25W"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 500,
+          "padding_lines": 14,
+          "prompt_tokens": 501,
+          "completion_tokens": 51,
+          "latency_s": 3.488,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poe",
+            "command_name": "set power limit",
+            "parameters": {
+              "port": "5",
+              "power": "25W"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 700,
+          "padding_lines": 24,
+          "prompt_tokens": 701,
+          "completion_tokens": 60,
+          "latency_s": 4.328,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set power limit",
+            "device_name": "poe",
+            "parameters": {
+              "port": "5",
+              "power": "25W"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 900,
+          "padding_lines": 34,
+          "prompt_tokens": 901,
+          "completion_tokens": 117,
+          "latency_s": 8.92,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set poe power limit",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "5",
+              "power_limit": "25W"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1000,
+          "padding_lines": 39,
+          "prompt_tokens": 1001,
+          "completion_tokens": 63,
+          "latency_s": 5.16,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set power limit",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "5",
+              "power_limit": "25W"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1100,
+          "padding_lines": 44,
+          "prompt_tokens": 1101,
+          "completion_tokens": 48,
+          "latency_s": 4.338,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set",
+            "device_name": "poe",
+            "parameters": {
+              "power_limit": "25W",
+              "port": "5"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1200,
+          "padding_lines": 49,
+          "prompt_tokens": 1201,
+          "completion_tokens": 55,
+          "latency_s": 4.888,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poe",
+            "command_name": "set power limit",
+            "parameters": {
+              "port": "5",
+              "power": "25W"
+            }
+          },
+          "content": "ФРАГИСОВ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1300,
+          "padding_lines": 54,
+          "prompt_tokens": 1301,
+          "completion_tokens": 53,
+          "latency_s": 4.847,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set",
+            "device_name": "poe",
+            "parameters": {
+              "power_limit": "25W",
+              "port": "5"
+            }
+          },
+          "content": "ФРАГМЕНТ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 59,
+          "prompt_tokens": 1401,
+          "completion_tokens": 65,
+          "latency_s": 5.698,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set poe power limit",
+            "device_name": "poesw1",
+            "parameters": {
+              "power_limit": "25W",
+              "port": "5"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 69,
+          "prompt_tokens": 1601,
+          "completion_tokens": 62,
+          "latency_s": 5.718,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set_power_limit",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "5",
+              "power": "25W"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2000,
+          "padding_lines": 89,
+          "prompt_tokens": 2001,
+          "completion_tokens": 55,
+          "latency_s": 6.17,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set power limit",
+            "device_name": "poe",
+            "parameters": {
+              "power_limit_watts": 25,
+              "port": 5
+            }
+          },
+          "content": "ФРАГИДО\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2400,
+          "padding_lines": 109,
+          "prompt_tokens": 2411,
+          "completion_tokens": 55,
+          "latency_s": 6.597,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set poe power limit",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "5",
+              "power_limit": "25W"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": true
+          },
+          "passed": false,
+          "structured_call": true
+        },
+        {
+          "target": 2800,
+          "padding_lines": 129,
+          "prompt_tokens": 2831,
+          "completion_tokens": 49,
+          "latency_s": 6.751,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "set power limit",
+            "device_name": "poe",
+            "parameters": {
+              "power": "25W",
+              "port": "5"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": true
+        }
+      ]
+    },
+    {
+      "series": "benchmark",
+      "case": "@poesw1 show all ports status",
+      "level": "level1_queries",
+      "expected_tool": "query_device_info",
+      "tokens_per_padding_line": 20.05,
+      "sweep": [
+        {
+          "target": 1129,
+          "padding_lines": 0,
+          "prompt_tokens": 1129,
+          "completion_tokens": 41,
+          "latency_s": 3.786,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show_all_ports_status",
+            "device_name": "poesw1"
+          },
+          "content": "ФРАГИ\n\nФРАГИ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 1200,
+          "padding_lines": 4,
+          "prompt_tokens": 1216,
+          "completion_tokens": 34,
+          "latency_s": 3.442,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show_all_ports_status",
+            "device_name": "poesw1"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 1300,
+          "padding_lines": 9,
+          "prompt_tokens": 1311,
+          "completion_tokens": 41,
+          "latency_s": 4.047,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status",
+            "parameters": {}
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 14,
+          "prompt_tokens": 1411,
+          "completion_tokens": 35,
+          "latency_s": 3.773,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 23,
+          "prompt_tokens": 1591,
+          "completion_tokens": 35,
+          "latency_s": 3.97,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2000,
+          "padding_lines": 43,
+          "prompt_tokens": 1991,
+          "completion_tokens": 41,
+          "latency_s": 5.094,
+          "got_tool": null,
+          "got_args": null,
+          "content": "<tool_call>\n{\"name\": \"query_device_info\", \"arguments\": {\"device_name\": \"poesw1\", \"command_name\": \"show_all_ports_status\", \"parameters\": {}} \n</tool_call>",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 2400,
+          "padding_lines": 63,
+          "prompt_tokens": 2391,
+          "completion_tokens": 35,
+          "latency_s": 5.096,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "command_name": "show_all_ports_status",
+            "device_name": "poesw1"
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2800,
+          "padding_lines": 83,
+          "prompt_tokens": 2791,
+          "completion_tokens": 41,
+          "latency_s": 6.015,
+          "got_tool": "query_device_info",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "show_all_ports_status",
+            "parameters": {}
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        }
+      ],
+      "reference": {
+        "target": "full four-tool request",
+        "padding_lines": 0,
+        "prompt_tokens": 2713,
+        "completion_tokens": 35,
+        "latency_s": 5.546,
+        "got_tool": "query_device_info",
+        "got_args": {
+          "device_name": "poesw1",
+          "command_name": "show_all_ports_status"
+        },
+        "content": "",
+        "grade": {
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        "passed": true,
+        "structured_call": true
+      }
+    },
+    {
+      "series": "benchmark",
+      "case": "@poesw1 enable port 3",
+      "level": "level2_enable_disable",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.05,
+      "sweep": [
+        {
+          "target": 1340,
+          "padding_lines": 0,
+          "prompt_tokens": 1340,
+          "completion_tokens": 44,
+          "latency_s": 4.318,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 3,
+          "prompt_tokens": 1408,
+          "completion_tokens": 44,
+          "latency_s": 4.236,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 13,
+          "prompt_tokens": 1602,
+          "completion_tokens": 47,
+          "latency_s": 4.766,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "content": "ФРАГИ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2000,
+          "padding_lines": 33,
+          "prompt_tokens": 2002,
+          "completion_tokens": 49,
+          "latency_s": 5.704,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "enable_port",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "content": "ФАКТИВНО\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2400,
+          "padding_lines": 53,
+          "prompt_tokens": 2402,
+          "completion_tokens": 45,
+          "latency_s": 5.858,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable_port",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2800,
+          "padding_lines": 73,
+          "prompt_tokens": 2802,
+          "completion_tokens": 45,
+          "latency_s": 6.356,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "enable_port",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "1/3"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        }
+      ],
+      "reference": {
+        "target": "full four-tool request",
+        "padding_lines": 0,
+        "prompt_tokens": 2713,
+        "completion_tokens": 45,
+        "latency_s": 6.345,
+        "got_tool": "configure_device_setting",
+        "got_args": {
+          "device_name": "poesw1",
+          "command_name": "enable_port",
+          "parameters": {
+            "port": "1/3"
+          }
+        },
+        "content": "",
+        "grade": {
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        "passed": true,
+        "structured_call": true
+      }
+    },
+    {
+      "series": "benchmark",
+      "case": "@poesw1 set port 2 speed to 1000",
+      "level": "level3_single_param",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.05,
+      "sweep": [
+        {
+          "target": 1347,
+          "padding_lines": 0,
+          "prompt_tokens": 1347,
+          "completion_tokens": 41,
+          "latency_s": 4.104,
+          "got_tool": null,
+          "got_args": null,
+          "content": "{\"command_name\": \"configure_port_speed\", \"device_name\": \"poesw1\", \"parameters\": {\"port\": \"1/2\", \"speed\": \"1000\"}}\n<tool_call>",
+          "grade": {
+            "ok_tool": false,
+            "ok_command": false,
+            "ok_params_strict": false,
+            "ok_params_lenient": false,
+            "ok_device": false
+          },
+          "passed": false,
+          "structured_call": false
+        },
+        {
+          "target": 1400,
+          "padding_lines": 3,
+          "prompt_tokens": 1415,
+          "completion_tokens": 54,
+          "latency_s": 5.109,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/2",
+              "speed": "1000"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 13,
+          "prompt_tokens": 1609,
+          "completion_tokens": 62,
+          "latency_s": 5.759,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФАКТИЧЕСКИ\n",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2000,
+          "padding_lines": 33,
+          "prompt_tokens": 2009,
+          "completion_tokens": 65,
+          "latency_s": 6.881,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/2",
+              "speed": "1000"
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2400,
+          "padding_lines": 53,
+          "prompt_tokens": 2409,
+          "completion_tokens": 55,
+          "latency_s": 6.604,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_port_speed",
+            "parameters": {
+              "port": "1/2",
+              "speed": "1000"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2800,
+          "padding_lines": 72,
+          "prompt_tokens": 2789,
+          "completion_tokens": 55,
+          "latency_s": 7.051,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "command_name": "configure_port_speed",
+            "device_name": "poesw1",
+            "parameters": {
+              "port": "1/2",
+              "speed": "1000"
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        }
+      ],
+      "reference": {
+        "target": "full four-tool request",
+        "padding_lines": 0,
+        "prompt_tokens": 2720,
+        "completion_tokens": 55,
+        "latency_s": 7.098,
+        "got_tool": "configure_device_setting",
+        "got_args": {
+          "command_name": "configure_port_speed",
+          "device_name": "poesw1",
+          "parameters": {
+            "port": "1/2",
+            "speed": "1000"
+          }
+        },
+        "content": "",
+        "grade": {
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        "passed": true,
+        "structured_call": true
+      }
+    },
+    {
+      "series": "benchmark",
+      "case": "@poesw1 set poe power limit to 25W on port 5",
+      "level": "level4_multi_param",
+      "expected_tool": "configure_device_setting",
+      "tokens_per_padding_line": 20.05,
+      "sweep": [
+        {
+          "target": 1350,
+          "padding_lines": 0,
+          "prompt_tokens": 1350,
+          "completion_tokens": 56,
+          "latency_s": 5.11,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/5",
+              "power_limit": 25
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 1400,
+          "padding_lines": 2,
+          "prompt_tokens": 1399,
+          "completion_tokens": 54,
+          "latency_s": 4.915,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/5",
+              "power_limit": 25
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 1600,
+          "padding_lines": 12,
+          "prompt_tokens": 1592,
+          "completion_tokens": 56,
+          "latency_s": 5.389,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/5",
+              "power_limit": 25
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2000,
+          "padding_lines": 32,
+          "prompt_tokens": 1992,
+          "completion_tokens": 66,
+          "latency_s": 6.991,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/5",
+              "power_limit": 25
+            }
+          },
+          "content": "ФРАГМЕНТ\n\nФРАГМЕНТ",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2400,
+          "padding_lines": 52,
+          "prompt_tokens": 2392,
+          "completion_tokens": 56,
+          "latency_s": 6.715,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/5",
+              "power_limit": 25
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        },
+        {
+          "target": 2800,
+          "padding_lines": 72,
+          "prompt_tokens": 2792,
+          "completion_tokens": 56,
+          "latency_s": 7.128,
+          "got_tool": "configure_device_setting",
+          "got_args": {
+            "device_name": "poesw1",
+            "command_name": "configure_poe_power_limit",
+            "parameters": {
+              "port": "1/5",
+              "power_limit": 25
+            }
+          },
+          "content": "",
+          "grade": {
+            "ok_tool": true,
+            "ok_command": true,
+            "ok_params_strict": true,
+            "ok_params_lenient": true,
+            "ok_device": true
+          },
+          "passed": true,
+          "structured_call": true
+        }
+      ],
+      "reference": {
+        "target": "full four-tool request",
+        "padding_lines": 0,
+        "prompt_tokens": 2723,
+        "completion_tokens": 56,
+        "latency_s": 7.165,
+        "got_tool": "configure_device_setting",
+        "got_args": {
+          "device_name": "poesw1",
+          "command_name": "configure_poe_power_limit",
+          "parameters": {
+            "port": "1/5",
+            "power_limit": 25
+          }
+        },
+        "content": "",
+        "grade": {
+          "ok_tool": true,
+          "ok_command": true,
+          "ok_params_strict": true,
+          "ok_params_lenient": true,
+          "ok_device": true
+        },
+        "passed": true,
+        "structured_call": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1519 @@
+{
+ "scope": "QCS9075, GenieX v0.9.3 (QAIRT 2.50, llama.cpp e467e5b), 2026-10-21",
+ "sweep": {
+  "gemma-4-e4b": {
+   "bands": {
+    "benchmark": {
+     "1,000 to 1,499": {
+      "n": 6,
+      "passed": 0,
+      "structured": 1
+     },
+     "1,500 to 1,999": {
+      "n": 5,
+      "passed": 0,
+      "structured": 0
+     },
+     "2,000 and above": {
+      "n": 11,
+      "passed": 0,
+      "structured": 0
+     }
+    },
+    "compact": {
+     "1,000 to 1,499": {
+      "n": 17,
+      "passed": 0,
+      "structured": 13
+     },
+     "1,500 to 1,999": {
+      "n": 8,
+      "passed": 0,
+      "structured": 0
+     },
+     "2,000 and above": {
+      "n": 8,
+      "passed": 0,
+      "structured": 1
+     },
+     "below 1,000": {
+      "n": 19,
+      "passed": 0,
+      "structured": 17
+     }
+    }
+   },
+   "cases": [
+    {
+     "level": "level1_queries",
+     "longest_with_call": 694,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 131,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 494,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 694,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 894,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 994,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1094,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1194,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1294,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1394,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1594,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1994,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2408,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2828,
+       "structured": false
+      }
+     ],
+     "reference": null,
+     "series": "compact",
+     "shortest_without_call": 894
+    },
+    {
+     "level": "level2_enable_disable",
+     "longest_with_call": 1408,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 125,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 508,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 708,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 908,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1008,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1108,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1208,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1308,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1408,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1588,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1988,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2402,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2822,
+       "structured": false
+      }
+     ],
+     "reference": null,
+     "series": "compact",
+     "shortest_without_call": 1588
+    },
+    {
+     "level": "level3_single_param",
+     "longest_with_call": 2829,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 132,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 495,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 695,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 895,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 995,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1095,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1195,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1295,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1395,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1595,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1995,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2409,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2829,
+       "structured": true
+      }
+     ],
+     "reference": null,
+     "series": "compact",
+     "shortest_without_call": 1595
+    },
+    {
+     "level": "level4_multi_param",
+     "longest_with_call": 1398,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 135,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 498,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 698,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 898,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 998,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1098,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1198,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1298,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1398,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1598,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1998,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2412,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2832,
+       "structured": false
+      }
+     ],
+     "reference": null,
+     "series": "compact",
+     "shortest_without_call": 1598
+    },
+    {
+     "level": "level1_queries",
+     "longest_with_call": 1201,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 1201,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1308,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1404,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1604,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2004,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2404,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2804,
+       "structured": false
+      }
+     ],
+     "reference": {
+      "passed": false,
+      "prompt_tokens": 2827,
+      "structured": false
+     },
+     "series": "benchmark",
+     "shortest_without_call": 1308
+    },
+    {
+     "level": "level2_enable_disable",
+     "longest_with_call": null,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 1418,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1601,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2001,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2401,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2801,
+       "structured": false
+      }
+     ],
+     "reference": {
+      "passed": false,
+      "prompt_tokens": 2827,
+      "structured": false
+     },
+     "series": "benchmark",
+     "shortest_without_call": 1418
+    },
+    {
+     "level": "level3_single_param",
+     "longest_with_call": null,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 1425,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1608,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2008,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2408,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2788,
+       "structured": false
+      }
+     ],
+     "reference": {
+      "passed": false,
+      "prompt_tokens": 2834,
+      "structured": false
+     },
+     "series": "benchmark",
+     "shortest_without_call": 1425
+    },
+    {
+     "level": "level4_multi_param",
+     "longest_with_call": null,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 1428,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1611,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1991,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2391,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2791,
+       "structured": false
+      }
+     ],
+     "reference": {
+      "passed": false,
+      "prompt_tokens": 2837,
+      "structured": false
+     },
+     "series": "benchmark",
+     "shortest_without_call": 1428
+    }
+   ],
+   "path": "compiled",
+   "range": [
+    125,
+    2832
+   ],
+   "reference": {
+    "n": 4,
+    "passed": 0,
+    "prompt_tokens": [
+     2827,
+     2827,
+     2834,
+     2837
+    ],
+    "structured": 0
+   },
+   "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+   "timestamp_utc": "2026-10-21T19:24:18.901696+00:00"
+  },
+  "qwen3-4b-2507": {
+   "bands": {
+    "benchmark": {
+     "1,000 to 1,499": {
+      "n": 10,
+      "passed": 9,
+      "structured": 9
+     },
+     "1,500 to 1,999": {
+      "n": 6,
+      "passed": 5,
+      "structured": 5
+     },
+     "2,000 and above": {
+      "n": 10,
+      "passed": 10,
+      "structured": 10
+     }
+    },
+    "compact": {
+     "1,000 to 1,499": {
+      "n": 17,
+      "passed": 0,
+      "structured": 16
+     },
+     "1,500 to 1,999": {
+      "n": 7,
+      "passed": 0,
+      "structured": 7
+     },
+     "2,000 and above": {
+      "n": 9,
+      "passed": 0,
+      "structured": 9
+     },
+     "below 1,000": {
+      "n": 19,
+      "passed": 0,
+      "structured": 19
+     }
+    }
+   },
+   "cases": [
+    {
+     "level": "level1_queries",
+     "longest_with_call": 2829,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 217,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 499,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 699,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 899,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 999,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1099,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1199,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1299,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1399,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1599,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1999,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2409,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2829,
+       "structured": true
+      }
+     ],
+     "reference": null,
+     "series": "compact",
+     "shortest_without_call": null
+    },
+    {
+     "level": "level2_enable_disable",
+     "longest_with_call": 2821,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 209,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 511,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 691,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 891,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 991,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1091,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1191,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1291,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1391,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1591,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1991,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2401,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2821,
+       "structured": true
+      }
+     ],
+     "reference": null,
+     "series": "compact",
+     "shortest_without_call": null
+    },
+    {
+     "level": "level3_single_param",
+     "longest_with_call": 2828,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 216,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 498,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 698,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 898,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 998,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1098,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1198,
+       "structured": false
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1298,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1398,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1598,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1998,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2408,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2828,
+       "structured": true
+      }
+     ],
+     "reference": null,
+     "series": "compact",
+     "shortest_without_call": 1198
+    },
+    {
+     "level": "level4_multi_param",
+     "longest_with_call": 2831,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 219,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 501,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 701,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 901,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1001,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1101,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1201,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1301,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1401,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1601,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2001,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2411,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 2831,
+       "structured": true
+      }
+     ],
+     "reference": null,
+     "series": "compact",
+     "shortest_without_call": null
+    },
+    {
+     "level": "level1_queries",
+     "longest_with_call": 2791,
+     "points": [
+      {
+       "passed": true,
+       "prompt_tokens": 1129,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1216,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1311,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1411,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1591,
+       "structured": true
+      },
+      {
+       "passed": false,
+       "prompt_tokens": 1991,
+       "structured": false
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2391,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2791,
+       "structured": true
+      }
+     ],
+     "reference": {
+      "passed": true,
+      "prompt_tokens": 2713,
+      "structured": true
+     },
+     "series": "benchmark",
+     "shortest_without_call": 1991
+    },
+    {
+     "level": "level2_enable_disable",
+     "longest_with_call": 2802,
+     "points": [
+      {
+       "passed": true,
+       "prompt_tokens": 1340,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1408,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1602,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2002,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2402,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2802,
+       "structured": true
+      }
+     ],
+     "reference": {
+      "passed": true,
+      "prompt_tokens": 2713,
+      "structured": true
+     },
+     "series": "benchmark",
+     "shortest_without_call": null
+    },
+    {
+     "level": "level3_single_param",
+     "longest_with_call": 2789,
+     "points": [
+      {
+       "passed": false,
+       "prompt_tokens": 1347,
+       "structured": false
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1415,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1609,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2009,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2409,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2789,
+       "structured": true
+      }
+     ],
+     "reference": {
+      "passed": true,
+      "prompt_tokens": 2720,
+      "structured": true
+     },
+     "series": "benchmark",
+     "shortest_without_call": 1347
+    },
+    {
+     "level": "level4_multi_param",
+     "longest_with_call": 2792,
+     "points": [
+      {
+       "passed": true,
+       "prompt_tokens": 1350,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1399,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1592,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 1992,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2392,
+       "structured": true
+      },
+      {
+       "passed": true,
+       "prompt_tokens": 2792,
+       "structured": true
+      }
+     ],
+     "reference": {
+      "passed": true,
+      "prompt_tokens": 2723,
+      "structured": true
+     },
+     "series": "benchmark",
+     "shortest_without_call": null
+    }
+   ],
+   "path": "compiled",
+   "range": [
+    209,
+    2831
+   ],
+   "reference": {
+    "n": 4,
+    "passed": 4,
+    "prompt_tokens": [
+     2713,
+     2713,
+     2720,
+     2723
+    ],
+    "structured": 4
+   },
+   "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+   "timestamp_utc": "2026-10-21T19:08:08.276277+00:00"
+  }
+ },
+ "triage": {
+  "decided_v080": 14,
+  "first_request_utc": "2026-10-21T17:05:36.733928+00:00",
+  "last_run_utc": "2026-10-21T17:37:59.861232+00:00",
+  "outcome_of_decided": {
+   "load failure: fastrpc_mmap failed": [
+    "qwen3-4b-2507/npu_llama",
+    "qwen3-4b/npu_llama",
+    "qwen3-8b/npu_llama",
+    "gemma-4-e4b/npu_llama",
+    "phi-4-mini/npu_llama"
+   ],
+   "readable": [
+    "granite-4.0-micro/npu_llama",
+    "gemma-4-e2b/npu_llama",
+    "qwen3.5-2b/npu_llama",
+    "gemma-4-e4b/compiled"
+   ],
+   "unreadable: calls returned as text": [
+    "ministral-3-3b/npu_llama",
+    "ministral-3-3b/cpu"
+   ],
+   "unreadable: tools not delivered": [
+    "phi-4-mini/cpu",
+    "smollm2-1.7b/cpu",
+    "smollm2-1.7b/npu_llama"
+   ]
+  },
+  "rows": [
+   {
+    "failure": {
+     "class": "fastrpc_mmap failed",
+     "failed_buffer_bytes": 340340736
+    },
+    "gguf_gib": 2.21261128783226,
+    "model": "qwen3-4b-2507",
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": null,
+    "path": "npu_llama",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "v080": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ],
+    "v093": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ]
+   },
+   {
+    "failure": {
+     "class": "fastrpc_mmap failed",
+     "failed_buffer_bytes": 340340736
+    },
+    "gguf_gib": 2.2126114666461945,
+    "model": "qwen3-4b",
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": null,
+    "path": "npu_llama",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "v080": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ],
+    "v093": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ]
+   },
+   {
+    "failure": {
+     "class": "fastrpc_mmap failed",
+     "failed_buffer_bytes": 67112960
+    },
+    "gguf_gib": 4.4468322694301605,
+    "model": "qwen3-8b",
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": null,
+    "path": "npu_llama",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "v080": [
+     "load failure",
+     "timeout, nothing logged"
+    ],
+    "v093": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ]
+   },
+   {
+    "failure": {
+     "class": "fastrpc_mmap failed",
+     "failed_buffer_bytes": 587206656
+    },
+    "gguf_gib": 4.80091318488121,
+    "model": "gemma-4-e4b",
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": null,
+    "path": "npu_llama",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "v080": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ],
+    "v093": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ]
+   },
+   {
+    "failure": {
+     "class": "fastrpc_mmap failed",
+     "failed_buffer_bytes": 537776128
+    },
+    "gguf_gib": 2.1713250875473022,
+    "model": "phi-4-mini",
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": null,
+    "path": "npu_llama",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "v080": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ],
+    "v093": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ]
+   },
+   {
+    "gguf_gib": 1.7329674065113068,
+    "latency_median": 13.4225,
+    "model": "granite-4.0-micro",
+    "n": 6,
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": 128,
+    "passed": 6,
+    "path": "npu_llama",
+    "prompt_median": 2708.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 6,
+    "text_calls": 0,
+    "v080": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ],
+    "v093": [
+     "readable",
+     null
+    ]
+   },
+   {
+    "gguf_gib": 1.9058354198932648,
+    "latency_median": 8.331499999999998,
+    "model": "ministral-3-3b",
+    "n": 6,
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": 128,
+    "passed": 0,
+    "path": "npu_llama",
+    "prompt_median": 2742.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 0,
+    "text_calls": 6,
+    "v080": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ],
+    "v093": [
+     "unreadable",
+     "calls returned as text"
+    ]
+   },
+   {
+    "gguf_gib": 3.1194801032543182,
+    "latency_median": 5.996,
+    "model": "gemma-4-e2b",
+    "n": 6,
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": 128,
+    "passed": 5,
+    "path": "npu_llama",
+    "prompt_median": 2819.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 6,
+    "text_calls": 0,
+    "v080": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ],
+    "v093": [
+     "readable",
+     null
+    ]
+   },
+   {
+    "gguf_gib": 1.131439447402954,
+    "latency_median": 5.817500000000001,
+    "model": "qwen3.5-2b",
+    "n": 6,
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": 128,
+    "passed": 6,
+    "path": "npu_llama",
+    "prompt_median": 2862.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 6,
+    "text_calls": 0,
+    "v080": [
+     "load failure",
+     "fastrpc_mmap failed"
+    ],
+    "v093": [
+     "readable",
+     null
+    ]
+   },
+   {
+    "gguf_gib": null,
+    "latency_median": 23.196,
+    "model": "gemma-4-e4b",
+    "n": 6,
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": null,
+    "passed": 0,
+    "path": "compiled",
+    "prompt_median": 2827.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 0,
+    "text_calls": 0,
+    "v080": [
+     "unreadable",
+     "tools not delivered"
+    ],
+    "v080_latency_median": 3.25,
+    "v080_passed": 0,
+    "v093": [
+     "readable",
+     null
+    ]
+   },
+   {
+    "gguf_gib": 2.1713250875473022,
+    "latency_median": 6.4665,
+    "model": "phi-4-mini",
+    "n": 6,
+    "n_ubatch_v080": 2048,
+    "n_ubatch_v093": 2048,
+    "passed": 0,
+    "path": "cpu",
+    "prompt_median": 484.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 0,
+    "text_calls": 0,
+    "v080": [
+     "unreadable",
+     "tools not delivered"
+    ],
+    "v080_latency_median": 6.3855,
+    "v080_passed": 0,
+    "v093": [
+     "unreadable",
+     "tools not delivered"
+    ]
+   },
+   {
+    "gguf_gib": 0.9256181418895721,
+    "latency_median": 4.3195,
+    "model": "smollm2-1.7b",
+    "n": 6,
+    "n_ubatch_v080": 2048,
+    "n_ubatch_v093": 2048,
+    "passed": 0,
+    "path": "cpu",
+    "prompt_median": 618.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 0,
+    "text_calls": 0,
+    "v080": [
+     "unreadable",
+     "tools not delivered"
+    ],
+    "v080_latency_median": 4.508,
+    "v080_passed": 0,
+    "v093": [
+     "unreadable",
+     "tools not delivered"
+    ]
+   },
+   {
+    "gguf_gib": 0.9256181418895721,
+    "latency_median": 1.5545,
+    "model": "smollm2-1.7b",
+    "n": 6,
+    "n_ubatch_v080": 1024,
+    "n_ubatch_v093": 128,
+    "passed": 0,
+    "path": "npu_llama",
+    "prompt_median": 618.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 0,
+    "text_calls": 0,
+    "v080": [
+     "unreadable",
+     "tools not delivered"
+    ],
+    "v080_latency_median": 1.7565,
+    "v080_passed": 0,
+    "v093": [
+     "unreadable",
+     "tools not delivered"
+    ]
+   },
+   {
+    "gguf_gib": 1.9058354198932648,
+    "latency_median": 41.022,
+    "model": "ministral-3-3b",
+    "n": 6,
+    "n_ubatch_v080": 2048,
+    "n_ubatch_v093": 2048,
+    "passed": 0,
+    "path": "cpu",
+    "prompt_median": 2742.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 0,
+    "text_calls": 6,
+    "v080": [
+     "unreadable",
+     "calls returned as text"
+    ],
+    "v080_latency_median": 40.945499999999996,
+    "v080_passed": 0,
+    "v093": [
+     "unreadable",
+     "calls returned as text"
+    ]
+   },
+   {
+    "gguf_gib": 0.9842057824134827,
+    "latency_median": 22.029,
+    "model": "qwen3-1.7b",
+    "n": 6,
+    "n_ubatch_v080": 2048,
+    "n_ubatch_v093": 2048,
+    "passed": 6,
+    "path": "cpu",
+    "prompt_median": 2716.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 6,
+    "text_calls": 0,
+    "v080": [
+     "readable",
+     null
+    ],
+    "v080_latency_median": 21.981,
+    "v080_passed": 5,
+    "v093": [
+     "readable",
+     null
+    ]
+   },
+   {
+    "gguf_gib": 0.9842057824134827,
+    "latency_median": 5.3645,
+    "model": "qwen3-1.7b",
+    "n": 6,
+    "n_ubatch_v080": 1024,
+    "n_ubatch_v093": 128,
+    "passed": 6,
+    "path": "npu_llama",
+    "prompt_median": 2716.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 6,
+    "text_calls": 0,
+    "v080": [
+     "readable",
+     null
+    ],
+    "v080_latency_median": 4.723,
+    "v080_passed": 6,
+    "v093": [
+     "readable",
+     null
+    ]
+   },
+   {
+    "gguf_gib": null,
+    "latency_median": 6.3195,
+    "model": "qwen3-4b-2507",
+    "n": 6,
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": null,
+    "passed": 6,
+    "path": "compiled",
+    "prompt_median": 2713.5,
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "structured": 6,
+    "text_calls": 0,
+    "v080": [
+     "readable",
+     null
+    ],
+    "v080_latency_median": 6.2955000000000005,
+    "v080_passed": 6,
+    "v093": [
+     "readable",
+     null
+    ]
+   },
+   {
+    "failure": {
+     "class": "OpenCL buffer allocation failed",
+     "failed_buffer_bytes": 478949376
+    },
+    "gguf_gib": 0.9842057824134827,
+    "model": "qwen3-1.7b",
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": null,
+    "path": "gpu",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "v080": [
+     "not measured",
+     null
+    ],
+    "v093": [
+     "load failure",
+     "OpenCL buffer allocation failed"
+    ]
+   },
+   {
+    "failure": {
+     "class": "OpenCL buffer allocation failed",
+     "failed_buffer_bytes": 319066112
+    },
+    "gguf_gib": 2.21261128783226,
+    "model": "qwen3-4b-2507",
+    "n_ubatch_v080": null,
+    "n_ubatch_v093": null,
+    "path": "gpu",
+    "server_version": "GenieX CLI Version:     v0.9.3\nQAIRT Runtime Version:  2.50\nLlamaCPP Runtime Hash:  e467e5b",
+    "v080": [
+     "not measured",
+     null
+    ],
+    "v093": [
+     "load failure",
+     "OpenCL buffer allocation failed"
+    ]
+   }
+  ],
+  "still_decided": 10
+ }
+}

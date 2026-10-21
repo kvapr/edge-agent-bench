@@ -51,7 +51,10 @@ The server re-read the whole prompt on every request, so the NPU's advantage in
 agent-turn time holds for requests without prompt-prefix reuse.
 
 All numbers are scoped to this board, GenieX v0.8.0, this four-tool
-single-turn suite and October 2026. Later GenieX releases were not measured.
+single-turn suite and October 2026. A later check under GenieX v0.9.3 (Section
+18 of the report) found 10 of the 14 stack-decided steps still decided by the
+stack; the compiled Gemma-4-E4B-it now receives its tools but stops calling
+them once its prompt passes roughly 900 to 1,600 tokens.
 
 ## Repository layout
 
@@ -60,7 +63,7 @@ single-turn suite and October 2026. Later GenieX releases were not measured.
 | harness/ | bench_toolcall.py (tool-calling benchmark), phase_probe.py (prefill and decode throughput), bench_tools_in_prompt.py (a diagnostic that writes the tools into the system prompt), bench_sampling.py (adds sampling fields such as top_k to every request), soak_npu.py (sustained load), harness_selftest.py |
 | suites/ | 65 canonical cases, 195 paraphrases, the 12-tool schema in nested and flat form, and a README with the labelling and grading rules |
 | campaign/ | run_campaign.py, the resumable runner; v2_models.json, the model list; and v2_followup.json, the phases of the follow-up on a later GenieX release |
-| results/ | v2/, the version 2 results with their provenance, and the version 1 directories (2026-09) |
+| results/ | v2/, the version 2 results with their provenance; v2-followup/, the follow-up on GenieX v0.9.3; and the version 1 directories (2026-09) |
 | analysis/ | analyze.py (base statistics), report.py and its modules (every number in the report), figures.py, data/ and out/ (the generated tables) |
 | docs/ | REPORT.md, METHODOLOGY.md, THERMAL.md, PROPOSAL.md (project history) and figures/ |
 | scripts/ | import_results.py (copies raw results into the repository without lab details), leak_scan.py, and the version 1 run scripts |
