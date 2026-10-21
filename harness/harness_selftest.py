@@ -19,6 +19,7 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BENCH_PATH = os.path.join(HERE, "bench_toolcall.py")
+SAMPLING_PATH = os.path.join(HERE, "bench_sampling.py")
 SOAK_PATH = os.path.join(HERE, "soak_npu.py")
 PHASE_PROBE_PATH = os.path.join(HERE, "phase_probe.py")
 
@@ -86,6 +87,9 @@ FAKE_IGNORE_MAX_TOKENS = 64
 FAKE_IDENTICAL_EMPTY_MODEL = "fake-identical-empty"
 _LAST_REQUEST = {"key": None}
 _LAST_LOCK = threading.Lock()
+# Sampling fields of every request the fake server receives, so the test of
+# bench_sampling.py can check that they reach the server.
+_SEEN_SAMPLING = []
 
 
 def make_tools_file(path):
@@ -141,6 +145,8 @@ class FakeHandler(http.server.BaseHTTPRequestHandler):
             body = {}
 
         messages = body.get("messages", []) or []
+        with _LAST_LOCK:
+            _SEEN_SAMPLING.append({k: body[k] for k in ("top_k", "seed", "temperature") if k in body})
 
         # usage.completion_tokens tracks the requested max_tokens (capped at
         # 64) and usage.prompt_tokens is a rough len(content)//4 count over
@@ -604,6 +610,34 @@ def main():
             qp = json.load(f)
         for r in qp["lengths"][0]["reps"]:
             assert r.get("decode_tok_s"), f"probe repetition hit the identical-request quirk: {r}"
+
+        # --- run 10: bench_sampling.py must send its fields with every request,
+        # warm-up included, record them, and leave grading unchanged ---
+        sm_out = os.path.join(tmpdir, "sampling.json")
+        with _LAST_LOCK:
+            del _SEEN_SAMPLING[:]
+        rc, stdout, stderr = run([
+            sys.executable, SAMPLING_PATH, "--sampling", '{"top_k": 1, "seed": 7}',
+            "--url", url, "--model", "fake", "--tools-file", tools_file,
+            "--tool-subset", ",".join(TOOL_NAMES), "--limit", "2", "--repeats", "2",
+            "--warmup", "1", "--out", sm_out, "--label", "selftest-sampling",
+        ])
+        assert rc == 0, f"bench_sampling.py exited {rc}\nstdout:\n{stdout}\nstderr:\n{stderr}"
+        with open(sm_out) as f:
+            sm = json.load(f)
+        smp = sm["provenance"]
+        assert smp.get("diagnostic_mode") == "sampling", f"mode not recorded: {smp.get('diagnostic_mode')}"
+        assert smp.get("sampling") == {"top_k": 1, "seed": 7}, f"sampling not recorded: {smp.get('sampling')}"
+        assert smp["request_config"]["extra_body"].get("top_k") == 1, \
+            f"request_config misses the sampling fields: {smp['request_config']}"
+        assert smp.get("diagnostic_wrapper_sha256") and smp.get("harness_sha256"), "hashes missing"
+        with _LAST_LOCK:
+            seen = list(_SEEN_SAMPLING)
+        assert len(seen) == 5, f"expected 1 warm-up + 4 timed requests, saw {len(seen)}"
+        assert all(s == {"top_k": 1, "seed": 7, "temperature": 0} for s in seen), \
+            f"a request lacked the sampling fields: {seen}"
+        assert sm["results"][0]["pass_count"] == 2, \
+            f"grading changed under bench_sampling.py: {sm['results'][0]['reps']}"
 
     except AssertionError as e:
         print(f"SELFTEST FAIL: {e}")

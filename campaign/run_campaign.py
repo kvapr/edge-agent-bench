@@ -26,11 +26,20 @@ Usage:
   python3 campaign/run_campaign.py --dry-run
   python3 campaign/run_campaign.py [--models a,b] [--paths cpu,npu_llama,compiled] [--mode interleave|block]
   python3 campaign/run_campaign.py --status
+
+Follow-up campaigns (campaign/v2_followup.json) run named phases, each on one
+GenieX release with its own data folder on the board and its own results
+folder under EAB_RUNS (default ~/eab-runs/v2-followup for --followup); a phase
+can be gated on a triage phase, so only steps that now load, receive the tools
+and return structured calls get the full protocol:
+  python3 campaign/run_campaign.py --followup campaign/v2_followup.json --dry-run
+  python3 campaign/run_campaign.py --followup campaign/v2_followup.json [--phase triage]
 """
 import argparse
 import hashlib
 import json
 import os
+import re
 import signal
 import subprocess
 import sys
@@ -48,14 +57,21 @@ PROD = os.environ.get("EAB_PROD_CONTAINER") or None
 PROD_PORT = int(os.environ.get("EAB_PROD_PORT", "18181"))
 ART = os.path.expanduser(os.environ.get("EAB_ARTIFACTS", "~/eab-artifacts"))
 RUNS = os.path.expanduser(os.environ.get("EAB_RUNS", "~/eab-runs/v2"))
-GXD = os.environ.get("EAB_GENIEX_DIR", "/root/geniex-v080/geniex-cli-linux-arm64-v0.8.0")
-DATA = "/root/eab-data"
 INC = "/root/eab-incoming"
 SERVE_LOG = "/root/eab-serve.log"
 
-PATHS = ("cpu", "npu_llama", "compiled")
-PORTS = {"cpu": 18383, "npu_llama": 18384, "compiled": 18384}
+# gpu (llama.cpp OpenCL) is measured only in follow-up phases; it sits before
+# npu_llama so the GGUF's last user is still the NPU llama.cpp step.
+PATHS = ("cpu", "gpu", "npu_llama", "compiled")
+PORTS = {"cpu": 18383, "gpu": 18385, "npu_llama": 18384, "compiled": 18384}
+COMPUTE = {"cpu": "cpu", "gpu": "gpu", "npu_llama": "npu", "compiled": "npu"}
 SUBSET = "query_device_info,configure_device_setting,diagnose_port_issues,search_documentation"
+# The flat schema offers one tool per command: the 14 the flat cases expect plus
+# the two distractors of the nested subset (about 18% more prompt than SUBSET).
+FLAT_SUBSET = ("show_port_status,show_all_ports_status,show_poe_status,show_poe_power_budget,"
+               "show_system_info,show_vlan_config,enable_port,disable_port,configure_poe_mode,"
+               "configure_port_speed,configure_port_duplex,configure_access_vlan,"
+               "configure_poe_power_limit,set_port_description,diagnose_port_issues,search_documentation")
 EXTRA = '{"enable_think": false, "chat_template_kwargs": {"enable_thinking": false}}'
 # Protocol (v2): canonical suite 3 repetitions, paraphrase suite 1 repetition,
 # throughput at the agent-like prompt lengths and at a chat-like shape.
@@ -67,13 +83,35 @@ TASKS = ("canonical", "paraphrase", "probe_agent", "probe_chat")
 # plus the calibration configurations listed in the spec. Results are written
 # to diag_<mode>.json and carry mode=<mode> in their label.
 DIAG = {"tools_in_prompt": "bench_tools_in_prompt.py"}
+# Follow-up tasks: the canonical suite with one change each, written to
+# <task>.json. triage is a short check of whether a step is now readable.
+VARIANTS = {
+    "triage": {"repeats": 1, "args": ["--limit", "6"]},
+    "canonical_topk1": {"script": "bench_sampling.py", "args": ["--sampling", '{"top_k": 1}']},
+    "canonical_seed7": {"script": "bench_sampling.py", "args": ["--sampling", '{"seed": 7}']},
+    "canonical_flat": {"cases": "suites/test_cases_flat.yaml", "subset": FLAT_SUBSET,
+                       "args": ["--tools-file", os.path.join(REPO, "suites", "tools_flat.json")]},
+}
 # llama.cpp context matches the 4,096-token compiled bundles; the model stays
 # loaded between tasks; the HTP power mode is left at the server default
 # (burst) and recorded.
 SERVER_OPTS = "--nctx 4096 --keepalive 3600"
-GENV = f"ADSP_LIBRARY_PATH={GXD}/qairt/htp-files LD_LIBRARY_PATH={GXD}"
-GX = f"env {GENV} {GXD}/geniex --data-dir {DATA} --skip-update"
-VERSION_CMD = f"LD_LIBRARY_PATH={GXD} {GXD}/geniex version"
+# Every runner-started server has a data folder under /root/eab-data*; the
+# bracket keeps pkill from matching its own command line, and production
+# (another data folder) is never matched.
+SERVER_PATTERN = "geniex --data-dir /root/eab-dat[a]"
+
+
+def use_geniex(gxd, data):
+    """Point the runner at one GenieX install and data folder on the board."""
+    global GXD, DATA, GENV, GX, VERSION_CMD
+    GXD, DATA = gxd, data
+    GENV = f"ADSP_LIBRARY_PATH={GXD}/qairt/htp-files LD_LIBRARY_PATH={GXD}"
+    GX = f"env {GENV} {GXD}/geniex --data-dir {DATA} --skip-update"
+    VERSION_CMD = f"LD_LIBRARY_PATH={GXD} {GXD}/geniex version"
+
+
+use_geniex(os.environ.get("EAB_GENIEX_DIR", "/root/geniex-v080/geniex-cli-linux-arm64-v0.8.0"), "/root/eab-data")
 BOUNCE = ('for r in /sys/class/remoteproc/remoteproc*; do n=$(cat $r/name); '
           'if [ "$n" = cdsp ] || [ "$n" = cdsp1 ]; then echo stop > $r/state 2>/dev/null; sleep 1; '
           'echo start > $r/state 2>/dev/null; fi; done; sleep 2')
@@ -183,7 +221,34 @@ class Board:
         log(f"production container {PROD}: {'running' if self.prod_up else 'stopped'}")
 
     def stop_servers(self):
-        ssh('pkill -f "geniex-v08[0]"; sleep 2; true', timeout=60)
+        ssh(f'pkill -f "{SERVER_PATTERN}"; sleep 2; true', timeout=60)
+
+    def ensure_geniex(self, rel, chipset):
+        """Install a GenieX CLI release on the board from its archive in
+        EAB_ARTIFACTS/geniex/ unless it is already there, checking the
+        archive's SHA-256 on both ends, and give its data folder a chipset if
+        it has none (GenieX will not register a model without one and asks
+        for it interactively)."""
+        if ssh(f"test -x {rel['dir']}/geniex && echo yes", timeout=30).stdout.strip() != "yes":
+            self.install_geniex(rel)
+        got = ssh(f"{GX} config get chipset 2>&1", timeout=60).stdout.strip()
+        if got.split()[-1:] in ([], ["unknown"], ['""']):
+            log(f"  setting chipset {chipset} for {DATA}")
+            ssh(f"{GX} config set chipset {chipset} </dev/null 2>&1", timeout=60)
+
+    def install_geniex(self, rel):
+        local = os.path.join(ART, "geniex", rel["archive"])
+        if sha256(local) != rel["sha256"]:
+            raise RuntimeError(f"GenieX archive {local} does not match its recorded SHA-256")
+        parent = os.path.dirname(rel["dir"])
+        log(f"installing {rel['archive']} on the board in {parent}")
+        ssh(f"mkdir -p {parent}", timeout=60)
+        scp(local, parent)
+        r = ssh(f"cd {parent} && echo '{rel['sha256']}  {rel['archive']}' | sha256sum -c - && "
+                f"tar -xzf {rel['archive']} && rm -f {rel['archive']} && "
+                f"LD_LIBRARY_PATH={rel['dir']} {rel['dir']}/geniex version", timeout=600)
+        if r.returncode != 0:
+            raise RuntimeError(f"GenieX install failed: {(r.stdout + r.stderr)[-400:]}")
 
     def prod_down(self):
         if PROD and self.prod_up is not False:
@@ -208,12 +273,17 @@ class Board:
         log("WARNING: production started but did not list models within 200 s")
 
     def registered(self, reg):
-        return ssh(f"test -d {DATA}/models/qualcomm/{reg} && echo yes", timeout=30).stdout.strip() == "yes"
+        """True when GenieX finished registering the model; a failed pull
+        leaves the folder behind holding only its .lock and .inflight markers."""
+        d = f"{DATA}/models/qualcomm/{reg}"
+        return ssh(f"test -d {d} && test ! -e {d}/.inflight && ls {d} | grep -q . && echo yes",
+                   timeout=30).stdout.strip() == "yes"
 
     def stage(self, m, kind):
         reg = f"{m['name']}-q4_0" if kind == "gguf" else f"{m['name']}-w4a16"
         if self.registered(reg):
             return reg
+        self.unstage(reg)  # clear what a failed pull left behind
         local = os.path.join(ART, m[kind])
         wait_complete(local)
         size_gb = os.path.getsize(local) / 1e9
@@ -239,7 +309,7 @@ class Board:
 
     def start_server(self, path):
         self.stop_servers()
-        compute = "cpu" if path == "cpu" else "npu"
+        compute = COMPUTE[path]
         if compute == "npu":
             ssh(BOUNCE, timeout=120)
         cmd = (f"nohup {GX} --log info serve --host 0.0.0.0:{PORTS[path]} -c {compute} {SERVER_OPTS} "
@@ -299,17 +369,19 @@ def run_task(m, path, task, port, model_id, mode=None):
         log(f"  skip {task} (done)")
         return
     os.makedirs(os.path.dirname(op), exist_ok=True)
-    suite_or_probe = task if task in BENCH else task.replace("probe_", "")
-    label = f"model={m['name']};path={path};{'suite' if task in BENCH else 'probe'}={suite_or_probe}"
+    suite = task in BENCH or task in VARIANTS
+    label = f"model={m['name']};path={path};{'suite' if suite else 'probe'}={task.replace('probe_', '')}"
     if mode:
         label += f";mode={mode}"
     common = ["--url", f"http://{IP}:{port}", "--model", model_id, "--board-ssh", BOARD, "--readiness",
               "--server-version-cmd", VERSION_CMD, "--thermal-trace-s", "20", "--label", label, "--out", op]
-    if task in BENCH:
-        cases, reps = BENCH[task]
-        cmd = [sys.executable, os.path.join(REPO, "harness", DIAG[mode] if mode else "bench_toolcall.py"), *common,
-               "--cases", os.path.join(REPO, cases), "--tool-subset", SUBSET,
-               "--repeats", str(reps), "--warmup", "1", "--timeout", "900"]
+    if suite:
+        cases, reps = BENCH.get(task, BENCH["canonical"])
+        v = VARIANTS.get(task, {})
+        script = DIAG[mode] if mode else v.get("script", "bench_toolcall.py")
+        cmd = [sys.executable, os.path.join(REPO, "harness", script), *common,
+               "--cases", os.path.join(REPO, v.get("cases", cases)), "--tool-subset", v.get("subset", SUBSET),
+               "--repeats", str(v.get("repeats", reps)), "--warmup", "1", "--timeout", "900", *v.get("args", [])]
     else:
         lengths, gen = PROBES[task]
         cmd = [sys.executable, os.path.join(REPO, "harness", "phase_probe.py"), *common,
@@ -332,18 +404,26 @@ def run_task(m, path, task, port, model_id, mode=None):
     log(f"  WARNING: {task} produced no result file")
 
 
-def run_path(board, m, path, keep):
-    kind = "gguf" if path in ("cpu", "npu_llama") else "bundle"
+def kind_of(path):
+    return "bundle" if path == "compiled" else "gguf"
+
+
+def reg_of(m, path):
+    return f"{m['name']}-w4a16" if path == "compiled" else f"{m['name']}-q4_0"
+
+
+def run_path(board, m, path, keep, tasks=TASKS):
+    kind = kind_of(path)
     if not m.get(kind):
         return
     fail = out_path(m, path, "load_failure.json")
-    if all(is_done(out_path(m, path, f"{t}.json")) for t in TASKS) or is_done(fail):
+    if all(is_done(out_path(m, path, f"{t}.json")) for t in tasks) or is_done(fail):
         log(f"{m['name']} / {path}: already complete")
         return
     served = serve(board, m, path, kind, fail, "server.json")
     if served:
         port, model_id = served
-        for t in TASKS:
+        for t in tasks:
             run_task(m, path, t, port, model_id)
     board.stop_servers()
     # Free board disk once an artifact has no remaining user: the bundle after
@@ -403,6 +483,7 @@ def serve(board, m, path, kind, fail, side_name, banner=""):
     side = {"model": m["name"], "path": path, "server_cmd": cmd.replace(GENV, "<env>"),
             "server_options": SERVER_OPTS, "power_mode": "server default (burst)",
             "server_version": ssh(VERSION_CMD, timeout=60).stdout.strip(),
+            "server_config": re.sub(r"\x1b\[[0-9;]*m", "", ssh(f"{GX} config list 2>&1", timeout=60).stdout).strip(),
             "artifact": m[kind], "artifact_sha256": sha256(os.path.join(ART, m[kind])),
             "gguf_source": m.get("gguf_source") if kind == "gguf" else None,
             "bundle": bundle_info(os.path.join(ART, m[kind])) if kind == "bundle" else None,
@@ -423,6 +504,86 @@ def serve(board, m, path, kind, fail, side_name, banner=""):
         timeout=60).stdout[-2000:]
     json.dump(side, open(out_path(m, path, side_name), "w"), indent=1)
     return port, model_id
+
+
+def set_runs(path):
+    global RUNS
+    RUNS = path
+
+
+def followup_steps(phase, models):
+    """A phase's "model/path" steps, ordered by model and then by PATHS so a
+    GGUF's last user in the phase is still its NPU llama.cpp step."""
+    steps = []
+    for s in phase["steps"]:
+        name, path = s.split("/")
+        if name not in models or path not in PATHS or not models[name].get(kind_of(path)):
+            raise SystemExit(f"phase {phase['name']}: unknown or impossible step {s}")
+        steps.append((models[name], path))
+    order = list(models)
+    return sorted(steps, key=lambda s: (order.index(s[0]["name"]), PATHS.index(s[1])))
+
+
+def triage_verdict(m, path, triage_dir):
+    """Whether a step was readable in a triage phase, by the report's rule
+    (analysis/report_common.unreadable_reason), with the evidence behind it."""
+    root = os.path.join(triage_dir, m["name"], path)
+    v = {"step": f"{m['name']}/{path}", "readable": False}
+    if is_done(os.path.join(root, "load_failure.json")):
+        return {**v, "reason": "load failure"}
+    try:
+        d = json.load(open(os.path.join(root, "triage.json")))
+    except (OSError, json.JSONDecodeError):
+        return {**v, "reason": "no triage result"}
+    sys.path.insert(0, os.path.join(REPO, "analysis"))
+    import report_common  # noqa: E402
+    reps = [r for c in d["results"] for r in c.get("reps") or []]
+    toks = sorted(r["prompt_tokens"] for r in reps if r.get("prompt_tokens"))
+    why = report_common.unreadable_reason({"canonical": d, "paraphrase": d})
+    return {**v, "readable": why is None, "reason": why or "readable",
+            "median_prompt_tokens": toks[len(toks) // 2] if toks else None,
+            "structured_calls": sum(bool(r.get("got_tool")) for r in reps),
+            "text_calls": sum(bool(r.get("text_tool_call") or (not r.get("got_tool") and
+                                    report_common.analyze.parse_text_tool_call(r.get("content"))[0]))
+                              for r in reps),
+            "replies": len(reps)}
+
+
+def run_followup(board, spec, models, phases, keep):
+    base = RUNS
+    try:
+        for ph in phases:
+            rel = spec["geniex"][ph["geniex"]]
+            use_geniex(rel["dir"], rel["data"])
+            set_runs(os.path.join(base, ph["name"]))
+            log(f"phase {ph['name']}: GenieX {ph['geniex']}, {len(ph['steps'])} steps, tasks {', '.join(ph['tasks'])}")
+            board.ensure_geniex(rel, spec["chipset"])
+            used = set()
+            for m, p in followup_steps(ph, models):
+                if ph.get("gate"):
+                    v = triage_verdict(m, p, os.path.join(base, ph["gate"]))
+                    if not v["readable"]:
+                        log(f"{m['name']} / {p}: skipped ({v['reason']} in phase {ph['gate']})")
+                        continue
+                used.add(reg_of(m, p))
+                try:
+                    run_path(board, m, p, keep, tasks=ph["tasks"])
+                except (FileNotFoundError, RuntimeError) as e:
+                    log(f"ERROR {m['name']} / {p}: {e}")
+                    board.stop_servers()
+            board.stop_servers()
+            if ph["tasks"] == ["triage"]:
+                rows = [triage_verdict(m, p, RUNS) for m, p in followup_steps(ph, models)]
+                os.makedirs(RUNS, exist_ok=True)
+                json.dump(rows, open(os.path.join(RUNS, "triage_summary.json"), "w"), indent=1)
+                for r in rows:
+                    log(f"  triage {r['step']:28} {r['reason']:24} prompt {r.get('median_prompt_tokens')} "
+                        f"structured {r.get('structured_calls')}/{r.get('replies')} text {r.get('text_calls')}")
+            if not keep:  # artifacts left by steps that are not their last user
+                for reg in used:
+                    board.unstage(reg)
+    finally:
+        set_runs(base)
 
 
 def plan(models, paths, mode):
@@ -452,11 +613,17 @@ def main():
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--diagnostics", action="store_true",
                     help="run the diagnostic variants (see DIAG) instead of the matrix")
+    ap.add_argument("--followup", default="", help="run the phases of a follow-up spec (campaign/v2_followup.json)")
+    ap.add_argument("--phase", default="", help="with --followup: run only these phases (comma-separated)")
     a = ap.parse_args()
+    if a.followup and "EAB_RUNS" not in os.environ:
+        set_runs(os.path.expanduser("~/eab-runs/v2-followup"))
     if a.status:
         return status()
     spec = json.load(open(SPEC_PATH))
     models = spec["models"]
+    if a.followup:
+        return main_followup(a, json.load(open(a.followup)), {m["name"]: m for m in models})
     if a.models:
         keep_names = a.models.split(",")
         models = [m for m in models if m["name"] in keep_names]
@@ -497,6 +664,40 @@ def main():
         for reg in staged - {None}:
             if not a.keep:
                 board.unstage(reg)
+        board.prod_restore()
+        log("board left with production restored")
+
+
+def main_followup(a, spec, models):
+    names = [p for p in a.phase.split(",") if p]
+    phases = [ph for ph in spec["phases"] if not names or ph["name"] in names]
+    if names and len(phases) != len(names):
+        raise SystemExit(f"unknown phase in {a.phase}; the spec has {', '.join(ph['name'] for ph in spec['phases'])}")
+    if a.dry_run or not (BOARD and IP):
+        for ph in phases:
+            rel = spec["geniex"][ph["geniex"]]
+            gate = f", only steps readable in phase {ph['gate']}" if ph.get("gate") else ""
+            print(f"phase {ph['name']}: GenieX {ph['geniex']} ({rel['dir']}, data {rel['data']}), "
+                  f"results {os.path.join(RUNS, ph['name'])}{gate}")
+            for m, p in followup_steps(ph, models):
+                print(f"  {m['name']:20} {p:10} tasks: {', '.join(ph['tasks'])}")
+        if not (BOARD and IP):
+            print("EAB_BOARD_SSH and EAB_BOARD_IP must be set to run.")
+        return
+    board = Board()
+
+    def on_signal(signum, _frame):
+        raise KeyboardInterrupt(f"signal {signum}")
+    signal.signal(signal.SIGTERM, on_signal)
+    log(f"follow-up start: phases {', '.join(ph['name'] for ph in phases)}")
+    board.probe_prod()
+    try:
+        run_followup(board, spec, models, phases, a.keep)
+        log("follow-up complete")
+    except KeyboardInterrupt as e:
+        log(f"interrupted: {e}")
+    finally:
+        board.stop_servers()
         board.prod_restore()
         log("board left with production restored")
 
