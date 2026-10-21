@@ -1,0 +1,952 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+\graphicspath{{figures/}}
+% Long identifiers in \texttt cannot hyphenate; let TeX stretch lines instead of overflowing.
+\setlength{\emergencystretch}{3em}
+% Wide tables are scaled to the text width.
+\newsavebox{\widetabbox}
+\newenvironment{widetab}{\begin{lrbox}{\widetabbox}}{\end{lrbox}\resizebox{\linewidth}{!}{\usebox{\widetabbox}}}
+
+% Stacked table headers, scientific notation, tool names.
+\newcommand{\hd}[1]{\begin{tabular}[b]{@{}c@{}}#1\end{tabular}}
+\newcommand{\sci}[2]{\ensuremath{#1\times10^{#2}}}
+\newcommand{\tool}[1]{\texttt{#1}}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\hypersetup{
+  pdftitle={Tool calling through the deployed server on a Qualcomm QCS9075},
+  pdfauthor={Krish}
+}
+
+\title{Tool calling through the deployed server on a Qualcomm QCS9075:\\
+13 small models on three serving paths}
+\author{Krish}
+% TODO(Krish): affiliation and contact
+\date{October 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Can a small model, served through the vendor's on-device stack, drive a tool-calling agent? Thirteen catalog models ran on a Qualcomm QCS9075 through GenieX v0.8.0 on up to three paths: one llama.cpp model file (GGUF) on the CPU and the NPU, and compiled NPU bundles. The 24 configurations that loaded each answered 390 single-turn requests offering four tools, graded on the deployed server's structured call. The serving stack, not the model, decided 14 of 33 planned steps: nine models did not load on the llama.cpp NPU path, two GGUF templates and a compiled prompt builder dropped the tools, and one model's calls came back as text. Three models reach 89.2 to 92.7\% on the CPU at about 50\,s per turn and cannot be ordered. The best NPU configuration, compiled Qwen3-4B-Instruct-2507, scores 80.0\% (95\% CI 75.0 to 84.6) at 6.71\,s per turn, 11.0 percentage points (pp) below its CPU run for a turn 7.9 times shorter. No request reused a prompt prefix; a model of prefix reuse, not a measurement, cuts that speed-up to 1.22 to 1.51. The same GGUF on the NPU scored Qwen3-1.7B within 0.4\,pp of the CPU, while compiled bundles scored significantly below the CPU GGUF for three of five Qwen3 models; for compiled Qwen3-1.7B and Qwen3-8B most failures are text tool calls one closing brace short. Rephrasing cost the 11 configurations with at least 50\% on canonical requests 15.7\,pp on average, and temperature 0 did not give repeatable replies on the llama.cpp paths.
+\end{abstract}
+
+% ======================================================================
+\section{Introduction}\label{sec:intro}
+
+This paper asks whether a small model, served on the device through the vendor's serving stack, can make the structured tool calls an agent needs, and what each serving path costs in accuracy and in seconds per turn. The established tool-calling benchmarks, of which BFCL is the most widely used, run models through vendor APIs or on GPU servers, and for local models their own harness renders the prompt and parses the reply \citep{bfcl2025,bfclLeaderboard}. The closest on-device LLM benchmarks, Pipette and the Artificial Analysis mobile set, measure speed on the device but take quality from runs elsewhere, and neither includes an NPU path \citep{pipette,aaMobile}. On a device, the server between the agent and the model is part of what is deployed. It renders the messages and tools into one prompt through the model's chat template, and its tool-call parser turns the model's text into the structured \texttt{tool\_calls} field of the response, which is all an agent reads. Each link can fail on its own: a server can drop the tools while rendering the prompt, or fail to recognise a correct call, and a benchmark that renders prompts and parses replies itself sees neither failure. The benchmark described here therefore grades the structured field returned by the deployed server, on the device, on each serving path the server offers. Two of the failures reported in \cref{sec:stack} could not appear in a harness that renders the prompt and parses the reply itself.
+
+All measurements were taken on one Qualcomm Dragonwing IQ-9075 EVK \citep{qcomIQ9075brief} (QCS9075, Qualcomm Linux 1.6, fan cooled) through GenieX v0.8.0 \citep{geniex2026} (QAIRT 2.45, llama.cpp 9425611), Qualcomm's public OpenAI-compatible model server, on three serving paths with a 4,096-token context. The 13 models come from Qualcomm AI Hub release 0.64.0 \citep{aihubmodels}. The campaign ran from 2026-10-14 to 2026-10-17, for 62.69 board hours of serving. Requests are single-turn, offer four tools, carry about 2,700 prompt tokens where the tools were delivered, ask for temperature 0 and switch reasoning off. Every figure in this paper carries this scope unless the text narrows it.
+
+On this board and server, the most accurate tool calling ran on the CPU, at about 50\,s per agent turn; every NPU configuration whose score could be read took 3.01 to 9.74\,s per turn, at a cost in accuracy; and before any model could be compared, the serving stack decided 14 of the 33 planned model-path steps. Two checks would have caught every unreadable configuration in this campaign before any model comparison: the server-reported prompt token count with and without the tools, and the share of replies that carry a structured call.
+
+The paper makes four contributions.
+\begin{enumerate}
+\item An open harness that grades the structured call returned by the deployed server and separates stack failures from model failures through an explicit readability rule (\cref{sec:readable}).
+\item Evidence that the serving stack decided 14 of 33 planned model-path steps on one server release, with the public record of each behaviour (\cref{sec:stack}).
+\item A path comparison that separates moving a GGUF to the NPU from compiling a bundle (\cref{sec:path}).
+\item A decomposition of agent turn time into reading the prompt and writing the answer (\cref{sec:time}).
+\end{enumerate}
+The failure modes met along the way are also stated as automatic checks that the harness can run against another deployment (\cref{sec:checks}).
+
+The wording separates four kinds of statement. ``Measured'' marks a direct observation, ``suggests'' or ``is consistent with'' an inference from measurements, ``a hypothesis'' a mechanism that was not verified, and ``a model, not a measurement'' the one analysis that computes what would happen under conditions that were not run. Intervals are 95\% unless stated otherwise, pp means percentage points, and every Holm-adjusted p value names the size of its family (\cref{tab:families}).
+
+% ======================================================================
+\section{Background and related work}\label{sec:background}
+
+\subsection{How a tool call travels}\label{sec:travel}
+
+The chat template that renders the prompt is a small program shipped with the model, and the engine that runs the model differs by serving path. \Cref{tab:route} lists the stages of one request, from the agent's messages to the structured field, and the four points at which the campaign observed failures.
+
+\begin{table}[tbp]
+\centering
+\caption{One request from the agent to the structured tool call, with the four points at which the campaign observed failures and the sections that give the evidence.}
+\label{tab:route}
+\small
+\begin{tabularx}{\linewidth}{@{}Lll@{}}
+\toprule
+Stage & Failure observed & Evidence \\
+\midrule
+The chat template renders one prompt from the messages and four tool definitions & tools dropped & \cref{sec:tools} \\
+The engine runs the model: llama.cpp on the CPU or Hexagon, or a QAIRT bundle & model does not load & \cref{sec:load} \\
+The model writes the call as text in its own format & malformed call text & \cref{sec:brace} \\
+The server's tool-call parser fills the structured \texttt{tool\_calls} field & call format not parsed & \cref{sec:textcalls} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Prefill, decode and prompt length}\label{sec:phases}
+
+A language model answers in two phases. Prefill reads the whole prompt at once, in parallel, and ends when the first output token is ready; its duration is the time to first token. Decode then writes the answer one token at a time, rereading the model's weights at each step, so it is usually limited by memory traffic rather than arithmetic. For Qwen3-4B-Instruct-2507 the time to first token rises from 3.50\,s at 261 prompt tokens to 52.20\,s at 2,795 on the CPU, against 0.37\,s to 3.00\,s compiled (\cref{fig:throughput}).
+
+The tool definitions are most of every agent prompt. Gemma-4-E4B-it's median canonical prompt is 2,821 tokens where the tools were rendered and 601 where they were not, while an answer runs to a few dozen tokens. Where prefill is slow, reading the prompt therefore dominates an agent turn, and writing the answer dominates a chat turn of about 100 tokens in and 300 out. Keeping the computed state of a prompt prefix that repeats across requests, called prefix caching, avoids re-reading it; \cref{sec:prefix} shows that no request reused a prefix.
+
+\subsection{Three serving paths and the Hexagon NPU}\label{sec:paths}
+
+CPU (llama.cpp) runs a GGUF file, the llama.cpp model format, on the CPU cores. NPU (llama.cpp) runs the same file through llama.cpp's Hexagon backend, which its upstream introduction calls experimental \citep{llamacppPR16547}, for the operations it supports; this is GenieX's default \texttt{npu} setting, which its documentation describes as pinned to the first tensor processor, HTP0. GenieX also offers a \texttt{hybrid} setting that schedules each operation between the NPU and the CPU, which its documentation calls the fast path on Snapdragon; it was not measured \citep{geniex2026}. NPU (compiled) runs a Qualcomm AI Hub bundle compiled ahead of time for QAIRT, Qualcomm's AI runtime. A bundle holds 2 to 5 context binaries, precompiled graphs with fixed shapes, here for a 4,096-token context. \Cref{tab:paths} summarises the three paths; in running text ``compiled'' alone means NPU (compiled). The board's GPU was not used, because GenieX's GPU path is publicly reported to fail on it under v0.8.0 \citep{geniexPR1538}.
+
+Q4\_0, the GGUF format of both llama.cpp paths, stores weights as 4-bit integers in small blocks that share one scale; W4A16, the bundle format, stores 4-bit weights and computes with 16-bit activations. The GGUFs were also quantised in different ways (\cref{tab:models}); the two Gemma 4 files, for instance, are Google's quantisation-aware-trained releases \citep{gemma4}. Comparisons between models on the llama.cpp paths therefore also compare quantisation recipes, and a GGUF against its compiled bundle also crosses Q4\_0 against W4A16 and the prompt rendering.
+
+The NPU of this chip is built from Hexagon tensor processors (HTP), which the CPU drives through FastRPC, a remote-call mechanism with shared-memory mappings. Before the llama.cpp backend can run a model on one, it must map the weights, the key-value cache and its compute buffers into the processor's address space; the load failures of \cref{sec:load} occur at that step. The public product documentation lists two tensor processors on this system on chip \citep{qcomIQ9brief,qcomDeviceDesc}, and each measured NPU configuration used one, so platform figures for the whole chip do not describe the compute any configuration used, and this paper quotes none.
+
+\begin{table}[tbp]
+\centering
+\caption{The three serving paths, all served by the same GenieX v0.8.0 binary with a 4,096-token context. Both NPU paths used one tensor processor: every compiled bundle's configuration file requests a single core, and the llama.cpp NPU server logged ``Using 1 device(s): HTP0''.}
+\label{tab:paths}
+\small
+\begin{tabularx}{\linewidth}{@{}lLLLr@{}}
+\toprule
+Path & Engine & Artifact and format & How the prompt is built & Models offered \\
+\midrule
+CPU (llama.cpp) & llama.cpp 9425611 inside GenieX & GGUF, Q4\_0 & the GGUF's chat template & 13 \\
+NPU (llama.cpp) & llama.cpp 9425611, Hexagon backend & the same GGUF, Q4\_0 & the GGUF's chat template & 13 \\
+NPU (compiled) & QAIRT 2.45 & AI Hub context-binary bundle, W4A16 & the bundle's Jinja template; for Gemma-4-E4B-it, the vision pipeline's prefix and suffix table & 7 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Related work}\label{sec:related}
+
+This section uses public sources accessed on 2026-10-18 and quotes no number from them, because every number in this paper traces to the campaign's generated tables; \cref{tab:related} compares the benchmarks descriptively.
+
+Tool-calling and agent benchmarks, among them BFCL \citep{bfcl2025,bfclLeaderboard}, tau-bench \citep{taubench} and tau2-bench \citep{tau2bench}, ToolBench \citep{toolbench}, API-Bank \citep{apibank}, the NexusRaven-V2 function-calling benchmark \citep{nexusraven}, ToolSandbox \citep{toolsandbox} and When2Call \citep{when2call}, score models through vendor APIs or on GPU servers. For local models BFCL's own harness, not a deployed server, produces the prompt and parses the reply \citep{bfclLeaderboard}, so a failure inside a deployed server's chat template or tool-call parser cannot appear in its scores. When2Call and BFCL include the abstention and irrelevance cases that the suite used here lacks (\cref{sec:limits}).
+
+The closest on-device LLM benchmarks measure speed on the device and take quality from elsewhere: Pipette from llama.cpp runs on reference GPU systems \citep{pipette,pipetteMethod} and the Artificial Analysis mobile set from one 4-bit build per model, with tool calls parsed by llama.cpp rather than by the server on the device \citep{aaMobile,aaMobileMethod}. The speed methodologies of llama-bench \citep{llamabench}, Artificial Analysis \citep{aaPerfMethod}, MLPerf Client \citep{mlperfClient}, MLPerf Inference for edge \citep{mlperfInference}, MLPerf Mobile \citep{mlperfMobile}, Geekbench AI \citep{geekbenchAI} and MobileAIBench \citep{mobileaibench} time engines, cloud APIs or vendor stacks without grading tool calls through the server an agent would call; the harness adopts their repeated measurement with standard deviations and readiness gates.
+
+Studies that compare NPUs with CPUs mostly report large gains in prefill and small gains in decode \citep{npuFast,snapdragonRAG}, and at least one finds the CPU faster on its setup \citep{npuNotFaster}. Together with \cref{sec:path,sec:time}, where the same NPU gave different results through two runtimes, these studies suggest that a statement about NPU speed needs its runtime named. Serving has changed tool-calling results for the same weights \citep{k2verifier,vllmKimi}, small models are reported fragile under 4-bit quantisation and output-format constraints \citep{smallModelsBigTasks,smallReasoningFC,beyondFluent}, and edge function-calling systems shorten the prompt because the tool definitions dominate latency \citep{tinyagent,octopusv2}. Coming from other models and hardware, these results corroborate the direction of the findings here, not their size. Nondeterminism at temperature 0 has been traced to serving numerics that depend on the batch \citep{nondeterminism,thinkingMachines}; grammar-constrained decoding \citep{guidedGeneration,xgrammar} would rule out the brace defect of \cref{sec:brace} if a server applied it to tool calls; and the clustered intervals and paired comparisons used here follow published practice for language-model evaluations \citep{errorBars}. The other NPU serving stacks for this chip family, the ExecuTorch Qualcomm backend \citep{executorch} and the ONNX Runtime QNN execution provider \citep{onnxQnn}, were not measured.
+
+\begin{table}[tbp]
+\centering
+\caption{Benchmarks compared on where the model runs, how a call is graded, whether the deployed server's template and parser are part of the grade, and whether an NPU path is included. The comparison is descriptive, from each benchmark's public documentation accessed 2026-10-18.}
+\label{tab:related}
+\footnotesize
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.3cm}LLL>{\raggedright\arraybackslash}p{1.7cm}@{}}
+\toprule
+Benchmark & Where the model runs & How a call is graded & Deployed server's template and parser in the loop & NPU path \\
+\midrule
+BFCL \citep{bfcl2025,bfclLeaderboard} & Vendor APIs; local open models on GPU servers & AST match and executable checks; for local models the harness formats the prompt and parses the output & No for local models; a datacenter API for API models & No \\
+tau-bench, tau2-bench \citep{taubench,tau2bench} & API models & Final database state against the goal; reliability over repeated trials & No & No \\
+ToolBench, API-Bank, NexusRaven-V2 \citep{toolbench,apibank,nexusraven} & API or GPU & Pass and win rates judged by a language model; call correctness; success rate & No & No \\
+ToolSandbox \citep{toolsandbox} & API or GPU & Milestones and minefields in stateful episodes & No & No \\
+When2Call \citep{when2call} & GPU & Choice between calling, asking and abstaining & No & No \\
+Artificial Analysis mobile set \citep{aaMobile,aaMobileMethod} & Quality on one 4-bit llama.cpp build per model, described as device-agnostic; speed on the device through Pipette & BFCL subset; native calls parsed by llama.cpp from the chat template & llama.cpp's, on the evaluation build rather than the device's server & No \\
+Pipette \citep{pipette,pipetteMethod} & Quality from llama.cpp runs on reference GPU systems; speed on the device & Quality benchmarks without tool calls & No & No, in its first release \\
+MLPerf Client \citep{mlperfClient} & Vendor stacks on PCs & Speed metrics with an accuracy threshold per model; version 2.0 agent scenarios timed end to end & Vendor stack; tool calls timed, not graded & Vendor paths on some PCs \\
+llama-bench \citep{llamabench} & The engine directly, synthetic tokens & Speed only & No & Depends on the build \\
+This benchmark & QCS9075 through GenieX v0.8.0, on the CPU, llama.cpp Hexagon and compiled W4A16 paths & The server's structured \texttt{tool\_calls} field; text calls fail and are parsed only as a diagnostic & Yes & Yes \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ======================================================================
+\section{Benchmark and setup}\label{sec:setup}
+
+\subsection{Task and suites}\label{sec:task}
+
+The agent operates a managed PoE switch. Every request carries one neutral system prompt, one user message and four tools, \tool{query\_device\_info}, \tool{configure\_device\_setting}, \tool{diagnose\_port\_issues} and \tool{search\_documentation}; every case expects one of the first two, so the other two act as distractors. The schema is nested: operations sit behind a \texttt{command\_name} argument of the two generic tools. The four-tool subset was set by the 4,096-token context of the compiled bundles, in which the full 12-tool schema would not fit beside an answer. A typical canonical request, ``@poesw1 put port 9 in vlan 100'' (``@poesw1'' is the suite's own device label), expects a call to \tool{configure\_device\_setting} with \texttt{device\_name} ``poesw1'', \texttt{command\_name} ``\texttt{configure\_access\_vlan}'' and parameters \texttt{port} ``1/9'' and \texttt{vlan\_id} 100.
+
+The canonical suite has 65 cases in four levels (20 queries, 15 requests to enable or disable something, 15 single-parameter and 15 multi-parameter changes), and the paraphrase suite rewrites each as a casual, a polite and a situational request with the base case's labels, 195 paraphrases in all. Every request is single-turn and requires exactly one call; the suites contain no abstention, irrelevance or multi-call cases.
+
+\subsection{Grading}\label{sec:grading}
+
+A repetition passes end to end when the first structured \texttt{tool\_calls} entry names the expected tool and command, the target device and every expected parameter with an equal value after lenient normalisation; extra parameters are ignored. Strict grading, which compares parameters exactly, lowers no score by more than 1.1\,pp (compiled Qwen3-4B, 14.6 against 13.5\%). A call written as text in the message body fails, because an agent reading the structured field receives nothing; text calls are parsed only for diagnostics.
+
+\subsection{Readable configurations and items}\label{sec:readable}
+
+A configuration is one model on one serving path, and a planned model-path step is a configuration the campaign set out to run. The serving stack decided a step when its outcome says nothing about the model: the model did not load, its prompts lacked the tools, or its calls came back as text. A configuration is readable when its prompts carried the tools, meaning a median server-reported prompt of at least 1,500 tokens in both suites, and it returned at least one structured call or held a text call in the model's own format in no more than half of its replies; 19 of the 24 measured configurations are readable. Unreadable configurations are reported with their as-served score and the reason, and are left out of ranks, rank intervals, the frontier and the functional pool.
+
+An item is one canonical case, scored as its pass fraction over three repetitions, or one paraphrase, scored by its single outcome. The pooled score is the mean over 260 equally weighted items, which gives the paraphrases three quarters of the weight. A base request is a canonical case together with its three paraphrases. The functional pool is the 11 readable configurations with canonical accuracy of at least 50\%, a threshold set after the campaign.
+
+\subsection{Models and serving paths}\label{sec:models}
+
+The models come from the vendor catalog rather than being chosen by hand. The 7 with a QCS9075 bundle in Qualcomm AI Hub release 0.64.0 run on all three paths, and the 6 that the catalog supports only as GGUF files run on the two llama.cpp paths, 33 planned steps in all. \Cref{tab:models} lists every artifact, and the server settings were the same on every path. Qwen3-4B and Qwen3-4B-Instruct-2507 are different checkpoints: Qwen3-4B, like Qwen3-8B, is a hybrid-reasoning model run with reasoning switched off, while Qwen3-4B-Instruct-2507 is a later instruction-only release \citep{qwen3cards}. The catalog lists Granite-4.0-H-Micro, a hybrid of attention and state-space layers \citep{granite4}, as Granite-4.0-Micro; models are named after their artifacts.
+
+\begin{table}[tbp]
+\centering
+\caption{Models, artifacts and load outcome on NPU (llama.cpp), one attempt per model, ordered by GGUF size. Imatrix marks a Q4\_0 file quantised with importance-matrix calibration, and QAT Google's quantisation-aware-trained Q4\_0 release \citep{gemma4}. A failure gives the buffer size in the server's mapping-failure line.}
+\label{tab:models}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\linewidth}{@{}lrLrl@{}}
+\toprule
+Model & \hd{GGUF,\\GiB} & Q4\_0 provenance & \hd{W4A16 bundle: parts,\\largest part, bytes} & NPU (llama.cpp) load \\
+\midrule
+Qwen3-0.6B & 0.400 & catalog, plain & 2, 437,653,504 & yes \\
+Qwen3.5-0.8B & 0.472 & catalog, imatrix & none & yes \\
+SmolLM2-1.7B-Instruct & 0.926 & community, imatrix & 3, 530,046,976 & yes \\
+Qwen3-1.7B & 0.984 & catalog, imatrix & 4, 622,592,000 & yes \\
+Qwen3.5-2B & 1.131 & catalog, imatrix & none & failed at 1,068,486,656 \\
+Granite-4.0-H-Micro & 1.733 & catalog, imatrix & none & failed at 1,069,719,552 \\
+Ministral-3-3B-Instruct-2512 & 1.906 & catalog, imatrix & none & failed at 998,354,944 \\
+Phi-4-mini-instruct & 2.171 & catalog, imatrix & none & failed at 1,068,093,440 \\
+Qwen3-4B-Instruct-2507 & 2.213 & catalog, imatrix & 4, 1,063,387,136 & failed at 603,983,872 \\
+Qwen3-4B & 2.213 & catalog, imatrix & 4, 1,063,755,776 & failed at 1,070,866,432 \\
+Gemma-4-E2B-it & 3.119 & Google QAT release & none & failed at 1,073,745,920 \\
+Qwen3-8B & 4.447 & self-quantised from BF16, no calibration & 5, 1,550,958,592 & timeout, nothing logged \\
+Gemma-4-E4B-it & 4.801 & Google QAT release & 4, 1,506,586,624 & failed at 1,065,730,048 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Requests, probes and conditioning}\label{sec:protocol}
+
+Timing is taken at the client from the streamed response, with the server's own timings kept as a cross-check, and \cref{tab:protocol} gives the protocol. The harness never sends byte-identical requests back to back, because during development GenieX v0.8.0 answered such a request with an empty reply, a behaviour publicly reported against v0.9.0 \citep{geniexIssue1554}.
+
+\begin{table}[tbp]
+\centering
+\caption{The protocol at a glance.}
+\label{tab:protocol}
+\small
+\begin{tabularx}{\linewidth}{@{}lL@{}}
+\toprule
+Element & Setting \\
+\midrule
+Server & GenieX v0.8.0 (QAIRT 2.45, llama.cpp 9425611) on every path, options \texttt{--nctx 4096 --keepalive 3600}; a fresh server per model and path (Qwen3-4B on the CPU resumed on a second instance with the same binary and options); NPU power mode at the server default, documented as burst but not logged; CPU at the default llama.cpp settings, untuned, without core pinning, governor not recorded \\
+Task & Managed PoE switch agent; neutral system prompt; four tools, two of them never expected; about 2,700 prompt tokens where the tools were delivered \\
+Suites & 65 canonical cases in four levels; 195 paraphrases (casual, polite, situational) with the base case's labels \\
+Grading & First structured tool call; tool, command, device and every expected parameter; lenient normalisation; text calls fail \\
+Request settings & temperature 0, \texttt{max\_tokens} 512, \texttt{enable\_thinking} false; one discarded warm-up; no byte-identical consecutive requests \\
+Repetitions & Canonical 3, paraphrase 1; 390 repetitions and 260 items per configuration \\
+Throughput probes & About 256 to 2,800 prompt tokens with 128 generated, and about 100 in and 300 out; 5 repetitions each, reported as mean and sample standard deviation; client and server timing \\
+Conditioning & Readiness gate below 55\,$^\circ$C and 30\% CPU busy before the warm-up and each repetition; thermal and load trace every 20\,s \\
+Statistics & Percentile and cluster bootstraps (10,000 resamples, seed 20261014); exact McNemar and sign tests with Holm within families (\cref{tab:families}); rank intervals; minimum detectable differences; Wilson intervals for the audit \\
+Provenance & Hashes of harness, suites, tool schema and system prompt; request configuration; answering server's version string; artifact SHA-256; OS and kernel, recorded in every result file \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Statistics}\label{sec:stats}
+
+Accuracy intervals are percentile bootstraps over items and, as a cluster bootstrap, over the 65 base requests, each with 10,000 resamples and seed 20261014. Paired comparisons use exact McNemar tests on each item's majority outcome, where a canonical case passes when it passes in at least two of its three repetitions, with Holm correction within the families of \cref{tab:families}. The McNemar p values treat the four items of a base request as independent, so they are somewhat optimistic for pooled and paraphrase comparisons. Every pooled difference called significant in the path comparison (\cref{tab:pathdiff}), among neighbouring CPU ranks and between Qwen3-8B and the 4B models on the CPU also has a paired base-request interval that excludes zero; the frontier steps of \cref{sec:tradeoff} have none.
+
+Rank intervals come from a joint cluster bootstrap that scores every readable configuration on the same resample of base requests. Where a difference is read as small or absent, the minimum detectable paired difference at 80\% power is given, at $\alpha$ 0.05 and at the strictest Holm threshold of the pair's family. The paraphrase gap is tested per base request with an exact sign test. A percentile bootstrap gives a zero-width interval when every item passes or every item fails, and such an interval does not express certainty.
+
+\subsection{Pre-specified and post hoc analyses}\label{sec:prespec}
+
+The protocol declared before the campaign (the methodology document and the analysis code as of 2026-10-14) set the item bootstrap, the McNemar tests with Holm correction, the per-style accuracy and the latency summaries. The rule that prompts must carry the tools was added on 2026-10-16, after the four configurations it excludes had run. The rule for calls returned as text, the functional pool, the cluster bootstrap, the sign test over base requests, the per-style tests, rank intervals, minimum detectable differences, the weighting check and four post hoc readings (brace repair, command renaming, the semantic rule set and the alternative paraphrase labels) were added after the campaign; every excluded configuration scores 0.0\% as served, so no other rank changes. The post hoc readings were defined after the outputs had been seen and are marked as such wherever they appear. Each is a diagnostic; the as-served score is always the result.
+
+% ======================================================================
+\section{What the serving stack decided}\label{sec:stack}
+
+\Cref{fig:coverage} shows which model-path steps could be evaluated at all. Six of the 39 model-path cells are not offered, because six models have no compiled bundle. The rest form nested sets: 33 planned steps; 24 measured configurations, the other 9 having failed to load; 20 whose prompts carried the tools; 19 readable, once Ministral-3-3B-Instruct-2512, whose calls came back as text, is set aside; and the functional pool of 11. The stack therefore decided 14 of the 33 steps, 9 load failures and 5 unreadable configurations. The readable configurations number 10 of 13 on the CPU, 3 of the 4 that loaded on NPU (llama.cpp) and 6 of 7 on NPU (compiled). The count is a property of GenieX v0.8.0, and a model's result on one path did not predict whether another would serve it: Gemma-4-E4B-it leads on the CPU and scores 0.0\% compiled.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{coverage}
+\caption{What the serving stack let through under GenieX v0.8.0. Readable cells give pooled accuracy over 260 items; other cells give the reason the score cannot be read, the load failure, or that no bundle is offered. Rows are ordered by GGUF size, and the dashed line marks 1\,GiB, between Qwen3-1.7B (0.98\,GiB) and Qwen3.5-2B (1.13\,GiB).}
+\label{fig:coverage}
+\end{figure}
+
+\subsection{Loading on NPU (llama.cpp)}\label{sec:load}
+
+Four of the 13 GGUFs loaded on NPU (llama.cpp), Qwen3-1.7B and smaller (\cref{tab:models}), while the CPU path loaded all of them; the largest that loaded was 1,056,782,912 bytes and the smallest that failed 1,214,873,856 bytes. Eight failures returned HTTP 500 after the server logged ``HTP0 buffer mapping failed'' and ``fastrpc\_mmap failed'', six of them on buffers within 8\,MiB of 1\,GiB. Qwen3-8B logged nothing and did not answer within the 900\,s load check, so whether it would have loaded given more time is not known. Qwen3-4B-Instruct-2507 failed on a buffer the size of its 16-bit key-value cache plus 4,096 bytes. In separate tests all five backend settings tried also failed, among them a request for both tensor processors, which still used one, and two smaller mapping-buffer sizes, which only moved the failure to smaller buffers.
+
+The records do not settle the mechanism, and four public explanations remain hypotheses. The backend's default maximum buffer size, 1\,GiB in its source at the bundled revision \citep{llamacpp}, would predict failures near 1\,GiB. Alignment of I/O virtual address ranges, under which a mapping slightly larger than a power of two needs a range aligned to the next one, is described on this board for the backend's memory probe in ggml-org/llama.cpp PR 30534, open at the time of writing \citep{llamacppPR30534}. A cumulative mapping budget per NPU session, which the backend documentation at the same revision describes \citep{llamacpp}, would also fit the failures at smaller buffers. Finally, the compute buffer grows with the micro-batch, the number of prompt tokens processed in one step: qualcomm/GenieX issue 1531 ties a mapping failure of the size seen here for Gemma-4-E2B-it, reported for the Gemma-4-E4B GGUF on another Snapdragon device, to the micro-batch size \citep{geniexIssue1531}, and qualcomm/GenieX PR 1503, which appeared in the pre-release v0.8.1-rc.4 on 2026-10-14, sets a smaller micro-batch and buffer size on this board family \citep{geniexPR1503}. The workaround tests did not try those settings.
+
+Under GenieX v0.8.0 defaults on this board, then, the llama.cpp NPU path served only Q4\_0 files of at most about 1\,GiB; larger models reached the NPU only as compiled bundles, which the catalog offers for 7 of the 13 models and which all loaded. An unpublished first version of this benchmark ran Qwen3-4B-Instruct-2507 on this path under GenieX 0.5.1-alpha.2 (\cref{app:v1}), which suggests the boundary is not a fixed limit of the NPU; whether larger GGUFs load under a later release was not tested.
+
+\subsection{Tools that never reached the model}\label{sec:tools}
+
+Four configurations had median canonical prompts of 486 to 621 tokens, against 2,710 to 3,248 where the tools arrived, and the readability criterion of 1,500 tokens sits in the gap (\cref{tab:unreadable}). The chat templates account for each. SmolLM2's GGUF template has no tools section, and the server adds none on the llama.cpp paths; Phi-4-mini's template reads tools only from a field on the system message, which the server leaves empty. The compiled Gemma-4-E4B-it prompts have exactly the token count of a prompt built from the bundle's prefix and suffix table, which has no slot for tools, although the bundle's own Jinja template handles tools; that the server routes this bundle through its vision pipeline is read from the public v0.8.0 release, not from a log line. The SmolLM2 bundle did receive the tools despite a template without a tools section, so delivery depends on the runtime and the template together. Both kinds of drop are documented publicly \citep{llamacppIssue27129,geniexIssue1454}, and the change that addresses the vision path \citep{geniexPR1525}, like PR 1503, first appeared in the pre-release v0.8.1-rc.4 and was not measured \citep{geniex2026}.
+
+The tools-in-prompt diagnostic writes the four tool definitions into the system prompt and runs the canonical suite three times. With the tools visible, Phi-4-mini-instruct passes 38 canonical cases that fail natively and fails none that pass natively, so the dropped tools hid real capability, while SmolLM2 reaches only 4.6\% and 2.1\%. The compiled Gemma-4-E4B-it stays at 0.0\% with a 2,952-token prompt, which suggests a further defect on that path.
+
+Calibration on two configurations that received the tools natively shows that the diagnostic is not a bound in either direction. Qwen3-1.7B on NPU (llama.cpp) scores 83.6\% under the diagnostic against 90.8\% natively, not a significant difference (p 0.125). Compiled Qwen3-4B-Instruct-2507 scores 76.9\% as recorded, below its native 90.8\% (p 0.049), but 100.0\% when a reply with one surplus closing brace is accepted (p 0.0312); these p values are unadjusted. A diagnostic score therefore shows whether a model can make the calls when it sees the tools, and no more.
+
+\begin{table}[tbp]
+\centering
+\caption{The five unreadable configurations and two contrasts. Prompt tokens are server-reported canonical medians, natively and with the tools written into the system prompt; the last two columns name each reading and give its score, and only the as-served scores are results.}
+\label{tab:unreadable}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{widetab}
+\begin{tabular}{@{}llrr>{\raggedright\arraybackslash}p{4.6cm}lr@{}}
+\toprule
+Model & Path & \hd{Prompt\\tokens} & \hd{Tools in\\prompt} & Cause read from the artifacts & Reading & Score, \% \\
+\midrule
+Phi-4-mini-instruct & CPU (llama.cpp) & 486 & 2,679 & template reads tools only from an empty system-message field & \hd{tools in prompt,\\canonical} & 58.5 (48.7--67.7) \\
+SmolLM2-1.7B-Instruct & CPU (llama.cpp) & 621 & 3,059 & template has no tools section & \hd{tools in prompt,\\canonical} & 4.6 (1.5--8.2) \\
+SmolLM2-1.7B-Instruct & NPU (llama.cpp) & 621 & 3,059 & template has no tools section & \hd{tools in prompt,\\canonical} & 2.1 (0.0--4.6) \\
+Gemma-4-E4B-it & NPU (compiled) & 601 & 2,952 & vision prefix and suffix table has no tools slot & \hd{tools in prompt,\\canonical} & 0.0 (0.0--0.0) \\
+Ministral-3-3B-Instruct-2512 & CPU (llama.cpp) & 2,744 & n/a & calls returned as text & intent, pooled & 91.5 (88.1--94.7) \\
+\midrule
+Gemma-4-E4B-it (contrast) & CPU (llama.cpp) & 2,821 & n/a & template renders the tools & as served & 92.7 \\
+SmolLM2-1.7B-Instruct (contrast) & NPU (compiled) & 3,248 & n/a & server added the tools & as served & 0.4 \\
+\bottomrule
+\end{tabular}
+\end{widetab}
+\end{table}
+
+\subsection{Calls returned as text}\label{sec:textcalls}
+
+Ministral-3-3B-Instruct-2512 on the CPU returned no structured call in 390 replies; all 390 begin with the \texttt{[TOOL\_CALLS]name[ARGS]} form its GGUF template writes, and 389 parse in full. Graded from the text, its intent is 91.5\% (88.1 to 94.7) pooled, 96.9\% on canonical cases and 89.7\% on paraphrases. This is a diagnostic reading, so the configuration is not ranked. GenieX v0.8.0's public source has no parser pattern for this form \citep{geniexSource}, whereas llama.cpp has parsed it since ggml-org/llama.cpp PR 17713 \citep{llamacppPR17713}; that difference was read from public sources and not tested on the board. \Cref{tab:public} maps each observed behaviour to its public record by repository and number; the Qwen3-8B load timeout was not found in public reports.
+
+% ======================================================================
+\section{Accuracy of the readable configurations}\label{sec:accuracy}
+
+\Cref{fig:accuracy} and \cref{tab:ranking} give the pooled accuracy of the 19 readable configurations; the five unreadable configurations of \cref{sec:stack} are not ranked, and \cref{tab:all} in \cref{app:accuracy} gives all 24 measured configurations with suite intervals.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{accuracy}
+\caption{Pooled end-to-end accuracy of the 19 readable configurations over 260 equally weighted items, with 95\% percentile bootstrap intervals over items.}
+\label{fig:accuracy}
+\end{figure}
+
+\begin{table}[tbp]
+\centering
+\caption{The 19 readable configurations by pooled accuracy, with 95\% item intervals and 95\% rank intervals from a joint cluster bootstrap. The median turn is over the 65 canonical cases, without prefix reuse; seconds per correct action is the median turn divided by accuracy, a ratio, not an observed time (\cref{sec:tradeoff}). The sources are the generated tables \emph{Accuracy by configuration}, \emph{Rank uncertainty} and \emph{Accuracy against turn time, and seconds per correct action}.}
+\label{tab:ranking}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{widetab}
+\begin{tabular}{@{}rllrrrrrcc@{}}
+\toprule
+Rank & Model & Path & \hd{End to end,\\\% (item CI)} & \hd{Canonical,\\\%} & \hd{Paraphrase,\\\%} & \hd{Median\\turn, s} & \hd{Seconds per\\correct action} & \hd{On\\frontier} & \hd{Rank\\interval} \\
+\midrule
+1 & Gemma-4-E4B-it & CPU (llama.cpp) & 92.7 (89.5--95.5) & 96.9 & 91.3 & 49.73 & 53.65 & yes & [1, 2] \\
+2 & Qwen3-4B-Instruct-2507 & CPU (llama.cpp) & 91.0 (87.4--94.2) & 97.9 & 88.7 & 52.93 & 58.15 & no & [1, 3] \\
+3 & Qwen3-4B & CPU (llama.cpp) & 89.2 (85.4--92.7) & 96.9 & 86.7 & 53.03 & 59.43 & no & [2, 4] \\
+4 & Granite-4.0-H-Micro & CPU (llama.cpp) & 84.2 (79.7--88.5) & 95.4 & 80.5 & 35.16 & 41.74 & yes & [3, 5] \\
+5 & Qwen3-4B-Instruct-2507 & NPU (compiled) & 80.0 (75.0--84.6) & 90.8 & 76.4 & 6.71 & 8.39 & yes & [4, 7] \\
+6 & Qwen3-8B & CPU (llama.cpp) & 78.2 (73.1--83.1) & 95.9 & 72.3 & 78.51 & 100.39 & no & [5, 7] \\
+7 & Qwen3-8B & NPU (compiled) & 77.7 (72.7--82.7) & 84.6 & 75.4 & 9.74 & 12.53 & no & [4, 7] \\
+8 & Qwen3-1.7B & CPU (llama.cpp) & 68.5 (62.7--74.1) & 90.8 & 61.0 & 22.34 & 32.63 & no & [8, 9] \\
+9 & Qwen3-1.7B & NPU (llama.cpp) & 68.1 (62.3--73.7) & 90.8 & 60.5 & 5.25 & 7.71 & yes & [8, 9] \\
+10 & Qwen3.5-2B & CPU (llama.cpp) & 54.7 (49.0--60.4) & 68.2 & 50.3 & 20.99 & 38.34 & no & [10, 11] \\
+11 & Gemma-4-E2B-it & CPU (llama.cpp) & 46.4 (40.4--52.4) & 51.8 & 44.6 & 28.27 & 60.90 & no & [10, 11] \\
+12 & Qwen3.5-0.8B & CPU (llama.cpp) & 26.2 (21.3--31.0) & 38.5 & 22.1 & 11.08 & 42.35 & no & [12, 12] \\
+13 & Qwen3.5-0.8B & NPU (llama.cpp) & 19.7 (15.5--24.4) & 31.3 & 15.9 & 5.21 & 26.37 & yes & [13, 15] \\
+14 & Qwen3-1.7B & NPU (compiled) & 16.5 (12.3--21.2) & 27.7 & 12.8 & 4.11 & 24.84 & yes & [13, 15] \\
+15 & Qwen3-4B & NPU (compiled) & 14.6 (10.4--19.2) & 23.1 & 11.8 & 6.37 & 43.61 & no & [13, 15] \\
+16 & Qwen3-0.6B & NPU (compiled) & 1.9 (0.4--3.8) & 4.6 & 1.0 & 3.01 & 156.68 & yes & [16, 19] \\
+17 & Qwen3-0.6B & CPU (llama.cpp) & 1.2 (0.0--2.7) & 0.0 & 1.5 & 12.47 & 1,081.11 & no & [16, 19] \\
+18 & Qwen3-0.6B & NPU (llama.cpp) & 0.6 (0.0--1.7) & 1.0 & 0.5 & 3.26 & 508.98 & no & [16, 19] \\
+19 & SmolLM2-1.7B-Instruct & NPU (compiled) & 0.4 (0.0--1.2) & 1.5 & 0.0 & 6.36 & 1,652.65 & no & [16, 19] \\
+\bottomrule
+\end{tabular}
+\end{widetab}
+\end{table}
+
+\subsection{The leaders}\label{sec:leaders}
+
+Gemma-4-E4B-it, Qwen3-4B-Instruct-2507 and Qwen3-4B lead, all on the CPU. Their neighbouring differences, $+1.7$ and $+1.8$\,pp (Holm p 1.00 each, family of 105), are far below what this suite can detect with 80\% power: 6.0 and 5.8\,pp at $\alpha$ 0.05, and 9.3 and 9.0\,pp at $\alpha$ 0.05/105, the strictest Holm threshold. The joint cluster bootstrap gives the three a probability of ranking first of 78.3, 21.7 and 1.9\%, a tie counting for each tied configuration. These resample requests, not reruns: Gemma-4-E4B-it repeated its reply in 53 of 65 canonical cases and its paraphrases ran once, so a rerun could move the order by more than the intervals show. The order also compares quantisation recipes (\cref{tab:models}). Only the two Qwen3-4B models among the three had a readable NPU configuration, both compiled (80.0\% and 14.6\%), so the CPU's lead is partly a statement about which models the NPU paths could serve under GenieX v0.8.0.
+
+\subsection{The rest of the order}\label{sec:rest}
+
+Granite-4.0-H-Micro scores 84.2\% at 35.16\,s, not separable from Qwen3-4B, which leads it by 5.0\,pp ($-0.3$ to $+10.5$, Holm 1.00 in the family of 105). In the same family, four neighbouring steps further down the CPU ranking are significant, among them Qwen3-8B over Qwen3-1.7B (9.7\,pp, Holm 0.046), while Granite-4.0-H-Micro over Qwen3-8B and Qwen3.5-2B over Gemma-4-E2B-it are not (Holm 0.56 each). On the NPU paths, compiled Qwen3-4B-Instruct-2507 and compiled Qwen3-8B share the NPU-only rank interval [1, 2], with probabilities of ranking first among NPU configurations of 74.8 and 28.8\%.
+
+\subsection{Model size}\label{sec:size}
+
+On the CPU, Qwen3-8B scores 78.2\%, 11.0\,pp below Qwen3-4B ($-16.4$ to $-5.8$, Holm 0.0026) and 12.8\,pp below Qwen3-4B-Instruct-2507 ($-17.9$ to $-7.9$, Holm below 0.001; family of 105). The gap comes from the paraphrases ($-14.4$ and $-16.4$\,pp, Holm 0.0056 and below 0.001, family of 210); on canonical requests it is $-1.0$ and $-2.1$\,pp and not detectable (Holm 1.00). In the format funnel (\cref{tab:funnel}), 99.9\% of the 8B's items carry a structured call but only 82.4\% name an offered tool, and in 48 of its 390 replies, 44 of them paraphrases, it calls a command name as if it were the tool.
+
+Two confounds come with the size result. The 8B GGUF was self-quantised without the importance-matrix calibration of both 4B files, and Qwen3-4B-Instruct-2507 is an instruction-only release, whereas Qwen3-8B and Qwen3-4B are hybrid-reasoning models run with reasoning off \citep{qwen3cards}. The error belongs to the artifact rather than the model: the compiled Qwen3-8B calls a command name as the tool in 0.8\% of items, against 17.4\% for this GGUF, so the size result describes these artifacts on this suite, not model size in general. On the compiled path, Qwen3-8B is slower than Qwen3-4B-Instruct-2507 and cannot be separated from it: 77.7 against 80.0\%, a difference of 2.3\,pp (Holm 1.00, family of 105) against a minimum detectable difference of 9.0\,pp at $\alpha$ 0.05.
+
+\subsection{Where configurations lose items}\label{sec:funnel}
+
+In \cref{tab:funnel}, configurations with similar scores lose items at different stages: Qwen3-8B on the CPU and Gemma-4-E2B-it at the function name, compiled Qwen3-8B before a structured call exists, Qwen3.5-0.8B on the CPU at routing, and compiled Qwen3-4B at every stage.
+
+\begin{table}[tbp]
+\centering
+\caption{Format funnel for selected configurations, item-weighted over 260 items. Each column is the share of items that reach that stage.}
+\label{tab:funnel}
+\small
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Model & Path & \hd{Structured\\call, \%} & \hd{Offered\\tool, \%} & \hd{Right\\tool, \%} & \hd{End to\\end, \%} \\
+\midrule
+Gemma-4-E4B-it & CPU (llama.cpp) & 98.7 & 98.7 & 94.1 & 92.7 \\
+Qwen3-4B-Instruct-2507 & CPU (llama.cpp) & 99.2 & 99.2 & 95.8 & 91.0 \\
+Qwen3-8B & CPU (llama.cpp) & 99.9 & 82.4 & 80.1 & 78.2 \\
+Qwen3-4B-Instruct-2507 & NPU (compiled) & 97.3 & 92.7 & 88.8 & 80.0 \\
+Qwen3-8B & NPU (compiled) & 87.3 & 86.5 & 80.0 & 77.7 \\
+Gemma-4-E2B-it & CPU (llama.cpp) & 100.0 & 56.7 & 53.2 & 46.4 \\
+Qwen3.5-0.8B & CPU (llama.cpp) & 97.8 & 96.4 & 46.2 & 26.2 \\
+Qwen3-1.7B & NPU (compiled) & 55.8 & 43.5 & 30.8 & 16.5 \\
+Qwen3-4B & NPU (compiled) & 78.8 & 66.5 & 39.6 & 14.6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Sensitivity of the ranking}\label{sec:sensitivity}
+
+The canonical suite saturates for the strongest models (95.4 to 97.9\% for the top five CPU configurations), so the paraphrases carry most of the discrimination. Re-weighting the suites changes the order only slightly (Kendall's $\tau_b$ 0.979, 0.894 and 0.977 against the headline ranking for equal suite weights, canonical cases only and paraphrases only), although canonical-only scoring puts Qwen3-4B-Instruct-2507 first. The ranking is not stable under grading convention: under the post hoc semantic reading Qwen3-8B on the CPU scores 95.3\%, above both 4B models (93.1 and 91.4\%), and Gemma-4-E2B-it 89.9\%.
+
+% ======================================================================
+\section{What the serving path does to the same model}\label{sec:path}
+
+Moving a GGUF from the CPU to NPU (llama.cpp) keeps the file, the server and the prompt and changes only the compute backend, whose operator placement was not logged, so the share of computation on the NPU is not known. Moving to a compiled bundle changes the weights format, the runtime and the prompt rendering together.
+
+\subsection{The same GGUF on the CPU and on NPU (llama.cpp)}\label{sec:samegguf}
+
+Qwen3-1.7B scores 68.5\% on the CPU and 68.1\% on NPU (llama.cpp), a paired difference of $-0.4$\,pp ($-2.7$ to $+1.9$, Holm p 1.00, family of 14), below the 3.6\,pp this pair could detect. Its replies are as alike across the two paths as within either one: 365 of 390 (93.6\%) are identical across paths, and on canonical cases 96.9\% of reply pairs are identical both across and within paths. For Qwen3.5-0.8B the difference is $-6.4$\,pp ($-11.9$ to $-0.8$; raw p 0.0099, Holm 0.089), a loss not established after correction, and its canonical accuracy spans 7.7\,pp across repetitions on the CPU and 9.2\,pp on NPU (llama.cpp), about as much as the difference. Qwen3-0.6B is at the floor on both paths and larger GGUFs did not load, so the inference that moving the computation alone did not change capability rests on one informative model and one borderline one.
+
+\subsection{The compiled bundle against the CPU GGUF}\label{sec:compiled}
+
+\Cref{tab:pathdiff} gives the paired differences; no model scores significantly higher as a compiled bundle. Compiled bundles score significantly lower than the CPU GGUF for three of the five Qwen3 models, by 11.0 to 74.6\,pp, and no difference was detected for Qwen3-8B ($-0.5$\,pp) or for Qwen3-0.6B, at the floor. For Qwen3-4B-Instruct-2507 the pooled gap is significant, but at suite level only the paraphrase gap is ($-12.3$\,pp, Holm 0.0078, family of 28, against $-7.2$\,pp and Holm 1.00 on canonical cases).
+
+The comparison crosses the weights format, the runtime, the prompt rendering (the bundle's Jinja template gives prompts one token longer at the median), the provenance of the file and the decoding actually applied. Every request asked for temperature 0, but the server does not record the sampler it used, and each bundle's configuration file declares a sampled default with a fixed seed. No difference is assigned to any one of these.
+
+\begin{table}[tbp]
+\centering
+\caption{Paired differences, NPU path minus CPU in pp, with paired item and base-request intervals, for the eight readable pooled pairs and the suite-level rows of Qwen3-4B-Instruct-2507. Discordant items are those that pass on only one of the two paths (majority outcome). The pooled family of 14 holds six further comparisons, not shown.}
+\label{tab:pathdiff}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{widetab}
+\begin{tabular}{@{}lllrrrrrrl@{}}
+\toprule
+Model & NPU path & Scope & \hd{CPU,\\\%} & \hd{NPU\\path, \%} & \hd{Difference,\\pp} & \hd{Paired\\item CI} & \hd{Paired\\base-request CI} & \hd{Only CPU /\\only NPU} & \hd{Holm p\\(family)} \\
+\midrule
+Qwen3-0.6B & llama.cpp & pooled & 1.2 & 0.6 & $-0.5$ & $-2.2$ to $+1.0$ & $-2.2$ to $+1.0$ & 3 / 1 & 1.00 (14) \\
+Qwen3-0.6B & compiled & pooled & 1.2 & 1.9 & $+0.8$ & $-1.2$ to $+3.1$ & $-1.5$ to $+3.5$ & 3 / 5 & 1.00 (14) \\
+Qwen3-1.7B & llama.cpp & pooled & 68.5 & 68.1 & $-0.4$ & $-2.7$ to $+1.9$ & $-2.7$ to $+1.9$ & 6 / 5 & 1.00 (14) \\
+Qwen3-1.7B & compiled & pooled & 68.5 & 16.5 & $-51.9$ & $-58.5$ to $-45.4$ & $-59.7$ to $-44.2$ & 140 / 5 & \sci{2.5}{-34} (14) \\
+Qwen3-4B & compiled & pooled & 89.2 & 14.6 & $-74.6$ & $-80.0$ to $-69.2$ & $-80.4$ to $-68.5$ & 194 / 0 & \sci{1.0}{-57} (14) \\
+Qwen3-4B-Instruct-2507 & compiled & canonical & 97.9 & 90.8 & $-7.2$ & $-15.4$ to $+0.5$ & as item & 6 / 1 & 1.00 (28) \\
+Qwen3-4B-Instruct-2507 & compiled & paraphrase & 88.7 & 76.4 & $-12.3$ & $-18.5$ to $-6.2$ & $-19.5$ to $-5.6$ & 34 / 10 & 0.0078 (28) \\
+Qwen3-4B-Instruct-2507 & compiled & pooled & 91.0 & 80.0 & $-11.0$ & $-16.3$ to $-5.8$ & $-17.2$ to $-5.3$ & 40 / 11 & 0.00057 (14) \\
+Qwen3-8B & compiled & pooled & 78.2 & 77.7 & $-0.5$ & $-6.7$ to $+5.5$ & $-7.8$ to $+6.9$ & 35 / 34 & 1.00 (14) \\
+Qwen3.5-0.8B & llama.cpp & pooled & 26.2 & 19.7 & $-6.4$ & $-11.9$ to $-0.8$ & $-11.7$ to $-1.2$ & 41 / 20 & 0.089 (14) \\
+\bottomrule
+\end{tabular}
+\end{widetab}
+\end{table}
+
+\subsection{How the failures differ}\label{sec:failures}
+
+Over the 20 configurations whose prompts carried the tools, 4,015 of 7,800 repetitions fail. Taking each failure in the first category that applies, the largest categories are a wrong one of the four offered tools (807, 20.1\%), a command name called as the tool (719, 17.9\%), a text call with malformed JSON (625, 15.6\%) and a wrong command (534, 13.3\%). \Cref{fig:errors} shows that the compiled Qwen3-1.7B and Qwen3-8B bundles mostly fail before a structured call exists, while CPU configurations fail on what they call. The near-tie of Qwen3-8B between paths ($-0.5$\,pp) hides two patterns: all 30 of its failing canonical repetitions on the compiled path are malformed text calls, while on the CPU 44 of its 54 failing paraphrase repetitions call a command as the tool.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{errors}
+\caption{How each readable configuration fails: the share of its failing repetitions by category, each failure counted in the first category that applies in column order, with the number of failures out of 390 at the right. One column merges command names with other unoffered names (719 + 29 = 748 repetitions).}
+\label{fig:errors}
+\end{figure}
+
+\subsection{One closing brace}\label{sec:brace}
+
+Qwen3 models write a tool call in the tagged JSON format of the Hermes function-calling models, which the Qwen3 chat templates use: a JSON object with a name and nested arguments inside tool-call tags. Such a call written into the message text, with or without the tags, is a Hermes-form text call; 103 of the 623 counted below carry no tags. The following is a constructed illustration, not a recorded reply, built from the request in \cref{sec:task}.
+
+\begin{small}
+\begin{verbatim}
+<tool_call>{"name": "configure_device_setting",
+  "arguments": {"device_name": "poesw1",
+    "command_name": "configure_access_vlan",
+    "parameters": {"port": "1/9", "vlan_id": 100}}</tool_call>
+\end{verbatim}
+\end{small}
+
+Three objects open and two close, so the JSON does not parse, the server returns the text unchanged, and an agent receives no call. None of the 623 Qwen3 replies holding a Hermes-form call is valid JSON as written; one appended closing brace makes 610 (97.9\%) valid, and 616 (98.9\%) are one brace short once a repeated call is isolated. Of the 623, 458 come from compiled bundles, and 451 of those are one brace short. Qwen3-0.6B writes such calls on all three paths, Qwen3-1.7B only as a compiled bundle (\cref{tab:braces}).
+
+Text calls with invalid JSON are 60.1\% of the failures of compiled Qwen3-1.7B and 67.9\% of those of compiled Qwen3-8B, but 25.5\% for compiled Qwen3-4B and 9.4\% (6 of 64) for compiled Qwen3-4B-Instruct-2507, so the defect explains most failures of two bundles and a minority of those of the other two. The miscount also runs the other way: in the tools-in-prompt diagnostic, compiled Qwen3-4B-Instruct-2507 writes one surplus closing brace in 45 of 195 replies, and Qwen3-1.7B on NPU (llama.cpp) in 3. What is measured is a miscount of closing braces, much more frequent on compiled bundles. Any cause among the model, the W4A16 numerics, the runtime and the server's decoding settings is a hypothesis that token-level logs would settle.
+
+\begin{table}[tbp]
+\centering
+\caption{Closing braces in Qwen3 text tool calls. Untagged replies carry the JSON without tool-call tags; brace balance is closing minus opening braces, with the count of replies at each balance.}
+\label{tab:braces}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{widetab}
+\begin{tabular}{@{}lrrrrrl@{}}
+\toprule
+Configuration & \hd{Hermes-form\\replies} & Untagged & \hd{Valid as\\written} & \hd{Valid after\\one \texttt{\}}} & Other & Brace balance (replies) \\
+\midrule
+Qwen3-0.6B, CPU (llama.cpp) & 90 & 0 & 0 & 90 & 0 & $-1$: 90 \\
+Qwen3-0.6B, NPU (llama.cpp) & 74 & 0 & 0 & 74 & 0 & $-1$: 74 \\
+Qwen3-0.6B, NPU (compiled) & 130 & 63 & 0 & 130 & 0 & $-1$: 130 \\
+Qwen3-1.7B, NPU (compiled) & 187 & 0 & 0 & 182 & 5 & $-1$: 187 \\
+Qwen3-4B, NPU (compiled) & 82 & 34 & 0 & 76 & 6 & $-3$: 3, $-2$: 3, $-1$: 76 \\
+Qwen3-4B-Instruct-2507, NPU (compiled) & 6 & 6 & 0 & 6 & 0 & $-1$: 6 \\
+Qwen3-8B, CPU (llama.cpp) & 1 & 0 & 0 & 1 & 0 & $-1$: 1 \\
+Qwen3-8B, NPU (compiled) & 53 & 0 & 0 & 51 & 2 & $-1$: 51, 0: 2 \\
+\midrule
+Qwen3, five models, all paths & 623 & 103 & 0 & 610 & 13 & $-3$: 3, $-2$: 3, $-1$: 615, 0: 2 \\
+\bottomrule
+\end{tabular}
+\end{widetab}
+\end{table}
+
+\subsection{Post hoc readings}\label{sec:posthoc}
+
+The readings of this subsection and of \cref{tab:posthoc} were defined after the outputs had been seen. Brace repair accepts a text call that is valid JSON as written or after one appended brace, rename maps a function named after a documented command to that command's tool, and the semantic rules are the grader audit's rule set (\cref{sec:quality}). Brace repair lifts compiled Qwen3-1.7B from 16.5 to 51.5\% and compiled Qwen3-8B from 77.7 to 89.2\%, but the two compiled 4B bundles only to 18.1 and 80.8\%. Applied to both paths it corrects the compiled bundles' typical defect but not the CPU's, putting compiled Qwen3-8B 10.9\,pp ahead of its CPU run (89.2 against 78.3\%, $+6.2$ to $+15.8$, Holm p below 0.001, family of 5). A like-for-like reading therefore repairs both kinds of defect on both paths: with brace repair and renaming, the compiled bundle still trails the CPU for the four Qwen3 models above the floor, from $-5.0$\,pp for Qwen3-8B ($-8.1$ to $-2.3$) to $-63.8$\,pp for Qwen3-4B, compiled minus CPU. Compiled Qwen3-4B stays at or below 29.2\% under every reading, so its deficit is mainly not a format defect. A hypothesis is that this bundle does not honour the switch that turns reasoning off; it reaches the 512-token cap in 4 of its 390 requests, against none on the CPU.
+
+\subsection{Command names called as tools}\label{sec:cmdnames}
+
+A call whose function name is a documented command, such as \texttt{configure\_access\_vlan}, fails, because no such tool was offered. Pooled over the five Qwen3 models (1,300 model-items per path), the rate is about the same on both paths, 11.3\% (9.6 to 13.1) compiled against 10.3\% (8.7 to 12.0) on the CPU, but per model it differs significantly in both directions (Holm over 10 pairs): more often compiled for Qwen3-4B and Qwen3-4B-Instruct-2507, more often on the CPU for Qwen3-8B (17.4\% against 0.8\%). Gemma-4-E2B-it on the CPU has the highest rate, 43.3\% (37.2 to 49.4).
+
+% ======================================================================
+\section{Agent-turn time and the trade-off}\label{sec:time}
+
+\subsection{Where the time in an agent turn goes}\label{sec:turn}
+
+Reading the prompt takes a per-request median 87.6 to 93.7\% of the agent turn for the 11 CPU configurations whose prompts carried the tools, against 53.3 to 54.0\% on NPU (llama.cpp) and 41.5 to 48.0\% on compiled bundles (\cref{fig:turntime}). Paired by case, the median ratio of the CPU turn to the NPU turn runs from 2.14, for Qwen3.5-0.8B on NPU (llama.cpp), to 8.32, for compiled Qwen3-8B (\cref{tab:speed}). These ratios combine the rates with the answer lengths, which differ between paths for some models: Qwen3-4B writes a median 52 tokens on the CPU against 44 compiled on canonical requests, and 4 of its 390 compiled replies reach the 512-token cap.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{turn_time}
+\caption{Where an agent turn goes. Each bar is a configuration's median turn over the 65 canonical cases, split at its median per-request prefill share (solid); the light remainder is decode and request overhead. Every turn re-read the whole prompt, and configurations whose prompts lacked the tools are omitted.}
+\label{fig:turntime}
+\end{figure}
+
+At about 2,800 prompt tokens the time to first token is 3.3 to 7.1 times shorter on NPU (llama.cpp) than on the CPU and 8.3 to 18.0 times shorter on compiled bundles (\cref{tab:speed,fig:throughput}).
+
+Decode does not share the gain: at the chat shape the NPU decodes at 0.39 to 0.84 of the CPU's rate for models up to 1.7B. A chat turn of about 100 tokens in and 300 out therefore runs on the NPU paths at 0.42 to 0.88 times the CPU's speed for models up to 1.7B and 1.00 to 1.12 times for the compiled Qwen3 models from 4B to 8B (0.74 for the compiled Gemma-4-E4B-it). For Qwen3-1.7B the CPU is the fastest path for a chat turn, at 8.56\,s against 9.70\,s on NPU (llama.cpp) and 10.93\,s compiled. For the agent shape the NPU paths were faster for every model measured.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{throughput}
+\caption{Time to first token against prompt length for Qwen3-1.7B and Qwen3-4B-Instruct-2507 on each path, means of 5 repetitions, on a logarithmic vertical axis, so that the gap between two lines is the ratio of their times. Qwen3-4B-Instruct-2507 did not load on NPU (llama.cpp), and its longest CPU mean includes slower repetitions (sample standard deviation 2.60\,s, against 0.03\,s for Qwen3-1.7B).}
+\label{fig:throughput}
+\end{figure}
+
+\begin{table}[tbp]
+\centering
+\caption{Each NPU configuration against the same model on the CPU: agent-turn speed-up paired by case, and ratios of time to first token at about 2,800 prompt tokens, of chat turns and of chat decode rates; above 1 favours the NPU. Turn ratios are comparable only where both paths' prompts carried the tools; for SmolLM2-1.7B-Instruct the CPU prompts lacked them.}
+\label{tab:speed}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{widetab}
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Model & Path & \hd{Median s/turn\\(95\% CI)} & \hd{Per-case speed-up\\over the CPU,\\median (95\% CI)} & \hd{Time to first\\token, CPU/NPU} & \hd{Chat turn,\\CPU/NPU} & \hd{Chat decode\\rate, NPU/CPU} \\
+\midrule
+Qwen3-0.6B & NPU (llama.cpp) & 3.26 (3.19--3.42) & 3.83 (3.66--3.87) & 6.2 & 0.69 & 0.66 \\
+Qwen3-0.6B & NPU (compiled) & 3.01 (2.94--3.21) & 4.13 (3.94--4.24) & 8.3 & 0.58 & 0.55 \\
+Qwen3-1.7B & NPU (llama.cpp) & 5.25 (4.97--5.34) & 4.30 (4.22--4.44) & 7.1 & 0.88 & 0.84 \\
+Qwen3-1.7B & NPU (compiled) & 4.11 (3.80--4.19) & 5.48 (5.38--5.83) & 11.6 & 0.78 & 0.74 \\
+Qwen3-4B & NPU (compiled) & 6.37 (6.22--6.89) & 8.24 (7.76--8.48) & 16.9 & 1.00 & 0.93 \\
+Qwen3-4B-Instruct-2507 & NPU (compiled) & 6.71 (6.63--6.82) & 7.92 (7.84--8.02) & 17.4 & 1.06 & 0.99 \\
+Qwen3-8B & NPU (compiled) & 9.74 (9.14--10.00) & 8.32 (7.86--8.50) & 18.0 & 1.12 & 1.05 \\
+Gemma-4-E4B-it & NPU (compiled) & tools missing & not comparable & 8.9 & 0.74 & 0.70 \\
+SmolLM2-1.7B-Instruct & NPU (llama.cpp) & tools missing & not comparable & 6.2 & 0.82 & 0.77 \\
+SmolLM2-1.7B-Instruct & NPU (compiled) & 6.36 (6.08--7.16) & not comparable & 8.3 & 0.42 & 0.39 \\
+Qwen3.5-0.8B & NPU (llama.cpp) & 5.21 (4.99--5.26) & 2.14 (2.10--2.22) & 3.3 & 0.52 & 0.50 \\
+\bottomrule
+\end{tabular}
+\end{widetab}
+\end{table}
+
+\subsection{No prefix reuse}\label{sec:prefix}
+
+No request reused a cached prompt prefix: in all 9,360 graded, 1,170 diagnostic and 720 probe requests the server processed every prompt token and reported none cached. Whether GenieX reports reuse in these fields as llama.cpp does was not verified, but the timings agree with a full prefill. The CPU agent turn of Qwen3-4B-Instruct-2507 spends about 49\,s (52.93\,s at a 92.5\% prefill share) reading 2,714 tokens, close to the 52.20\,s the 2,795-token probe takes to its first token. The public GenieX v0.8.0 source suggests why, although this was not verified on the board: its session logic resets the model state for any request that does not continue the previous conversation \citep{geniexSource}, whereas llama.cpp's own server caches prompts by default \citep{llamacppServer}.
+
+A model of prefix reuse, not a measurement, keeps the measured decode and overhead and assumes that 50 to 100 suffix tokens are read anew. Under it, CPU turns fall to 1.18 to 8.90\,s and the NPU speed-up to 0.61 to 1.68, below 1 for Qwen3-0.6B and Qwen3.5-0.8B on every NPU path. The CPU leaders' turns would fall to 4.70 to 6.07\,s, and the ratio of median turns between Qwen3-4B-Instruct-2507 on the CPU and its compiled bundle from the measured 7.89 to 1.22 to 1.51. Reading a short suffix against a cached prefix was not measured, and whether either path can reuse a prefix under GenieX v0.8.0 is not known, so the measured ranking of paths holds only for requests without prefix reuse, and a deployment whose server reuses the prompt prefix should measure the paths again.
+
+Among configurations whose prompts carried the tools, the two with the widest spread of turn times, compiled Qwen3-4B (5.46 to 13.17\,s from the 5th to the 95th percentile) and compiled SmolLM2-1.7B-Instruct (4.76 to 27.07\,s), also have the most replies at the 512-token cap (4 and 19 of 390), consistent with long capped replies setting the tail.
+
+\subsection{The accuracy-versus-time trade-off}\label{sec:tradeoff}
+
+The Pareto frontier of \cref{fig:frontier} has seven of the 19 readable configurations, marked in \cref{tab:ranking}: five NPU configurations at 3.01 to 6.71\,s per turn, then Granite-4.0-H-Micro and Gemma-4-E4B-it on the CPU. \Cref{tab:frontier} tests each step; four of the six are significant at Holm 0.05 in the family of 6. The step from Qwen3.5-0.8B to Qwen3-1.7B on NPU (llama.cpp) gains 48.3\,pp for almost no extra time, and the step from there to the compiled Qwen3-4B-Instruct-2507 11.9\,pp for a turn 1.28 times as long. The last step, from Granite-4.0-H-Micro to Gemma-4-E4B-it, $+8.5$\,pp for a turn 1.41 times as long, is the only one that reaches above 85\%. It is significant by the item-level test (Holm p 0.0066, family of 6), which treats the four items of a base request as independent, and like every frontier step it has no base-request interval. The step from the compiled Qwen3-4B-Instruct-2507 to Granite-4.0-H-Micro, $+4.2$\,pp for a turn 5.24 times as long, is not significant.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{frontier}
+\caption{Pooled accuracy against median agent turn time, without prompt-prefix reuse, for the 19 readable configurations. For a given turn-time budget, the highest point to its left is the most accurate configuration within it. The staircase joins the configurations that no other beats on both measures; its dashed steps are not significant (\cref{tab:frontier}).}
+\label{fig:frontier}
+\end{figure}
+
+\begin{table}[tbp]
+\centering
+\caption{The six steps along the frontier, fastest first, tested with exact McNemar on the majority outcome of each shared item and Holm-adjusted over the six steps.}
+\label{tab:frontier}
+\footnotesize
+\begin{tabularx}{\linewidth}{@{}LLrrrrr@{}}
+\toprule
+Faster & Slower & \hd{Accuracy\\gain, pp} & \hd{Time\\ratio} & \hd{Only faster\\passes} & \hd{Only slower\\passes} & p (Holm) \\
+\midrule
+Qwen3-0.6B, NPU (compiled) & Qwen3-1.7B, NPU (compiled) & 14.6 & 1.36 & 0 & 38 & \sci{3.6}{-11} \\
+Qwen3-1.7B, NPU (compiled) & Qwen3.5-0.8B, NPU (llama.cpp) & 3.2 & 1.27 & 29 & 31 & 0.9 \\
+Qwen3.5-0.8B, NPU (llama.cpp) & Qwen3-1.7B, NPU (llama.cpp) & 48.3 & 1.01 & 15 & 147 & \sci{1.2}{-27} \\
+Qwen3-1.7B, NPU (llama.cpp) & Qwen3-4B-Instruct-2507, NPU (compiled) & 11.9 & 1.28 & 18 & 49 & 0.00078 \\
+Qwen3-4B-Instruct-2507, NPU (compiled) & Granite-4.0-H-Micro, CPU (llama.cpp) & 4.2 & 5.24 & 21 & 32 & 0.34 \\
+Granite-4.0-H-Micro, CPU (llama.cpp) & Gemma-4-E4B-it, CPU (llama.cpp) & 8.5 & 1.41 & 15 & 38 & 0.0066 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The main trade can be stated against two baselines. Against the same model on the CPU, the compiled Qwen3-4B-Instruct-2507 gives up 11.0\,pp (Holm p 0.00057, family of 14) for a turn that, paired by case, is a median 7.92 times shorter (7.84 to 8.02). Against the CPU leader, Gemma-4-E4B-it, it gives up 12.7\,pp for a turn 7.41 times shorter, a ratio of medians, since two different models cannot be paired by case.
+
+Seconds per correct action, the median turn divided by accuracy, puts the trade in one number. It would be a time only if failed calls were detected and retried with independent outcomes, but the compiled bundles repeat their replies exactly (\cref{sec:repeat}) and a well-formed call to the wrong tool executes undetected, so it is a ratio for comparison. The lowest point estimate, 7.71\,s for Qwen3-1.7B on NPU (llama.cpp), is not separable from the 8.39\,s of the compiled Qwen3-4B-Instruct-2507: dividing each median turn by the ends of its item interval gives roughly 7.1 to 8.4\,s and 7.9 to 8.9\,s, so their order is not established.
+
+The frontier depends on the summary. With canonical-only accuracy the compiled Qwen3-4B-Instruct-2507 leaves it and Qwen3-4B-Instruct-2507 on the CPU joins it, and with the 95th-percentile turn time Qwen3.5-0.8B on NPU (llama.cpp) leaves it. Without prefix reuse, only NPU configurations meet a 10\,s turn budget (the slowest readable NPU turn is 9.74\,s and the fastest readable CPU turn 11.08\,s), and within it the compiled Qwen3-4B-Instruct-2507 has the highest measured accuracy, not separably above the compiled Qwen3-8B.
+
+% ======================================================================
+\section{Robustness and repeatability}\label{sec:robust}
+
+\subsection{Wording of a request}\label{sec:wording}
+
+The canonical requests are terse and close to the command vocabulary, while the paraphrases ask for the same operations in three other styles, so the gap between the suites measures how much accuracy depends on wording. It is read over the functional pool, since a configuration near the floor has little accuracy left to lose; there, the paired loss from canonical to paraphrase averages 15.7\,pp and ranges from 5.6 to 30.3\,pp across configurations. Three models appear twice in the pool; averaging each model's configurations first gives 14.3\,pp. Three tests agree on a loss for 8 of the 11: the base-request interval, and the sign test with Holm correction over the pool (11) or over the 20 configurations whose prompts carried the tools.
+
+By style, pooled accuracy is 87.3\% on canonical requests, 67.3\% on casual, 87.3\% on polite and 60.3\% on situational paraphrases (\cref{fig:paraphrase}). After Holm correction over the pool and the three styles (a family of 33), the change from canonical is significant for 4 of the 11 configurations on casual requests, none on polite ones and 5 on situational ones. The styles also differ in vocabulary: polite rewrites keep 87.2\% of the base request's content words, against 27.2\% for casual and 37.0\% for situational rewrites. The two styles that lose accuracy are the two that drop most of the operation vocabulary, so the effect of style is confounded with wording; that lexical distance drives much of the loss remains a hypothesis.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{paraphrase}
+\caption{Accuracy by phrasing style for the 11 configurations of the functional pool. Each style has 65 paraphrases. The black line is the pool mean with 95\% percentile bootstrap intervals over items. Lines only join each configuration's four scores; the styles have no order.}
+\label{fig:paraphrase}
+\end{figure}
+
+Fifteen paraphrase labels were flagged as debatable after the outputs had been seen, 12 by a robustness review or the grader audit's main list and 3 more only on the audit's wider list. Accepting the alternatives on the 12 moves the pool gap from $-15.7$ to $-12.2$\,pp; the robustness review's 11 items alone, the audit's 10 alone and all 15 give $-12.4$, $-13.1$ and $-11.8$\,pp, so most of the loss remains whichever labels are accepted. In the clearest case, situational paraphrase 98 reports that interface 3 dropped out of the topology map and asks for it to be brought back up; labelled \texttt{enable\_port}, it fails in all 19 readable configurations, 15 of whose replies call \tool{diagnose\_port\_issues}, a defensible reading.
+
+Routing to a wrong one of the offered tools accounts for $-9.7$ of the $-15.7$\,pp, and calling the expected command as the function name for $-4.4$\,pp; for Qwen3-8B on the CPU the second category accounts for $-20.5$ of its $-23.6$\,pp. Of the 609 failing paraphrase replies in the pool, 162 (26.6\%) call \tool{diagnose\_port\_issues}, 61 of them on the 12 flagged items, typically requests framed around a symptom. The canonical levels are not a difficulty order: the pool scores 87.9, 90.5, 85.9 and 84.6\% on levels 1 to 4.
+
+\subsection{Repeatability at temperature 0}\label{sec:repeat}
+
+Every request asked for temperature 0, and the canonical suite was sent three times in the same order; under greedy decoding with deterministic kernels, identical requests would return identical replies. A canonical case counts as identical when all three replies match in tool name, arguments (with keys sorted) and message text.
+
+Measured in this way, 58.0\% of canonical cases on the CPU, 33.1\% on NPU (llama.cpp) and 94.3\% on compiled bundles were identical in all three repetitions (\cref{tab:repeat}). The gap between the llama.cpp paths is consistent with which models loaded. NPU (llama.cpp) holds only models up to 1.7B, and for the same GGUF neither path is consistently more repeatable: Qwen3-1.7B was identical in all three repetitions in 62 of 65 cases on both paths, Qwen3.5-0.8B in 11 on the CPU against 7, and Qwen3-0.6B in 11 against 17. Six of the seven compiled bundles repeated exactly in all 65 cases, and the seventh, the compiled Gemma-4-E4B-it, whose prompts lacked the tools, in 39. Among the CPU leaders, Qwen3-4B was identical in 65 of 65 cases and Qwen3-4B-Instruct-2507 in 64, while Gemma-4-E4B-it was identical in 53 and changed grade in 5 (95.4 to 98.5\% across repetitions). Weaker models varied more: Qwen3.5-2B on the CPU changed grade in 31 cases and Qwen3.5-0.8B on NPU (llama.cpp) in 35.
+
+\begin{table}[tbp]
+\centering
+\caption{Repetition stability on the canonical suite by path, 65 cases times 3 repetitions in the same order, temperature 0 requested.}
+\label{tab:repeat}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{widetab}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+Path & \hd{Configu-\\rations} & Cases & \hd{Identical\\in all 3} & \hd{Grade\\changes} & \hd{Configurations\\whose per-repetition\\accuracy varies} & \hd{Pairs differing\\only in key\\order} & \hd{Text pairs\\differing from the\\first character} \\
+\midrule
+CPU (llama.cpp) & 13 & 845 & 490 (58.0\%) & 87 & 8 & 77 & 211 of 389 \\
+NPU (llama.cpp) & 4 & 260 & 86 (33.1\%) & 39 & 3 & 37 & 132 of 190 \\
+NPU (compiled) & 7 & 455 & 429 (94.3\%) & 0 & 0 & 0 & 0 of 53 \\
+\bottomrule
+\end{tabular}
+\end{widetab}
+\end{table}
+
+On the two llama.cpp paths, where the text of two replies differs, it differs from the first character in 343 of 579 pairs, 59.2\%: 211 of 389 on the CPU and 132 of 190 on NPU (llama.cpp). On the compiled path, where only the compiled Gemma-4-E4B-it varied, none of its 53 differing text pairs differs at the first character. Divergence that starts at the first character is consistent with sampling rather than with numerical drift that accumulates over a reply. It would also follow from non-deterministic prefill numerics that flip a near-tied first token, which the records cannot exclude. The server does not record the sampler it applied, so the mechanism is not established. For the same reason, the compiled bundles' exact repetition cannot distinguish greedy decoding from the sampled default with a fixed seed that their configuration files declare.
+
+The headline accuracy is therefore an average over this variation: canonical scores average three samples, while each paraphrase score is a single sample and carries rerun noise for the variable models, which the intervals do not capture. A rerun of the llama.cpp configurations with top-k 1 or a fixed seed is planned.
+
+% ======================================================================
+\section{Checks before deploying}\label{sec:checks}
+
+Every statement in this section is scoped to the QCS9075, GenieX v0.8.0, this four-tool single-turn suite and 2026-10. \Cref{tab:checks} lists each failure mode the campaign met, how it shows on the wire, an automatic check that the open harness can run against another deployment, and what was observed to help. Row 7 rests on public documentation \citep{geniexIssue1554} and on development observation, not on a campaign measurement. Row 10 is a deployment decision: whether an executor should tolerate such calls is for the deployer to decide, and the benchmark counts them as failures.
+
+Taken in table order, the checks form an acceptance procedure. It is completed by probing speed at the deployment's real prompt and answer lengths, recording the server version string and each artifact's SHA-256, as the harness does, and repeating the checks after every server or bundle upgrade; GenieX v0.9.0 includes changes aimed at row 1 and at the compiled Gemma case of row 2 \citep{geniex2026,geniexPR1503,geniexPR1525}. Two of the checks, the server-reported prompt token count with and without the tools and the share of replies that carry a structured call, would have caught every unreadable configuration in this campaign before any model comparison.
+
+\begin{table}[tbp]
+\centering
+\caption{Failure modes met in the campaign, how each shows on the wire, an automatic check for it, the campaign evidence, and what was observed to help. The last column gives the section with the evidence.}
+\label{tab:checks}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\linewidth}{@{}rLLLLLr@{}}
+\toprule
+& Failure mode & How it shows on the wire & Automatic check & Campaign evidence & Observed to help, or untested & Sec. \\
+\midrule
+1 & Model does not load on NPU (llama.cpp) & Load check returns HTTP 500 and the server log shows ``HTP0 buffer mapping failed'', or no answer within the load timeout & A timed load and a scan of the server log for mapping failures & 9 of 13 models; GGUFs from 1.13\,GiB up failed under v0.8.0 defaults & Compiled bundles (all 7 loaded); none of 5 backend settings tried & \ref{sec:load} \\
+2 & Tools not delivered to the model & Server-reported prompt tokens far below the expected count & \texttt{usage.prompt\_tokens} compared with and without the tools & 4 configurations at 486 to 621 tokens against 2,710 to 3,248 & Tools in the system prompt helped Phi-4-mini only (58.5\% canonical; diagnostic) & \ref{sec:tools} \\
+3 & Calls returned as text & \texttt{tool\_calls} empty; content opens with a model-specific call marker & Share of replies with a structured call; content scanned for known call markers & Ministral-3-3B-Instruct-2512, 0 of 390 structured, 389 parseable as text & Untested; llama.cpp's own parser reads this format & \ref{sec:textcalls} \\
+4 & Malformed text calls & \texttt{tool\_calls} empty; content holds a call object that does not parse, usually one closing brace short & Content parsed as JSON and its brace balance recorded & 616 of 623 Qwen3 text calls one brace short, 451 of them on compiled bundles & Untested in serving; brace repair only as a post hoc reading & \ref{sec:brace} \\
+5 & Function name that is not an offered tool & \texttt{tool\_calls} present, but the name is a command name & Every returned name checked against the offered tools & Gemma-4-E2B-it on the CPU 43.3\% of items; Qwen3-8B on the CPU 17.4\% & Another artifact of the same model (compiled Qwen3-8B, 0.8\%) & \ref{sec:cmdnames} \\
+6 & Different replies to identical requests at temperature 0 & Repeated runs of the same suite differ & The canonical suite run three times and replies compared with keys sorted & 58.0\% of cases identical in all 3 repetitions on the CPU, 33.1\% on NPU (llama.cpp), 94.3\% compiled (the llama.cpp paths hold different models) & Untested; top-k 1 or a fixed seed is planned & \ref{sec:repeat} \\
+7 & Empty reply to a byte-identical consecutive request & Empty content with zero token counts & No identical requests back to back; empty replies flagged and retried once & Development only, on v0.8.0; reported against v0.9.0 \citep{geniexIssue1554}; none in 10,530 campaign requests & Consecutive requests that always differ & \ref{sec:protocol} \\
+8 & No prefix reuse & Server processes the full prompt on every request & \texttt{timings.prompt\_n} compared with \texttt{usage.prompt\_tokens} and \texttt{cached\_tokens} read, or the turn time compared with a probe's time to first token at the same prompt length & 0 of 9,360 graded requests reused a prefix & Untested; no setting that reuses a prefix was tried & \ref{sec:prefix} \\
+9 & Sensitivity to wording & Accuracy on real phrasings below accuracy on canonical phrasings & The paraphrase suite or the deployment's own phrasings & Mean gap $-15.7$\,pp over the functional pool & Wording that keeps the command vocabulary (polite style, no loss) & \ref{sec:wording} \\
+10 & Right action in the wrong form & A call that a lenient executor might run but the contract rejects & Grading with the strict contract and, separately, with the deployment's tolerance & About a quarter of failures (25.4\%, weighted audit estimate) & A tolerant executor; the semantic rules rescue 22.7\% (post hoc) & \ref{sec:quality} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ======================================================================
+\section{Limitations and threats to validity}\label{sec:limits}
+
+\subsection{Measurement quality}\label{sec:quality}
+
+The campaign produced 102 run files and 39 server records, and within each run type every provenance item is single-valued and equal to the files in the repository. Every artifact carries one SHA-256 across its records; the hashes are of the client's copies before transfer, and the board's copies were not re-hashed. Each report module's output was recomputed by separately written code. None of the 10,530 tool-calling requests returned an error or was retried after an empty reply, server and usage token counts agree in all of them, and all 720 probe repetitions honoured \texttt{max\_tokens}. Mean client and server decode rates agree within $-0.07$ to $+0.33$\% by path, and request overhead has a median of 37.4 to 72.9\,ms by path, at most 1.3\% of latency.
+
+Over 10,025 thermal samples from the main runs, every path stayed at least 29.4\,$^\circ$C below 105\,$^\circ$C, the passive trip point read from the board in the first version of the benchmark, and all 360 readiness gates released below both thresholds. Cooling-device states and CPU frequencies were not recorded, so the absence of throttling is inferred from temperature. A resident GenieX v0.4.0 container, up during the CPU runs and stopped for the NPU runs, showed no detected association between slow CPU prefills and load above the benchmark's own (one-sided Fisher p 0.895, $n$ 2,530), although a steady load or memory-bandwidth contention would not show. The harness's own thermal sampler does slow the CPU path: 172 of the 310 decodes that overlap a sampler session are more than 3\% slower than the fastest repetition of their case, against 3.1\% in a placebo, with a median slowdown of 4.0\%. The NPU paths were not analysed, so CPU latencies describe a monitored board.
+
+One rater, a language model that also wrote the semantic rules, judged a stratified sample of 126 failing and 57 passing repetitions without seeing the label, the grader's verdict or the configuration (\cref{app:audit}). No failure was judged an exactly right call and no pass was judged wrong (weighted upper bounds 8.2\% and 9.1\%), and about a quarter of the failures carry the right action in the wrong form (25.4\% weighted, 14.8 to 40.1). The semantic rules agree with the blind verdicts on 181 of 183 items (Cohen's $\kappa$ 0.978), which measures consistency within one rater rather than agreement between raters.
+
+\subsection{Threats to validity}\label{sec:validity}
+
+Construct validity concerns whether the suite measures what an agent needs. The suite is single-turn, in one domain, with four tools of which two are never expected; it has no abstention, irrelevance or multi-call cases, no tool results and no multi-turn history, and only the first call is graded, so it measures routing and argument filling, not planning. The nested schema makes calling a command as the tool possible (17.9\% of failures in the configurations whose prompts carried the tools), so results may differ for flat schemas, and routing accuracy partly measures agreement with the convention that two offered tools are never the answer. The suites and schema were written during the first version, whose runs used Qwen3-4B-Instruct-2507, Qwen3-8B and Qwen3.5-2B, so their conventions may suit that family. Under the deliberately strict structured-field contract, about a quarter of failures carry the right action in the wrong form, so the scores describe what an agent reading the structured field can execute, not what the model meant.
+
+Internal validity concerns whether the differences are caused by what they are attributed to. Single paraphrase scores carry rerun noise for the variable models, which the intervals do not capture, and the board-level caveats of \cref{sec:quality} apply. The grader audit had one rater, who also wrote the semantic rules, and the four post hoc readings were defined after the outputs had been seen. The path comparisons carry the confounds listed in \cref{sec:compiled}, including the unrecorded decoding of the compiled bundles, and both the path and the model comparisons carry each file's quantisation recipe. No reference-precision baseline is available to separate these, and every speed ratio is relative to this default CPU configuration, untuned and without core pinning.
+
+External validity concerns how far the results travel. The campaign used one board and one server release. GenieX releases after v0.8.0 were not measured, among them v0.9.0 and v0.9.1, released on 2026-10-16 and 2026-10-17 \citep{geniex2026}; later releases include changes aimed at the load failures and at the compiled Gemma bundle's dropped tools, which first appeared in the pre-release v0.8.1-rc.4. The NPU power mode was the server default, documented as burst but not observed, and each NPU configuration used one of the two tensor processors. GenieX's GPU path is publicly reported to fail on this board's GPU under v0.8.0 \citep{geniexPR1538}, and GenieX's \texttt{hybrid} llama.cpp setting was not measured, nor were the other NPU serving stacks for this chip family (\cref{sec:related}), so the results describe one vendor stack rather than the NPU as such. The context was 4,096 tokens throughout; reasoning was switched off and temperature 0 requested, unlike the sampling settings that model publishers recommend \citep{qwen3cards}; turn times assume no prefix reuse; requests were in English only; and neither energy nor memory was measured.
+
+Statistical conclusion validity concerns whether the inferences from the data are sound. The McNemar p values are somewhat optimistic for pooled and paraphrase comparisons; every pooled path or model difference called significant also has a base-request interval that excludes zero, but the frontier steps carry none. Differences below the minimum detectable difference, at $\alpha$ 0.05 about 6\,pp among the CPU leaders and 9.0\,pp between the two leading compiled bundles, are underpowered rather than shown to be absent.
+
+Planned work follows these gaps: the 14 stack-decided steps on a later GenieX release, prefix reuse and multi-turn sessions, other power modes, both tensor processors and the \texttt{hybrid} setting; llama.cpp reruns with top-k 1 or a fixed seed, token logs for the brace defect and a reference-precision baseline; and abstention, irrelevance and multi-call cases, the flat schema, a second, human rater, labels adjudicated blind to model outputs, and more boards.
+
+% FOLLOW-UP: a short section on the GenieX v0.9.3 follow-up run goes here once its results exist.
+
+% ======================================================================
+\section{Conclusion}\label{sec:conclusion}
+
+On one QCS9075 board under GenieX v0.8.0, for a four-tool single-turn suite, whether a small model could drive a tool-calling agent depended first on the serving stack. It decided 14 of 33 planned model-path steps before any model could be compared, through load failures on the llama.cpp NPU path, tools dropped by chat templates and a prompt builder, and calls returned as text. Among the configurations whose scores could be read, the most accurate ran on the CPU at about 50\,s per turn, and the best NPU configuration, the compiled Qwen3-4B-Instruct-2507, scored 11.0\,pp lower for a turn a median 7.92 times shorter, measured without prefix reuse. Moving the Qwen3-1.7B GGUF to the NPU changed its score by $-0.4$\,pp, below what the pair could detect, while compiled bundles scored significantly lower than the CPU GGUF for three of five Qwen3 models, and for compiled Qwen3-1.7B and Qwen3-8B most failures were text calls one closing brace short. These results describe one vendor stack at one release; the checks of \cref{sec:checks} are what carries over to later releases and other deployments.
+
+% ======================================================================
+\section*{Reproducibility statement}
+\addcontentsline{toc}{section}{Reproducibility statement}
+
+% TODO(Krish): repository URL once the public repository exists.
+The repository holds the harness (\texttt{harness/}), the suites and tool schemas (\texttt{suites/}), the campaign runner and model list (\texttt{campaign/}), each configuration's records (\texttt{results/v2/}) and the analysis code (\texttt{analysis/}). A longer technical report in the repository, \texttt{docs/REPORT.md}, gives every table in full and names the generated table behind each number. The tables and figures are regenerated from \texttt{results/v2} alone with two commands.
+
+\begin{small}
+\begin{verbatim}
+python3 analysis/report.py results/v2 --json analysis/out/report.json \
+    --md analysis/out/report_tables.md
+python3 analysis/figures.py analysis/out/report.json docs/figures
+\end{verbatim}
+\end{small}
+
+The base statistics, on which the report modules build, and the mechanical checks of the suites and the harness come from three further commands.
+
+\begin{small}
+\begin{verbatim}
+python3 analysis/analyze.py results/v2 --md analysis/out/v2.md \
+    --json analysis/out/v2.json
+python3 analysis/check_suites.py
+python3 harness/harness_selftest.py
+\end{verbatim}
+\end{small}
+
+The harness talks to any OpenAI-compatible chat endpoint. A canonical run as in the campaign is the following.
+
+\begin{scriptsize}
+\begin{verbatim}
+python3 harness/bench_toolcall.py --url http://<host>:<port> --model <name> \
+  --tools-file suites/tools_nested.json \
+  --tool-subset "query_device_info,configure_device_setting,diagnose_port_issues,search_documentation" \
+  --cases suites/test_cases.yaml --repeats 3 --warmup 1 --out results/<name>.json
+\end{verbatim}
+\end{scriptsize}
+
+The paraphrase run uses \texttt{suites/test\_cases\_paraphrase.yaml} at one repetition, and the probes run \texttt{harness/phase\_probe.py}. The campaign runner, \texttt{campaign/run\_campaign.py}, takes the board's connection details from environment variables, so nothing lab-specific is stored.
+
+A rerun matches this campaign when its provenance matches these hashes, the first 12 hex digits of each SHA-256: harness \texttt{48cc06c22c8c} for tool-calling runs and \texttt{92eba3e066c4} for probe runs; diagnostic wrapper \texttt{5649420c0778}; suites \texttt{414bd0afe130} (canonical) and \texttt{a06eae30872f} (paraphrase); tool schema \texttt{026834d9cc4a}; and system prompt \texttt{d6ca8d60a4f4} for native runs and \texttt{81b781625a14} for diagnostic runs. The importer that prepared \texttt{results/v2} replaced only the board address, the client hostname and the home directory with placeholders, and the analysis gives identical numbers on the raw and the imported copies. Raw replies are model output and may contain invented addresses or product names; this paper does not quote them.
+
+% TODO(Krish): acknowledgments and AI-assistance disclosure per arXiv policy
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+% ======================================================================
+\appendix
+
+\section{Accuracy of every measured configuration}\label{app:accuracy}
+
+\Cref{tab:all} gives all 24 measured configurations, grouped by path. End to end is over 260 items: 65 canonical cases, each the pass fraction over 3 repetitions, and 195 paraphrases at 1 repetition, weighted equally. The item interval is a 95\% percentile bootstrap over items; the base-request interval is a 95\% cluster bootstrap over the 65 base requests; suite intervals are item intervals. Tool selection is pooled over all items and over the canonical suite. The median turn is the median over canonical cases of each case's mean latency. For the four configurations without the tools, the median prompts were 601 and 609 tokens (compiled Gemma-4-E4B-it, canonical and paraphrase), 486 and 494 (Phi-4-mini-instruct), and 621 and 629 (SmolLM2-1.7B-Instruct on both llama.cpp paths), all below the 1,500-token criterion. For Ministral-3-3B-Instruct-2512, 0 of 390 replies are structured calls and 389 are text calls that parse in full.
+
+\begin{table}[tbp]
+\centering
+\caption{Accuracy of every measured configuration, grouped by path. A dagger marks a configuration whose tools were not delivered and a double dagger one whose calls were returned as text; both are unreadable and not ranked.}
+\label{tab:all}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{widetab}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+Model & \hd{End to\\end, \%} & Item CI & \hd{Base-request\\CI} & \hd{Canonical,\\\% (CI)} & \hd{Paraphrase,\\\% (CI)} & \hd{Tool selection, \%\\pooled / canonical} & \hd{Median\\turn, s} \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{CPU (llama.cpp)}} \\
+Gemma-4-E4B-it & 92.7 & 89.5--95.5 & 89.5--95.6 & 96.9 (93.8--99.5) & 91.3 (87.2--94.9) & 94.1 / 97.9 & 49.73 \\
+Qwen3-4B-Instruct-2507 & 91.0 & 87.4--94.2 & 87.7--94.1 & 97.9 (94.4--100.0) & 88.7 (84.1--92.8) & 95.8 / 100.0 & 52.93 \\
+Qwen3-4B & 89.2 & 85.4--92.7 & 85.4--92.7 & 96.9 (92.3--100.0) & 86.7 (81.5--91.3) & 91.2 / 100.0 & 53.03 \\
+Granite-4.0-H-Micro & 84.2 & 79.7--88.5 & 79.2--89.0 & 95.4 (90.8--99.0) & 80.5 (74.9--86.2) & 93.1 / 100.0 & 35.16 \\
+Qwen3-8B & 78.2 & 73.1--83.1 & 72.4--83.6 & 95.9 (91.3--99.5) & 72.3 (65.6--78.5) & 80.1 / 97.4 & 78.51 \\
+Qwen3-1.7B & 68.5 & 62.7--74.1 & 62.8--74.0 & 90.8 (83.6--96.9) & 61.0 (53.8--67.7) & 75.1 / 99.0 & 22.34 \\
+Qwen3.5-2B & 54.7 & 49.0--60.4 & 48.1--61.4 & 68.2 (60.0--75.9) & 50.3 (43.1--57.4) & 75.0 / 89.2 & 20.99 \\
+Gemma-4-E2B-it & 46.4 & 40.4--52.4 & 36.3--56.7 & 51.8 (40.5--63.1) & 44.6 (37.9--51.8) & 53.2 / 57.4 & 28.27 \\
+Qwen3.5-0.8B & 26.2 & 21.3--31.0 & 19.9--32.9 & 38.5 (30.3--47.2) & 22.1 (16.4--27.7) & 46.2 / 61.5 & 11.08 \\
+Qwen3-0.6B & 1.2 & 0.0--2.7 & 0.0--2.7 & 0.0 (0.0--0.0) & 1.5 (0.0--3.6) & 45.3 / 57.9 & 12.47 \\
+Ministral-3-3B-Instruct-2512\textsuperscript{\ddag} & 0.0 & 0.0--0.0 & 0.0--0.0 & 0.0 (0.0--0.0) & 0.0 (0.0--0.0) & 0.0 / 0.0 & 41.79 \\
+Phi-4-mini-instruct\textsuperscript{\dag} & 0.0 & 0.0--0.0 & 0.0--0.0 & 0.0 (0.0--0.0) & 0.0 (0.0--0.0) & 0.0 / 0.0 & 6.77 \\
+SmolLM2-1.7B-Instruct\textsuperscript{\dag} & 0.0 & 0.0--0.0 & 0.0--0.0 & 0.0 (0.0--0.0) & 0.0 (0.0--0.0) & 0.0 / 0.0 & 4.46 \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{NPU (llama.cpp)}} \\
+Qwen3-1.7B & 68.1 & 62.3--73.7 & 62.2--73.7 & 90.8 (83.6--96.9) & 60.5 (53.3--67.2) & 75.6 / 99.5 & 5.25 \\
+Qwen3.5-0.8B & 19.7 & 15.5--24.4 & 14.5--25.6 & 31.3 (24.1--39.0) & 15.9 (10.8--21.5) & 41.0 / 53.3 & 5.21 \\
+Qwen3-0.6B & 0.6 & 0.0--1.7 & 0.0--1.7 & 1.0 (0.0--2.6) & 0.5 (0.0--1.5) & 47.3 / 61.5 & 3.26 \\
+SmolLM2-1.7B-Instruct\textsuperscript{\dag} & 0.0 & 0.0--0.0 & 0.0--0.0 & 0.0 (0.0--0.0) & 0.0 (0.0--0.0) & 0.0 / 0.0 & 1.56 \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{NPU (compiled)}} \\
+Qwen3-4B-Instruct-2507 & 80.0 & 75.0--84.6 & 74.6--85.0 & 90.8 (83.1--96.9) & 76.4 (70.3--82.1) & 88.8 / 96.9 & 6.71 \\
+Qwen3-8B & 77.7 & 72.7--82.7 & 72.3--82.7 & 84.6 (75.4--92.3) & 75.4 (69.2--81.5) & 80.0 / 84.6 & 9.74 \\
+Qwen3-1.7B & 16.5 & 12.3--21.2 & 10.0--23.8 & 27.7 (16.9--38.5) & 12.8 (8.2--17.9) & 30.8 / 44.6 & 4.11 \\
+Qwen3-4B & 14.6 & 10.4--19.2 & 9.6--20.4 & 23.1 (13.8--33.8) & 11.8 (7.7--16.4) & 39.6 / 56.9 & 6.37 \\
+Qwen3-0.6B & 1.9 & 0.4--3.8 & 0.0--4.6 & 4.6 (0.0--10.8) & 1.0 (0.0--2.6) & 18.5 / 20.0 & 3.01 \\
+SmolLM2-1.7B-Instruct & 0.4 & 0.0--1.2 & 0.0--1.2 & 1.5 (0.0--4.6) & 0.0 (0.0--0.0) & 3.1 / 10.8 & 6.36 \\
+Gemma-4-E4B-it\textsuperscript{\dag} & 0.0 & 0.0--0.0 & 0.0--0.0 & 0.0 (0.0--0.0) & 0.0 (0.0--0.0) & 0.0 / 0.0 & 4.16 \\
+\bottomrule
+\end{tabular}
+\end{widetab}
+\end{table}
+
+\section{Statistical families}\label{app:families}
+
+\Cref{tab:families} lists every family of tests to which a Holm correction is applied, so that each adjusted p value can be traced to its family. McNemar tests are run on each item's majority outcome because a canonical item has three repetitions whose outcomes can differ; the majority reduces each item to one pass or fail per configuration, so that the pairing is item by item. A canonical item is the only canonical item of its base request, so for canonical-only comparisons the cluster interval equals the item interval, and the tables mark it ``as item''. The path and model families hold every measured configuration, readable or not, which makes the correction conservative for the readable comparisons.
+
+\begin{table}[tbp]
+\centering
+\caption{Statistical families. The last column gives the section where each family is used.}
+\label{tab:families}
+\small
+\begin{tabularx}{\linewidth}{@{}LLrl@{}}
+\toprule
+Family & Test & Size & Used in \\
+\midrule
+Serving paths within a model, per suite & Exact McNemar on per-item majority outcomes, Holm & 28 & \ref{sec:compiled} \\
+Serving paths within a model, pooled & Exact McNemar, Holm & 14 & \ref{sec:samegguf}, \ref{sec:compiled}, \ref{sec:tradeoff} \\
+Models within a path, per suite & Exact McNemar, Holm & 210 & \ref{sec:size} \\
+Models within a path, pooled & Exact McNemar, Holm & 105 & \ref{sec:leaders}, \ref{sec:rest}, \ref{sec:size} \\
+Steps along the accuracy-versus-time frontier & Exact McNemar, Holm & 6 & \ref{sec:tradeoff} \\
+Paraphrase gap, functional pool & Exact sign test over base requests, Holm & 11 & \ref{sec:wording} \\
+Paraphrase gap, configurations whose prompts carried the tools & Exact sign test over base requests, Holm & 20 & \ref{sec:wording} \\
+Style against canonical, functional pool & Exact McNemar of style outcome against canonical majority, Holm & 33 & \ref{sec:wording} \\
+Style against canonical, configurations whose prompts carried the tools & Exact McNemar, Holm & 60 & generated tables only \\
+Command as tool, compiled bundle against each GGUF path & Exact McNemar, Holm & 10 & \ref{sec:cmdnames} \\
+Compiled against CPU under each post hoc reading & Exact McNemar, Holm within each reading & 5 & \ref{sec:posthoc} \\
+Version 1 against version 2, control included & Exact McNemar, Holm & 6 & \ref{app:v1} \\
+Tools-in-prompt diagnostics against native & Exact McNemar & unadjusted & \ref{sec:tools} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Post hoc readings}\label{app:posthoc}
+
+\Cref{tab:posthoc} gives the pooled accuracy of the Qwen3 configurations on the CPU and compiled paths under each post hoc reading of \cref{sec:posthoc}. The readings were defined after the outputs had been seen, and the as-served score is the result. The paired differences, their intervals and the Holm-adjusted p values for each reading are in the generated table \emph{Compiled against CPU under each reading}.
+
+\begin{table}[tbp]
+\centering
+\caption{Pooled accuracy (\%) of the Qwen3 configurations on the CPU and compiled paths under each post hoc reading, a diagnostic, not a result.}
+\label{tab:posthoc}
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Configuration & As served & Brace repair & \hd{Brace repair\\and rename} & Semantic rules \\
+\midrule
+Qwen3-0.6B, CPU (llama.cpp) & 1.2 & 1.2 & 1.2 & 40.1 \\
+Qwen3-0.6B, NPU (compiled) & 1.9 & 2.3 & 2.3 & 16.9 \\
+Qwen3-1.7B, CPU (llama.cpp) & 68.5 & 68.5 & 75.3 & 76.0 \\
+Qwen3-1.7B, NPU (compiled) & 16.5 & 51.5 & 60.8 & 35.0 \\
+Qwen3-4B, CPU (llama.cpp) & 89.2 & 89.2 & 93.1 & 93.1 \\
+Qwen3-4B, NPU (compiled) & 14.6 & 18.1 & 29.2 & 24.6 \\
+Qwen3-4B-Instruct-2507, CPU (llama.cpp) & 91.0 & 91.0 & 91.0 & 91.4 \\
+Qwen3-4B-Instruct-2507, NPU (compiled) & 80.0 & 80.8 & 81.5 & 81.2 \\
+Qwen3-8B, CPU (llama.cpp) & 78.2 & 78.3 & 95.4 & 95.3 \\
+Qwen3-8B, NPU (compiled) & 77.7 & 89.2 & 90.4 & 78.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Grader audit}\label{app:audit}
+
+The audit drew a stratified sample (seed 20261014) of 126 failing and 57 passing repetitions from the 20 configurations whose prompts carried the tools. Failures were stratified by mechanical category, with 18 per category balanced across configurations, and each sampled item can be reweighted by the inverse of its sampling probability within its category and configuration; the weighted intervals use the Kish effective sample size. Because the sample balanced configurations within each category, the unweighted shares describe the sample, and the weighted column estimates the population. One rater, a language model that also wrote the semantic rules, judged each item from the request and the reply only, without the expected label, the grader's verdict, the configuration or the stratum; the rater knew both suites. The scale has four points: A an exactly right call; B the requested action, but off convention or off schema; C not the requested action, or no structured call; D a defensible other reading of the request. Intervals are Wilson 95\%. \Cref{tab:audit} summarises the verdicts and \cref{tab:auditcat} gives the sample by mechanical category.
+
+The semantic rule set was written after the outputs had been seen, so its agreement with the blind verdicts (181 of 183 items, Cohen's $\kappa$ 0.978) is a consistency check between the rules and one rater, not a measure of inter-rater reliability, because both came from the same rater. Applied to every failure in the 20 configurations whose prompts carried the tools, the rules would rescue 911 of 4,015 (22.7\%), a post hoc figure. The sampled failure categories match the recomputed ones for 183 of 183 items.
+
+\begin{table}[tbp]
+\centering
+\caption{Grader audit summary. Verdicts are A exact; B the requested action, off convention or off schema; C not the requested action or no structured call; D a defensible other reading. The weighted column reweights each item by the inverse of its sampling probability, and $n_\mathrm{eff}$ is the Kish effective sample size.}
+\label{tab:audit}
+\small
+\begin{tabularx}{\linewidth}{@{}Lrrrl@{}}
+\toprule
+Quantity & Count & Share, \% & Wilson 95\% & Weighted \% (Wilson 95\%) \\
+\midrule
+False negatives: failures judged exact (A) & 0 of 126 & 0.0 & 0.0--3.0 & 0.0 (0.0--8.2, $n_\mathrm{eff}$ 43) \\
+Failures judged A or B (right action, wrong form) & 33 of 126 & 26.2 & 19.3--34.5 & 25.4 (14.8--40.1, $n_\mathrm{eff}$ 43) \\
+Failures judged A, B or D & 41 of 126 & 32.5 & 25.0--41.1 & 27.7 (16.6--42.5, $n_\mathrm{eff}$ 43) \\
+False positives: passes judged wrong (C) & 0 of 57 & 0.0 & 0.0--6.3 & 0.0 (0.0--9.1, $n_\mathrm{eff}$ 38) \\
+Passes judged off convention (B) & 1 of 57 & 1.8 & 0.3--9.3 & 0.6 (0.0--10.2, $n_\mathrm{eff}$ 38) \\
+Passes judged not exact (B, C or D) & 1 of 57 & 1.8 & 0.3--9.3 & 0.6 (0.0--10.2, $n_\mathrm{eff}$ 38) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[tbp]
+\centering
+\caption{The audit sample by mechanical category, with each category's population over the 20 configurations whose prompts carried the tools.}
+\label{tab:auditcat}
+\small
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Mechanical category & Population & Sampled & A & B & C & D \\
+\midrule
+\texttt{device} & 153 & 18 & 0 & 12 & 6 & 0 \\
+\texttt{no\_call} & 306 & 18 & 0 & 0 & 18 & 0 \\
+\texttt{params} & 385 & 18 & 0 & 8 & 10 & 0 \\
+\texttt{pass} & 3785 & 57 & 56 & 1 & 0 & 0 \\
+\texttt{text\_call} & 1082 & 18 & 0 & 0 & 18 & 0 \\
+\texttt{wrong\_command} & 534 & 18 & 0 & 3 & 13 & 2 \\
+\texttt{wrong\_tool\_offered} & 807 & 18 & 0 & 0 & 13 & 5 \\
+\texttt{wrong\_tool\_unoffered} & 748 & 18 & 0 & 10 & 7 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Public record of the observed behaviours}\label{app:public}
+
+\Cref{tab:public} maps each behaviour to its public record by repository and number. Issues and pull requests are cited one entry each.
+
+\begin{table}[tbp]
+\centering
+\caption{Public documentation of the observed behaviours.}
+\label{tab:public}
+\footnotesize
+\begin{tabularx}{\linewidth}{@{}LLL@{}}
+\toprule
+Behaviour observed or avoided & Public record & Status in this paper \\
+\midrule
+Empty reply to a byte-identical consecutive request & qualcomm/GenieX issue 1554, reported against v0.9.0 \citep{geniexIssue1554} & Observed during development; avoided by the harness; no instance in the campaign \\
+Mapping failures on NPU (llama.cpp) & qualcomm/GenieX PR 1503 and issues 1531 and 1244 \citep{geniexPR1503,geniexIssue1531,geniexIssue1244}; ggml-org/llama.cpp PR 30534 and issue 26123 \citep{llamacppPR30534,llamacppIssue26123}; llama.cpp Snapdragon documentation and source \citep{llamacpp} (issue 1531 and issue 26123 concern other Snapdragon devices) & Measured boundary; mechanism unresolved; the change in v0.8.1-rc.4 and v0.9.0 \citep{geniex2026} not measured \\
+Hexagon backend described as experimental & ggml-org/llama.cpp PR 16547 \citep{llamacppPR16547} & Documented \\
+Tools dropped by the Phi-4-mini and SmolLM2 GGUF templates & ggml-org/llama.cpp issue 27129 \citep{llamacppIssue27129} & Measured \\
+Tools dropped on the vision path for the compiled Gemma-4-E4B-it & qualcomm/GenieX issue 1454 and PR 1525, in pre-release v0.8.1-rc.4 (2026-10-14) and v0.9.0 (2026-10-16) \citep{geniexIssue1454,geniexPR1525,geniex2026} & Measured; neither release measured \\
+Mistral-format calls not parsed & GenieX v0.8.0 source \citep{geniexSource}; parser added in ggml-org/llama.cpp PR 17713 \citep{llamacppPR17713} & Measured outcome; cause read from public source, not tested \\
+No prompt-prefix reuse & GenieX v0.8.0 source \citep{geniexSource}; llama.cpp server README \citep{llamacppServer} & Measured outcome; attribution unverified \\
+GPU path fails on this board under v0.8.0 & qualcomm/GenieX PR 1538 \citep{geniexPR1538} & Not measured \\
+Qwen3-8B load timeout on NPU (llama.cpp) & Not found in public reports & Measured \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Relation to an unpublished first version}\label{app:v1}
+
+An unpublished first version of this benchmark was measured on the same board from 2026-09-10 to 2026-09-16. Its compiled path was served by GenieX v0.4.0 and its llama.cpp paths by GenieX 0.5.1-alpha.2, so its path comparisons also crossed server binaries. Of its 27 findings, thirteen hold under version 2, six are classed as changed and eight are superseded. Qwen3-4B-Instruct-2507 on the CPU gives the same most frequent answer on all 65 canonical cases in both versions (98.5 against 97.9\%), with median turns of 52.51 and 52.93\,s, and the compiled Qwen3-4B-Instruct-2507 scores 92.3 against 90.8\% (Holm 1.00, family of 6). With one server binary and 128 decode tokens on both paths, the compiled-over-CPU prefill ratio at 2,044 tokens is 16.27, against 16.88 in the first version, which clears, for the CPU and compiled paths only, the caveat that its paths ran on different server binaries.
+
+Two results are strengthened for these artifacts, the compiled-against-GGUF gap for Qwen3-4B-Instruct-2507 and the deficit of Qwen3-8B against it on the CPU, which were not significant on the canonical suite in either version and become significant with the paraphrases. The compiled Qwen3-8B now loads with the five-part layout that failed in the first version, so on the compiled path the NPU's capacity does not end between 4B and 8B, although the change cannot be attributed to one cause. Qwen3-4B-Instruct-2507 no longer loads on NPU (llama.cpp), probably a regression, though identical artifacts and configuration are not proven. The first version's premise that temperature 0 gave identical results across repetitions is corrected (\cref{sec:repeat}).
+
+\section{Glossary}\label{app:glossary}
+
+\begin{description}
+\item[Base request] A canonical case together with its three paraphrases; the unit resampled by the cluster bootstrap.
+\item[Bundle] A Qualcomm AI Hub model package for one chip, holding the compiled context binaries, the tokeniser and a chat template or a table of prompt prefixes and suffixes.
+\item[Context binary] A model graph compiled ahead of time for one NPU, with fixed input shapes; the AI Hub bundles are made of such parts.
+\item[Functional pool] The 11 readable configurations with canonical accuracy of at least 50\%.
+\item[GGUF] The llama.cpp model file format, holding quantised weights, the tokeniser and the chat template.
+\item[Hermes-form text call] A tool call written into the message text, instead of being returned in the structured field, in the tagged JSON format of the Hermes function-calling models that the Qwen3 chat templates use; replies with the same JSON but no tags are counted too.
+\item[HTP] Hexagon tensor processor, the unit from which the NPU of this chip is built; HTP0 is the first of the two.
+\item[Item] One canonical case, scored as its pass fraction over three repetitions, or one paraphrase, scored by its single outcome; each configuration has 260.
+\item[Majority outcome] An item reduced to one pass or fail; a canonical case passes when it passes in at least two of its three repetitions, and a paraphrase keeps its single outcome.
+\item[Minimum detectable difference] The paired difference a test of this size would detect with 80\% power at a given $\alpha$.
+\item[Post hoc reading] A rescoring defined after the outputs had been seen (brace repair, renaming, the semantic rules, the label alternatives); a diagnostic, never the result.
+\item[Readable configuration] A measured configuration whose prompts carried the tools and whose replies were not mostly calls returned as text (\cref{sec:readable}); its score can be read as model capability on this path.
+\item[Seconds per correct action] The median turn time divided by accuracy, a ratio, not an observed time; it assumes single-turn requests and no prefix reuse.
+\item[Stack-decided step] A planned model-path step whose outcome says nothing about the model, because the model did not load, its prompts lacked the tools or its calls came back as text; 14 of the 33 here.
+\item[W4A16] A quantisation with 4-bit weights and 16-bit activations, used by the AI Hub bundles.
+\end{description}
+
+\end{document}

@@ -9,5 +9,10 @@ results/*.json
 CLAUDE.md
 drafts/
 
+# Paper build outputs (python3 paper/build.py regenerates them)
+paper/main.pdf
+paper/main.blg
+paper/figures/
+
 # Personal Claude Code permissions for this checkout
 .claude/settings.local.json
