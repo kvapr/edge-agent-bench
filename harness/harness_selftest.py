@@ -20,6 +20,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 BENCH_PATH = os.path.join(HERE, "bench_toolcall.py")
 SAMPLING_PATH = os.path.join(HERE, "bench_sampling.py")
+SWEEP_PATH = os.path.join(HERE, "sweep_prompt_length.py")
 SOAK_PATH = os.path.join(HERE, "soak_npu.py")
 PHASE_PROBE_PATH = os.path.join(HERE, "phase_probe.py")
 
@@ -638,6 +639,30 @@ def main():
             f"a request lacked the sampling fields: {seen}"
         assert sm["results"][0]["pass_count"] == 2, \
             f"grading changed under bench_sampling.py: {sm['results'][0]['reps']}"
+
+        # --- run 11: sweep_prompt_length.py must pad the prompt to each target
+        # length and keep grading the call; the fake server answers case 0 ---
+        sw_out = os.path.join(tmpdir, "sweep.json")
+        rc, stdout, stderr = run([
+            sys.executable, SWEEP_PATH, "--url", url, "--model", "fake", "--tools-file", tools_file,
+            "--tool-subset", ",".join(TOOL_NAMES), "--targets", "600,900", "--out", sw_out,
+            "--repeats", "1", "--warmup", "1", "--thermal-trace-s", "20",
+        ])
+        assert rc == 0, f"sweep_prompt_length.py exited {rc}\nstdout:\n{stdout}\nstderr:\n{stderr}"
+        with open(sw_out) as f:
+            sw = json.load(f)
+        assert sw["provenance"]["diagnostic_mode"] == "length_sweep", "sweep mode not recorded"
+        assert [r["series"] for r in sw["results"]] == ["compact"] * 4 + ["benchmark"] * 4, \
+            f"expected 4 compact then 4 benchmark entries: {[r['series'] for r in sw['results']]}"
+        for first in (sw["results"][0], sw["results"][4]):
+            assert first["case"] == FIRST_CASE_INPUT, f"first swept case is not the first canonical case: {first['case']}"
+            toks = [r["prompt_tokens"] for r in first["sweep"]]
+            assert toks == sorted(toks) and len(toks) == 3, f"padding did not lengthen the prompt: {toks}"
+            assert all(abs(r["prompt_tokens"] - r["target"]) <= 40 for r in first["sweep"][1:]), \
+                f"padding missed its targets: {[(r['target'], r['prompt_tokens']) for r in first['sweep']]}"
+            assert all(r["passed"] for r in first["sweep"]), "a correct call failed grading in the sweep"
+        assert sw["results"][4]["reference"]["passed"], "the full four-tool reference failed grading"
+        assert not any(r["passed"] for r in sw["results"][1]["sweep"]), "a prose reply passed grading in the sweep"
 
     except AssertionError as e:
         print(f"SELFTEST FAIL: {e}")

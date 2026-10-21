@@ -39,7 +39,6 @@ import argparse
 import hashlib
 import json
 import os
-import re
 import signal
 import subprocess
 import sys
@@ -91,6 +90,7 @@ VARIANTS = {
     "canonical_seed7": {"script": "bench_sampling.py", "args": ["--sampling", '{"seed": 7}']},
     "canonical_flat": {"cases": "suites/test_cases_flat.yaml", "subset": FLAT_SUBSET,
                        "args": ["--tools-file", os.path.join(REPO, "suites", "tools_flat.json")]},
+    "sweep_length": {"script": "sweep_prompt_length.py", "repeats": 1},
 }
 # llama.cpp context matches the 4,096-token compiled bundles; the model stays
 # loaded between tasks; the HTP power mode is left at the server default
@@ -223,18 +223,25 @@ class Board:
     def stop_servers(self):
         ssh(f'pkill -f "{SERVER_PATTERN}"; sleep 2; true', timeout=60)
 
-    def ensure_geniex(self, rel, chipset):
+    def ensure_geniex(self, rel):
         """Install a GenieX CLI release on the board from its archive in
         EAB_ARTIFACTS/geniex/ unless it is already there, checking the
-        archive's SHA-256 on both ends, and give its data folder a chipset if
-        it has none (GenieX will not register a model without one and asks
-        for it interactively)."""
+        archive's SHA-256 on both ends. A release that names a platform list
+        gets it in its data folder: GenieX v0.9.3 identifies the board's chip
+        from Qualcomm AI Hub's platform.json and, without a copy, tries to
+        download it, which hangs on a board without internet access."""
         if ssh(f"test -x {rel['dir']}/geniex && echo yes", timeout=30).stdout.strip() != "yes":
             self.install_geniex(rel)
-        got = ssh(f"{GX} config get chipset 2>&1", timeout=60).stdout.strip()
-        if got.split()[-1:] in ([], ["unknown"], ['""']):
-            log(f"  setting chipset {chipset} for {DATA}")
-            ssh(f"{GX} config set chipset {chipset} </dev/null 2>&1", timeout=60)
+        if rel.get("platform_list"):
+            target = f"{DATA}/aihub/platform.json"
+            if ssh(f"sha256sum {target} 2>/dev/null", timeout=30).stdout.split()[:1] != [rel["platform_list_sha256"]]:
+                local = os.path.join(ART, "geniex", rel["platform_list"])
+                if sha256(local) != rel["platform_list_sha256"]:
+                    raise RuntimeError(f"platform list {local} does not match its recorded SHA-256")
+                log(f"  seeding {target} from {rel['platform_list']}")
+                ssh(f"mkdir -p {DATA}/aihub", timeout=30)
+                scp(local, f"{DATA}/aihub")
+                ssh(f"mv {DATA}/aihub/{rel['platform_list']} {target}", timeout=30)
 
     def install_geniex(self, rel):
         local = os.path.join(ART, "geniex", rel["archive"])
@@ -483,7 +490,9 @@ def serve(board, m, path, kind, fail, side_name, banner=""):
     side = {"model": m["name"], "path": path, "server_cmd": cmd.replace(GENV, "<env>"),
             "server_options": SERVER_OPTS, "power_mode": "server default (burst)",
             "server_version": ssh(VERSION_CMD, timeout=60).stdout.strip(),
-            "server_config": re.sub(r"\x1b\[[0-9;]*m", "", ssh(f"{GX} config list 2>&1", timeout=60).stdout).strip(),
+            # read without starting GenieX, whose first call may reach for the network
+            "server_config": ssh(f"cat {DATA}/config.json 2>/dev/null; sha256sum {DATA}/aihub/platform.json 2>/dev/null",
+                                 timeout=30).stdout.strip(),
             "artifact": m[kind], "artifact_sha256": sha256(os.path.join(ART, m[kind])),
             "gguf_source": m.get("gguf_source") if kind == "gguf" else None,
             "bundle": bundle_info(os.path.join(ART, m[kind])) if kind == "bundle" else None,
@@ -557,7 +566,7 @@ def run_followup(board, spec, models, phases, keep):
             use_geniex(rel["dir"], rel["data"])
             set_runs(os.path.join(base, ph["name"]))
             log(f"phase {ph['name']}: GenieX {ph['geniex']}, {len(ph['steps'])} steps, tasks {', '.join(ph['tasks'])}")
-            board.ensure_geniex(rel, spec["chipset"])
+            board.ensure_geniex(rel)
             used = set()
             for m, p in followup_steps(ph, models):
                 if ph.get("gate"):
