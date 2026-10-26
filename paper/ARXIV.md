@@ -19,8 +19,8 @@ Everything the arXiv submission form asks for, in the order it asks.
 
 ## Form fields
 
-- **License:** CC BY 4.0 (lets others reuse the text and figures with attribution; matches the
-  Apache-2.0 code).
+- **License:** arXiv.org perpetual, non-exclusive license (chosen 2026-10-26: keeps all rights
+  while work approval is pending, and a later version can carry CC BY; the reverse is not possible).
 - **Primary category:** cs.CL (Computation and Language).
 - **Cross-lists:** cs.LG (Machine Learning), cs.PF (Performance), cs.AR (Hardware Architecture).
 - **Title:** Tool calling through the deployed server on a Qualcomm QCS9075: 13 small models on
