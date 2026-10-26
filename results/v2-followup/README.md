@@ -27,4 +27,6 @@ The board address in request URLs is replaced with `<board>`, the client
 hostname with `client`, and the home directory with `~`, by
 scripts/import_results.py; nothing else was altered, and
 analysis/report_followup.py gives identical tables on the raw and the imported
-copy. Model replies are kept verbatim.
+copy. Model replies are kept verbatim. Some failing replies name network equipment
+vendors as examples; this is model output, not a detail of the test setup, and the
+report does not quote it.
