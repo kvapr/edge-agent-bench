@@ -1,3 +1,4 @@
+\ifdefined\XeTeXversion\else\pdfoutput=1\fi % arXiv builds with pdflatex; Tectonic (XeTeX) skips this
 \documentclass[11pt]{article}
 
 \usepackage[T1]{fontenc}
@@ -23,6 +24,8 @@
 \newenvironment{widetab}{\begin{lrbox}{\widetabbox}}{\end{lrbox}\resizebox{\linewidth}{!}{\usebox{\widetabbox}}}
 
 % Stacked table headers, scientific notation, tool names.
+% The author's contact line; paper/build.py --arxiv fills it in the arXiv package only.
+\newcommand{\authorcontact}{}
 \newcommand{\hd}[1]{\begin{tabular}[b]{@{}c@{}}#1\end{tabular}}
 \newcommand{\sci}[2]{\ensuremath{#1\times10^{#2}}}
 \newcommand{\tool}[1]{\texttt{#1}}
@@ -35,8 +38,7 @@
 
 \title{Tool calling through the deployed server on a Qualcomm QCS9075:\\
 13 small models on three serving paths}
-\author{Krish}
-% TODO(Krish): affiliation and contact
+\author{Krish\authorcontact}
 \date{October 2026}
 
 \begin{document}
@@ -738,7 +740,7 @@ Qwen3-4B-Instruct-2507 & benchmark, passed & n/a & 9 of 10 & 5 of 6 & 10 of 10 &
 % ======================================================================
 \section{Conclusion}\label{sec:conclusion}
 
-On one QCS9075 board under GenieX v0.8.0, for a four-tool single-turn suite, whether a small model could drive a tool-calling agent depended first on the serving stack. It decided 14 of 33 planned model-path steps before any model could be compared, through load failures on the llama.cpp NPU path, tools dropped by chat templates and a prompt builder, and calls returned as text. Among the configurations whose scores could be read, the most accurate ran on the CPU at about 50\,s per turn, and the best NPU configuration, the compiled Qwen3-4B-Instruct-2507, scored 11.0\,pp lower for a turn a median 7.92 times shorter, measured without prefix reuse. Moving the Qwen3-1.7B GGUF to the NPU changed its score by $-0.4$\,pp, below what the pair could detect, while compiled bundles scored significantly lower than the CPU GGUF for three of five Qwen3 models, and for compiled Qwen3-1.7B and Qwen3-8B most failures were text calls one closing brace short. These results describe one vendor stack at one release; the checks of \cref{sec:checks} are what carries over to later releases and other deployments.
+On one QCS9075 board under GenieX v0.8.0, for a four-tool single-turn suite, whether a small model could drive a tool-calling agent depended first on the serving stack. It decided 14 of 33 planned model-path steps before any model could be compared, through load failures on the llama.cpp NPU path, tools dropped by chat templates and a prompt builder, and calls returned as text. Among the configurations whose scores could be read, the most accurate ran on the CPU at about 50\,s per turn, and the best NPU configuration, the compiled Qwen3-4B-Instruct-2507, scored 11.0\,pp lower for a turn a median 7.92 times shorter, measured without prefix reuse. Moving the Qwen3-1.7B GGUF to the NPU changed its score by $-0.4$\,pp, below what the pair could detect, while compiled bundles scored significantly lower than the CPU GGUF for three of five Qwen3 models, and for compiled Qwen3-1.7B and Qwen3-8B most failures were text calls one closing brace short. These results describe one vendor stack at one release; the checks of \cref{sec:checks} are what carries over to later releases and other deployments. A later check under GenieX v0.9.3 bears this out: 10 of the 14 steps were still decided by the stack, and the one compiled configuration that its fixes made readable stops calling tools once its prompt passes roughly 900 to 1,600 tokens (\cref{sec:addendum}).
 
 % ======================================================================
 \section*{Reproducibility statement}
@@ -781,7 +783,12 @@ The paraphrase run uses \texttt{suites/test\_cases\_paraphrase.yaml} at one repe
 
 A rerun matches this campaign when its provenance matches these hashes, the first 12 hex digits of each SHA-256: harness \texttt{48cc06c22c8c} for tool-calling runs and \texttt{92eba3e066c4} for probe runs; diagnostic wrapper \texttt{5649420c0778}; suites \texttt{414bd0afe130} (canonical) and \texttt{a06eae30872f} (paraphrase); tool schema \texttt{026834d9cc4a}; and system prompt \texttt{d6ca8d60a4f4} for native runs and \texttt{81b781625a14} for diagnostic runs. The importer that prepared \texttt{results/v2} replaced only the board address, the client hostname and the home directory with placeholders, and the analysis gives identical numbers on the raw and the imported copies. Raw replies are model output and may contain invented addresses or product names; this paper does not quote them.
 
-% TODO(Krish): acknowledgments and AI-assistance disclosure per arXiv policy
+The GenieX v0.9.3 check of \cref{sec:addendum} ran with the same campaign runner and the phases in \texttt{campaign/v2\_followup.json}; its runs record the hashes above and the length-sweep wrapper hash \texttt{1c444c5ac880}, its records are in \texttt{results/v2-followup}, and its tables are regenerated with \texttt{python3 analysis/report\_followup.py results/v2-followup}.
+
+\section*{Acknowledgments}
+
+The author used Claude (Anthropic) as an assistant for code, analysis and writing, and checked all results and text.
+
 \bibliographystyle{plainnat}
 \bibliography{refs}
 
@@ -986,9 +993,11 @@ Two results are strengthened for these artifacts, the compiled-against-GGUF gap 
 \item[Majority outcome] An item reduced to one pass or fail; a canonical case passes when it passes in at least two of its three repetitions, and a paraphrase keeps its single outcome.
 \item[Minimum detectable difference] The paired difference a test of this size would detect with 80\% power at a given $\alpha$.
 \item[Post hoc reading] A rescoring defined after the outputs had been seen (brace repair, renaming, the semantic rules, the label alternatives); a diagnostic, never the result.
-\item[Readable configuration] A measured configuration whose prompts carried the tools and whose replies were not mostly calls returned as text (\cref{sec:readable}); its score can be read as model capability on this path.
+\item[Length sweep] A measurement of tool calling against prompt length: one tool per request, the prompt padded with neutral numbered notes to each of a series of server-reported lengths (\cref{sec:addendum}).
+\item[Readable configuration] A measured configuration whose prompts carried the tools and whose replies were not mostly calls returned as text (\cref{sec:readable}); its score is read as model capability on this path, with the exception that \cref{sec:addendum} describes.
 \item[Seconds per correct action] The median turn time divided by accuracy, a ratio, not an observed time; it assumes single-turn requests and no prefix reuse.
 \item[Stack-decided step] A planned model-path step whose outcome says nothing about the model, because the model did not load, its prompts lacked the tools or its calls came back as text; 14 of the 33 here.
+\item[Triage] A short check of a step under a later server release: the first six canonical cases sent once, judged by the readable rule (\cref{sec:addendum}).
 \item[W4A16] A quantisation with 4-bit weights and 16-bit activations, used by the AI Hub bundles.
 \end{description}
 

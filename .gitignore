@@ -12,7 +12,11 @@ drafts/
 # Paper build outputs (python3 paper/build.py regenerates them)
 paper/main.pdf
 paper/main.blg
+paper/main.aux
+paper/main.bbl
+paper/main.out
 paper/figures/
+paper/arxiv-submission.tar.gz
 
 # Personal Claude Code permissions for this checkout
 .claude/settings.local.json
