@@ -25,7 +25,7 @@ Everything the arXiv submission form asks for, in the order it asks.
 - **Cross-lists:** cs.LG (Machine Learning), cs.PF (Performance), cs.AR (Hardware Architecture).
 - **Title:** Tool calling through the deployed server on a Qualcomm QCS9075: 13 small models on
   three serving paths
-- **Authors:** Krish
+- **Authors:** Krish Viswanathan
 - **Comments:** 43 pages, 7 figures, 22 tables. Code, data and the full technical report:
   https://github.com/kvapr/edge-agent-bench
 - **Abstract** (plain text, 1,567 of 1,920 characters):
